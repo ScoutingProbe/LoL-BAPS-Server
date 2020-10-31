@@ -1,0 +1,26 @@
+{
+  "name": "league-client-reader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewsrahn/league-client-reader.git"
+  },
+  "author": "andrewsrahn@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewsrahn/league-client-reader/issues"
+  },
+  "homepage": "https://github.com/andrewsrahn/league-client-reader#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
