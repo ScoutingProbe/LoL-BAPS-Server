@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine spec/main/LeagueClientSpec.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,12 @@
   },
   "homepage": "https://github.com/andrewsrahn/league-client-reader#readme",
   "dependencies": {
+    "@types/node": "^14.14.6",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "jasmine": "^3.6.3"
   }
 }

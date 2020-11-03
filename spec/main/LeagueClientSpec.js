@@ -7,7 +7,8 @@ describe("LeagueClient", function(){
     });
 
     it("should have a directory_path", function(){
-        const expected = 'C:/Riot Games/League of Legends/Logs/LeagueClient Logs';
+        // const expected = 'C:/Riot Games/League of Legends/Logs/LeagueClient Logs';
+        const expected = '/Applications/League of Legends.app/Contents/LoL/Logs/LeagueClient Logs';
         const actual = league_client.directory_path;
         expect(expected).toEqual(actual);
     });
@@ -19,7 +20,7 @@ describe("LeagueClient", function(){
         })
 
         it("should have a latest_file", function(){
-            const expected = '2020-02-03T01-28-47_11928_LeagueClient.log'
+            const expected = '2020-10-31T13-10-41_832_LeagueClient.log'
             const actual = league_client.latest_file;
             expect(expected).toEqual(actual);
         })
