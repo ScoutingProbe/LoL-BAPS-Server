@@ -6,7 +6,6 @@ const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
 
 function TextToJson() {
-  this.championJson = {}
 }
 
 TextToJson.prototype.readChampionId = async function(){
@@ -21,7 +20,12 @@ TextToJson.prototype.readChampionId = async function(){
     // console.log(`${championName} ${championNumber}`)
     championJson[championNumber] = championName
   }
-  return championJson
+  this.champion_json = championJson
+}
+
+TextToJson.prototype.writeChampionId = async function(){
+  await writeFile(path.resolve("resources", "champion-id.json"), JSON.stringify(this.champion_json))
+  console.log(this.champion_json)
 }
 
 module.exports = TextToJson
