@@ -62,6 +62,7 @@ KogMaw 96
 LeBlanc 7
 LeeSin 64
 Leona 89
+Lillia 876
 Lissandra 127
 Lucian 236
 Lulu 117

@@ -20,7 +20,7 @@ describe("LeagueClient", function(){
         })
 
         it("should have a latest_file", function(){
-            const expected = '2020-10-31T13-10-41_832_LeagueClient.log'
+            const expected = '2020-11-29T11-39-24_1377_LeagueClient.log'
             const actual = league_client.latest_file;
             expect(expected).toEqual(actual);
         })
