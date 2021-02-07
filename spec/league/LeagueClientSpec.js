@@ -1,5 +1,5 @@
 describe("LeagueClient", function(){
-    var LeagueClient = require('../../lib/main/LeagueClient')
+    var LeagueClient = require('../../league/LeagueClient')
     var league_client;
 
     beforeEach(function(){

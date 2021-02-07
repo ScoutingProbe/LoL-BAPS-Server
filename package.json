@@ -7,10 +7,10 @@
     "lib": "lib"
   },
   "scripts": {
-    "script-ttj": "node resources/TextToJson.js",
-    "test-ttj": "jasmine spec/resources/TextToJsonSpec.js",
-    "test-client": "jasmine spec/main/LeagueClientSpec.js",
-    "test-opgg": "jasmine spec/main/OpGgSpec.js",
+    "script-ttj": "node text_to_json/TextToJson.js",
+    "test-ttj": "jasmine spec/text_to_json/TextToJsonSpec.js",
+    "test-client": "jasmine spec/league/LeagueClientSpec.js",
+    "test-opgg": "jasmine spec/opgg/OpGgSpec.js",
     "start": "node app.js"
   },
   "repository": {

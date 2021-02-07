@@ -1,5 +1,5 @@
 describe("LolcounterDatabaseSpec", function(){
-    var LolcounterDatabase = require('../../lib/main/LolcounterDatabase')
+    var LolcounterDatabase = require('../../league/LolcounterDatabase')
     var lolcounter_database;
 
     beforeEach(async function(){

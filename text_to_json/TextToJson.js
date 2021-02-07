@@ -9,8 +9,9 @@ function TextToJson() {
 }
 
 TextToJson.prototype.readChampionId = async function(){
-  const championDocument = await readFile(path.resolve("resources", 'champion-id.txt'), 'utf-8')
-  const championDocumentLines = championDocument.split('\n')
+  const championDocument = await readFile(path.resolve("text_to_json", 'champion-id.txt'), 'utf-8')
+  const championDocumentLines = championDocument.split('\r\n') //#windows
+  //const championDocumentLines = championDocument.split('\n') //#mac
   // console.log(championDocumentLines)
   let championJson = {}
   for(let i = 0; i < championDocumentLines.length; i++){
@@ -24,7 +25,7 @@ TextToJson.prototype.readChampionId = async function(){
 }
 
 TextToJson.prototype.writeChampionId = async function(){
-  await writeFile(path.resolve("resources", "champion-id.json"), JSON.stringify(this.champion_json))
+  await writeFile(path.resolve("text_to_json", "champion-id.json"), JSON.stringify(this.champion_json))
   console.log(this.champion_json)
 }
 

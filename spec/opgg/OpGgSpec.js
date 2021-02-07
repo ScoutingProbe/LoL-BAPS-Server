@@ -1,5 +1,5 @@
 describe("op.gg", function(){
-  var OpGg = require("../../lib/main/OpGg")
+  var OpGg = require("../../opgg/OpGg")
   var op_gg;
 
   beforeEach(function(){

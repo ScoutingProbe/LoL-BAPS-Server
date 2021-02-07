@@ -5,8 +5,8 @@ const readdir = util.promisify(fs.readdir);
 const readFile = util.promisify(fs.readFile);
 
 function LeagueClient(){
-    //this.directory_path = 'C:/Riot Games/League of Legends/Logs/LeagueClient Logs' #TODO windows
-    this.directory_path = '/Applications/League of Legends.app/Contents/LoL/Logs/LeagueClient Logs'
+    this.directory_path = 'C:/Riot Games/League of Legends/Logs/LeagueClient Logs' //#TODO windows
+    //this.directory_path = '/Applications/League of Legends.app/Contents/LoL/Logs/LeagueClient Logs' #TODO mac
 }
 
 LeagueClient.prototype.setLatestFile = async function(){

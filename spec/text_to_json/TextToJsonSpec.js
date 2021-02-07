@@ -1,5 +1,5 @@
 describe("TextToJsonSpec", function(){
-  var TextToJson = require('../../resources/TextToJson')
+  var TextToJson = require('../../text_to_json/TextToJson')
   var textToJson
 
   beforeEach(function(){

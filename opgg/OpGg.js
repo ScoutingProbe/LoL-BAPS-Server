@@ -1,33 +1,58 @@
-const TextToJson = require('../../resources/TextToJson')
+const TextToJson = require('../text_to_json/TextToJson')
 const https = require('https')
 const cheerio = require('cheerio')
 const { json } = require('express')
 
-function OpGg(){
+const readFile = util.promisify(fs.readFile)
+const writeFile = util.promisify(fs.writeFile)
 
+const selector = "tr[data-champion-id] > td.champion-stats-header-matchup__table__champion:nth-child(1)"
+const url = 'https://www.op.gg/champion/!/statistics/@'
+
+function OpGg(latest_json){
+  this.opgg_json = latest_json
+  
 }
 
-OpGg.prototype.getBans = async function(latest_json, former_json){
-  let ttj = new TextToJson()
-  await ttj.readChampionId()
-  const champion_json = ttj.champion_json
-  const url = 'https://www.op.gg/champion/!/statistics/@'
-  const selector = "tr[data-champion-id] > td.champion-stats-header-matchup__table__champion:nth-child(1)"
 
-  //1. champion pick intent
-  //2. champion id
-  for(let i = 0; i < 5; i++){
-    const pi_latest = latest_json.myTeam[i].championPickIntent 
-    const ci_latest = latest_json.myTeam[i].championId
-    const pi_former = former_json.myTeam[i].championPickIntent
-    const ci_former = former_json.myTeam[i].championId
 
-    if(pi_latest == "0"){
+function doRequest(url){
+  return new Promise((resolve, reject)=>{
+    let ttj = new TextToJson()
+    await ttj.readChampionId()
+    const champion_json = ttj.champion_json
+    
+
+    https.get(url, (res) => {
+      const { statusCode } = res;
+      const contentType = res.headers['content-type'];
       
-    }
-
-  }
-  this.opgg_json = latest_json
+      let error;
+      // Any 2xx status code signals a successful response but
+      // here we're only checking for 200.
+      if (statusCode !== 200) {
+        error = new Error('Request Failed.\n' +
+        `Status Code: ${statusCode}`);
+        console.log(res.headers.location)
+      }
+      if (error) {
+        console.error(error.message);
+        // Consume response data to free up memory
+        res.resume();
+        return;
+      }
+      
+      res.setEncoding('utf8');
+      let rawData = '';
+      res.on('data', (chunk) => { rawData += chunk; });
+      res.on('end', () => {
+        resolve(rawData)
+      });
+    }).on('error', (e) => {
+      console.error(`Got error: ${e.message}`);
+      reject(e)
+    });
+  })
 }
 
 // OpGg.prototype.getBans = async function(latest_json, former_json){
@@ -114,40 +139,5 @@ OpGg.prototype.getBans = async function(latest_json, former_json){
 //     }
 //   }
 // }
-
-
-function doRequest(url){
-  return new Promise((resolve, reject)=>{
-    https.get(url, (res) => {
-      const { statusCode } = res;
-      const contentType = res.headers['content-type'];
-      
-      let error;
-      // Any 2xx status code signals a successful response but
-      // here we're only checking for 200.
-      if (statusCode !== 200) {
-        error = new Error('Request Failed.\n' +
-        `Status Code: ${statusCode}`);
-        console.log(res.headers.location)
-      }
-      if (error) {
-        console.error(error.message);
-        // Consume response data to free up memory
-        res.resume();
-        return;
-      }
-      
-      res.setEncoding('utf8');
-      let rawData = '';
-      res.on('data', (chunk) => { rawData += chunk; });
-      res.on('end', () => {
-        resolve(rawData)
-      });
-    }).on('error', (e) => {
-      console.error(`Got error: ${e.message}`);
-      reject(e)
-    });
-  })
-}
   
-  module.exports = OpGg
+module.exports = OpGg
