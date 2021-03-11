@@ -34,11 +34,11 @@ LeagueClient.prototype.setLatestJson = async function(){
     resultString = resultString.replace(/\\/g, '');
     // console.log(resultString);
     try{
-        this.latest_json = resultString === "" ? {} : JSON.parse(resultString);
+        this.league = resultString === "" ? {} : JSON.parse(resultString);
         // console.log(this.latest_json);
     } catch(error) {
         console.error(error);
-        this.latest_json = {};
+        this.league = {};
     }
 }
 

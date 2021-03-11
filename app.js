@@ -13,16 +13,29 @@ app.get('/', (req, res) => res.send('Hello World!'))
 //     var league_client = new LeagueClient()
 //     await league_client.setLatestFile()
 //     await league_client.setLatestJson()
-//     res.send(league_client.latest_json)
+//     res.send(league_client.league)
 // })
 
 app.get('/league-client-reader-bans', async function(req, res){
     var league_client = new LeagueClient()
     await league_client.setLatestFile()
     await league_client.setLatestJson()
-    var op_gg = new OpGg(league_client.latest_json)
-    await op_gg.getBans()
-    res.send(op_gg.opgg_json)
+    var op_gg = new OpGg(league_client.league)
+    await op_gg.getBanFirst()
+    await op_gg.getBanSecond()
+    await op_gg.getBanThird()
+    await op_gg.getBanFourth()
+    await op_gg.getBanFifth()
+    await op_gg.getPickFirst()
+    await op_gg.getPickSecond()
+    await op_gg.getPickThird()
+    await op_gg.getPickFourth()
+    await op_gg.getPickFifth()
+    res.send(op_gg.opgg)
+})
+
+app.post('league-client-reader-picks', async function(req, res){
+    res.send(op_gg.opgg)
 })
 
 app.listen(port, () => {

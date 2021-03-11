@@ -92,6 +92,7 @@ Quinn 133
 Rakan 497
 Rammus 33
 Reksai 421
+Rell 526
 Renekton 58
 Rengar 107
 Riven 92
@@ -132,6 +133,7 @@ Vayne 67
 Veigar 45
 Velkoz 161
 Vi 254
+Viego 234
 Viktor 112
 Vladimir 8
 Volibear 106
