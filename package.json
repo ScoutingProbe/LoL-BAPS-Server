@@ -1,5 +1,5 @@
 {
-  "name": "league-client-reader",
+  "name": "LoL-Draft-Pick-Scraper-Server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andrewsrahn/league-client-reader.git"
+    "url": "git+https://github.com/andrewsrahn/lol-draft-pick-scraper-server.git"
   },
   "author": "andrewsrahn@gmail.com",
-  "license": "ISC",
+  "license": "GPL",
   "bugs": {
-    "url": "https://github.com/andrewsrahn/league-client-reader/issues"
+    "url": "https://github.com/andrewsrahn/lol-draft-pick-scraper-server/issues"
   },
-  "homepage": "https://github.com/andrewsrahn/league-client-reader#readme",
+  "homepage": "https://github.com/andrewsrahn/lol-draft-pick-scraper-server#readme",
   "dependencies": {
     "@types/node": "^14.14.6",
     "cheerio": "^1.0.0-rc.5",

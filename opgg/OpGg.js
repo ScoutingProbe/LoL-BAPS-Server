@@ -66,18 +66,17 @@ OpGg.prototype.getBanFirst = async function(){
     return
   }
 
-  let assignedPosition = this.opgg.myTeam[0].assignedPosition
-  switch(assignedPosition){
-    case "bottom": assignedPosition = "bot"; break
-    case "utility": assignedPosition = "support"; break
-    case "middle": assignedPosition = "mid"; break
-    // default: assignedPosition = "mid";
+  switch(this.opgg.myTeam[0].assignedPosition){
+    case "bottom": this.opgg.myTeam[0].assignedPosition = "bot"; break
+    case "utility": this.opgg.myTeam[0].assignedPosition = "support"; break
+    case "middle": this.opgg.myTeam[0].assignedPosition = "mid"; break
+    // default: this.opgg.myTeam[0].assignedPosition = "mid";
   }
   
-  console.log(`${championId} ${championName} ${assignedPosition}`)
+  console.log(`${championId} ${championName} ${this.opgg.myTeam[0].assignedPosition}`)
 
-  const url = 'https://www.op.gg/champion/!/statistics/@'
-  const irl = url.replace("!", championName).replace("@", assignedPosition)//TODO
+  const url = 'https://na.op.gg/champion/!/statistics/@'
+  const irl = url.replace("!", championName).replace("@", this.opgg.myTeam[0].assignedPosition)//TODO
 
   console.log(irl)
 
@@ -187,18 +186,17 @@ OpGg.prototype.getBanSecond = async function(){
     return
   }
 
-  let assignedPosition = this.opgg.myTeam[1].assignedPosition
-  switch(assignedPosition){
-    case "bottom": assignedPosition = "bot"; break
-    case "utility": assignedPosition = "support"; break
-    case "middle": assignedPosition = "mid"; break
-    // default: assignedPosition = "support";
+  switch(this.opgg.myTeam[1].assignedPosition){
+    case "bottom": this.opgg.myTeam[1].assignedPosition = "bot"; break
+    case "utility": this.opgg.myTeam[1].assignedPosition = "support"; break
+    case "middle": this.opgg.myTeam[1].assignedPosition = "mid"; break
+    // default: this.opgg.myTeam[1].assignedPosition = "support";
   }
   
-  console.log(`${championId} ${championName} ${assignedPosition}`)
+  console.log(`${championId} ${championName} ${this.opgg.myTeam[1].assignedPosition}`)
 
-  const url = 'https://www.op.gg/champion/!/statistics/@'
-  const irl = url.replace("!", championName).replace("@", assignedPosition)//TODO
+  const url = 'https://na.op.gg/champion/!/statistics/@'
+  const irl = url.replace("!", championName).replace("@", this.opgg.myTeam[1].assignedPosition)//TODO
 
   console.log(irl)
 
@@ -308,18 +306,17 @@ OpGg.prototype.getBanThird = async function(){
     return
   }
 
-  let assignedPosition = this.opgg.myTeam[2].assignedPosition
-  switch(assignedPosition){
-    case "bottom": assignedPosition = "bot"; break
-    case "utility": assignedPosition = "support"; break
-    case "middle": assignedPosition = "mid"; break
-    // default: assignedPosition = "top";
+  switch(this.opgg.myTeam[2].assignedPosition){
+    case "bottom": this.opgg.myTeam[2].assignedPosition = "bot"; break
+    case "utility": this.opgg.myTeam[2].assignedPosition = "support"; break
+    case "middle": this.opgg.myTeam[2].assignedPosition = "mid"; break
+    // default: this.opgg.myTeam[2].assignedPosition = "top";
   }
   
-  console.log(`${championId} ${championName} ${assignedPosition}`)
+  console.log(`${championId} ${championName} ${this.opgg.myTeam[2].assignedPosition}`)
 
-  const url = 'https://www.op.gg/champion/!/statistics/@'
-  const irl = url.replace("!", championName).replace("@", assignedPosition)//TODO
+  const url = 'https://na.op.gg/champion/!/statistics/@'
+  const irl = url.replace("!", championName).replace("@", this.opgg.myTeam[2].assignedPosition)//TODO
 
   console.log(irl)
 
@@ -429,18 +426,17 @@ OpGg.prototype.getBanFourth = async function(){
     return
   }
 
-  let assignedPosition = this.opgg.myTeam[3].assignedPosition
-  switch(assignedPosition){
-    case "bottom": assignedPosition = "bot"; break
-    case "utility": assignedPosition = "support"; break
-    case "middle": assignedPosition = "mid"; break
-    // default: assignedPosition = "support";
+  switch(this.opgg.myTeam[3].assignedPosition){
+    case "bottom": this.opgg.myTeam[3].assignedPosition = "bot"; break
+    case "utility": this.opgg.myTeam[3].assignedPosition = "support"; break
+    case "middle": this.opgg.myTeam[3].assignedPosition = "mid"; break
+    // default: this.opgg.myTeam[3].assignedPosition = "support";
   }
   
-  console.log(`${championId} ${championName} ${assignedPosition}`)
+  console.log(`${championId} ${championName} ${this.opgg.myTeam[3].assignedPosition}`)
 
-  const url = 'https://www.op.gg/champion/!/statistics/@'
-  const irl = url.replace("!", championName).replace("@", assignedPosition)//TODO
+  const url = 'https://na.op.gg/champion/!/statistics/@'
+  const irl = url.replace("!", championName).replace("@", this.opgg.myTeam[3].assignedPosition)//TODO
 
   console.log(irl)
 
@@ -550,18 +546,17 @@ OpGg.prototype.getBanFifth = async function(){
     return
   }
 
-  let assignedPosition = this.opgg.myTeam[4].assignedPosition
-  switch(assignedPosition){
-    case "bottom": assignedPosition = "bot"; break
-    case "utility": assignedPosition = "support"; break
-    case "middle": assignedPosition = "mid"; break
+  switch(this.opgg.myTeam[4].assignedPosition){
+    case "bottom": this.opgg.myTeam[4].assignedPosition = "bot"; break
+    case "utility": this.opgg.myTeam[4].assignedPosition = "support"; break
+    case "middle": this.opgg.myTeam[4].assignedPosition = "mid"; break
     // default: assignedPosition = "top";
   }
   
-  console.log(`${championId} ${championName} ${assignedPosition}`)
+  console.log(`${championId} ${championName} ${this.opgg.myTeam[4].assignedPosition}`)
 
-  const url = 'https://www.op.gg/champion/!/statistics/@'
-  const irl = url.replace("!", championName).replace("@", assignedPosition)//TODO
+  const url = 'https://na.op.gg/champion/!/statistics/@'
+  const irl = url.replace("!", championName).replace("@", this.opgg.myTeam[4].assignedPosition)//TODO
 
   console.log(irl)
 
@@ -667,7 +662,7 @@ OpGg.prototype.getPickFirst = async function(){
     return
   }
 
-  const url = 'https://www.op.gg/champion/!/statistics'
+  const url = 'https://na.op.gg/champion/!/statistics'
   let irl = url.replace("!", championName)
   console.log(irl)
 
@@ -678,7 +673,7 @@ OpGg.prototype.getPickFirst = async function(){
       res.setEncoding('utf8')
 
       let error
-      if (statusCode !== 301){
+      if (statusCode !== 301 && statusCode !== 200){
         error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
       }
       if(error){
@@ -687,7 +682,7 @@ OpGg.prototype.getPickFirst = async function(){
         reject(this.opgg)
       }
       if (statusCode == 301){
-        irl = `https://www.op.gg${res.headers.location}`
+        irl = `https://na.op.gg${res.headers.location}`
 
         https.get(irl, (res) =>{
           const {statusCode } = res
@@ -714,6 +709,15 @@ OpGg.prototype.getPickFirst = async function(){
             text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
             let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+            for(let i = 0; i < text_array2.length; i++){
+              switch(text_array2[i]){
+                case "Top": text_array2[i] = "top"; break
+                case "Middle": text_array2[i] = "mid"; break
+                case "Jungle": text_array2[i] = "jungle"; break
+                case "Support": text_array2[i] = "support"; break
+                case "Bottom": text_array2[i] = "bot"; break
+              }
+            }
             this.opgg.theirTeam[0].possiblePositions = text_array2
             this.opgg.theirTeam[0].assignedPosition = text_array2[0]
             console.log(`${text_array2}`)
@@ -742,6 +746,11 @@ OpGg.prototype.getPickFirst = async function(){
             resolve(this.opgg)
           })
         })
+      } // end if (statusCode == 301){
+      else if(statusCode == 200){
+        this.opgg.theirTeam[4].ban1 = "possible "
+        this.opgg.theirTeam[4].ban2 = "lanes not"
+        this.opgg.theirTeam[4].ban3 = "found"
       }
     })
   })
@@ -787,7 +796,7 @@ OpGg.prototype.getPickSecond = async function(){
     return
   }
 
-  const url = 'https://www.op.gg/champion/!/statistics'
+  const url = 'https://na.op.gg/champion/!/statistics'
   let irl = url.replace("!", championName)
   console.log(irl)
 
@@ -798,7 +807,7 @@ OpGg.prototype.getPickSecond = async function(){
       res.setEncoding('utf8')
 
       let error
-      if (statusCode !== 301){
+      if (statusCode !== 301 && statusCode !== 200){
         error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
       }
       if(error){
@@ -807,7 +816,7 @@ OpGg.prototype.getPickSecond = async function(){
         reject(this.opgg)
       }
       if (statusCode == 301){
-        irl = `https://www.op.gg${res.headers.location}`
+        irl = `https://na.op.gg${res.headers.location}`
         console.log(irl)
 
         https.get(irl, (res) =>{
@@ -837,6 +846,15 @@ OpGg.prototype.getPickSecond = async function(){
             text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
             let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+            for(let i = 0; i < text_array2.length; i++){
+              switch(text_array2[i]){
+                case "Top": text_array2[i] = "top"; break
+                case "Middle": text_array2[i] = "mid"; break
+                case "Jungle": text_array2[i] = "jungle"; break
+                case "Support": text_array2[i] = "support"; break
+                case "Bottom": text_array2[i] = "bot"; break
+              }
+            }
             this.opgg.theirTeam[1].possiblePositions = text_array2
             this.opgg.theirTeam[1].assignedPosition = text_array2[0]
             console.log(text_array2)
@@ -858,6 +876,11 @@ OpGg.prototype.getPickSecond = async function(){
             resolve(this.opgg)
           })
         })
+      } // end if (statusCode == 301){
+      else if(statusCode == 200){
+        this.opgg.theirTeam[4].ban1 = "possible "
+        this.opgg.theirTeam[4].ban2 = "lanes not"
+        this.opgg.theirTeam[4].ban3 = "found"
       }
     })
   })
@@ -903,7 +926,7 @@ OpGg.prototype.getPickThird = async function(){
     return
   }
 
-  const url = 'https://www.op.gg/champion/!/statistics'
+  const url = 'https://na.op.gg/champion/!/statistics'
   let irl = url.replace("!", championName)
   console.log(irl)
 
@@ -914,7 +937,7 @@ OpGg.prototype.getPickThird = async function(){
       res.setEncoding('utf8')
 
       let error
-      if (statusCode !== 301){
+      if (statusCode !== 301 && statusCode !== 200){
         error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
       }
       if(error){
@@ -923,7 +946,7 @@ OpGg.prototype.getPickThird = async function(){
         reject(this.opgg)
       }
       if (statusCode == 301){
-        irl = `https://www.op.gg${res.headers.location}`
+        irl = `https://na.op.gg${res.headers.location}`
         console.log(irl)
 
         https.get(irl, (res) =>{
@@ -953,6 +976,15 @@ OpGg.prototype.getPickThird = async function(){
             text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
             let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+            for(let i = 0; i < text_array2.length; i++){
+              switch(text_array2[i]){
+                case "Top": text_array2[i] = "top"; break
+                case "Middle": text_array2[i] = "mid"; break
+                case "Jungle": text_array2[i] = "jungle"; break
+                case "Support": text_array2[i] = "support"; break
+                case "Bottom": text_array2[i] = "bot"; break
+              }
+            }
             this.opgg.theirTeam[2].possiblePositions = text_array2
             this.opgg.theirTeam[2].assignedPosition = text_array2[0]
             console.log(text_array2)
@@ -974,6 +1006,11 @@ OpGg.prototype.getPickThird = async function(){
             resolve(this.opgg)
           })
         })
+      } // end if (statusCode == 301){
+      else if(statusCode == 200){
+        this.opgg.theirTeam[4].ban1 = "possible "
+        this.opgg.theirTeam[4].ban2 = "lanes not"
+        this.opgg.theirTeam[4].ban3 = "found"
       }
     })
   })
@@ -1019,7 +1056,7 @@ OpGg.prototype.getPickFourth = async function(){
     return
   }
 
-  const url = 'https://www.op.gg/champion/!/statistics'
+  const url = 'https://na.op.gg/champion/!/statistics'
   let irl = url.replace("!", championName)
   console.log(irl)
 
@@ -1030,7 +1067,7 @@ OpGg.prototype.getPickFourth = async function(){
       res.setEncoding('utf8')
 
       let error
-      if (statusCode !== 301){
+      if (statusCode !== 301 && statusCode !== 200){
         error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
       }
       if(error){
@@ -1039,7 +1076,7 @@ OpGg.prototype.getPickFourth = async function(){
         reject(this.opgg)
       }
       if (statusCode == 301){
-        irl = `https://www.op.gg${res.headers.location}`
+        irl = `https://na.op.gg${res.headers.location}`
         console.log(irl)
 
         https.get(irl, (res) =>{
@@ -1069,6 +1106,15 @@ OpGg.prototype.getPickFourth = async function(){
             text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
             let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+            for(let i = 0; i < text_array2.length; i++){
+              switch(text_array2[i]){
+                case "Top": text_array2[i] = "top"; break
+                case "Middle": text_array2[i] = "mid"; break
+                case "Jungle": text_array2[i] = "jungle"; break
+                case "Support": text_array2[i] = "support"; break
+                case "Bottom": text_array2[i] = "bot"; break
+              }
+            }
             this.opgg.theirTeam[3].possiblePositions = text_array2
             this.opgg.theirTeam[3].assignedPosition = text_array2[0]
             console.log(text_array2)
@@ -1090,6 +1136,11 @@ OpGg.prototype.getPickFourth = async function(){
             resolve(this.opgg)
           })
         })
+      } // end if (statusCode == 301){
+      else if(statusCode == 200){
+        this.opgg.theirTeam[4].ban1 = "possible "
+        this.opgg.theirTeam[4].ban2 = "lanes not"
+        this.opgg.theirTeam[4].ban3 = "found"
       }
     })
   })
@@ -1135,7 +1186,7 @@ OpGg.prototype.getPickFifth = async function(){
     return
   }
 
-  const url = 'https://www.op.gg/champion/!/statistics'
+  const url = 'https://na.op.gg/champion/!/statistics'
   let irl = url.replace("!", championName)
   console.log(irl)
 
@@ -1146,7 +1197,7 @@ OpGg.prototype.getPickFifth = async function(){
       res.setEncoding('utf8')
 
       let error
-      if (statusCode !== 301){
+      if (statusCode !== 301 && statusCode !== 200){
         error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
       }
       if(error){
@@ -1155,7 +1206,7 @@ OpGg.prototype.getPickFifth = async function(){
         reject(this.opgg)
       }
       if (statusCode == 301){
-        irl = `https://www.op.gg${res.headers.location}`
+        irl = `https://na.op.gg${res.headers.location}`
         console.log(irl)
 
         https.get(irl, (res) =>{
@@ -1185,6 +1236,15 @@ OpGg.prototype.getPickFifth = async function(){
             text_array[0] = text_array[0].replace(/\r\g/, '')
             text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
             let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+            for(let i = 0; i < text_array2.length; i++){
+              switch(text_array2[i]){
+                case "Top": text_array2[i] = "top"; break
+                case "Middle": text_array2[i] = "mid"; break
+                case "Jungle": text_array2[i] = "jungle"; break
+                case "Support": text_array2[i] = "support"; break
+                case "Bottom": text_array2[i] = "bot"; break
+              }
+            }
             this.opgg.theirTeam[4].possiblePositions = text_array2
             this.opgg.theirTeam[4].assignedPosition = text_array2[0]
             console.log(text_array2)
@@ -1206,22 +1266,285 @@ OpGg.prototype.getPickFifth = async function(){
             resolve(this.opgg)
           })
         })
+      } // end if (statusCode == 301){
+      else if(statusCode == 200){
+        this.opgg.theirTeam[4].ban1 = "possible "
+        this.opgg.theirTeam[4].ban2 = "lanes not"
+        this.opgg.theirTeam[4].ban3 = "found"
       }
     })
   })
   return await p
 }
 
+// MATCHUPS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MATCHUPS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MATCHUPS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MATCHUPS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MATCHUPS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MATCHUPS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// b1 ci pi 
-// 1  0  0
-// 1  0  1
-// 1  1  0
-// 1  1  1
-// 0  0  0
-// 0  0  1
-// 0  1  0
-// 0  1  1
+OpGg.prototype.setMatchups = async function(){
+  let matchups = []
+
+  switch(this.opgg.myTeam[0].assignedPosition){
+    case "bot":
+           if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[4]
+      break
+    case "support":
+           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[4]
+      break
+    case "jungle":
+           if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[4]
+      break
+    case "top":
+           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[4]
+      break
+    case "mid":
+           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[4]
+      break
+  } 
+
+  switch(this.opgg.myTeam[1].assignedPosition){
+    case "bot":
+           if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[4]
+      break
+    case "support":
+           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[4]
+      break
+    case "jungle":
+           if(this.opgg.theirTeam[0].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[4]
+      break
+    case "top":
+           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[4]
+      break
+    case "mid":
+           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[4]
+      break
+  } 
+
+  switch(this.opgg.myTeam[2].assignedPosition){
+    case "bot":
+           if(this.opgg.theirTeam[0].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[4]
+      break
+    case "support":
+           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[4]
+      break
+    case "jungle":
+           if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[4]
+      break
+    case "top":
+           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[4]
+      break
+    case "mid":
+           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[4]
+      break
+  } 
+
+  switch(this.opgg.myTeam[3].assignedPosition){
+    case "bot":
+           if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[4]
+      break
+    case "support":
+           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[4]
+      break
+    case "jungle":
+           if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[4]
+      break
+    case "top":
+           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[4]
+      break
+    case "mid":
+           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[4]
+      break
+  } 
+
+  switch(this.opgg.myTeam[4].assignedPosition){
+    case "bot":
+           if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[4]
+      break
+    case "support":
+           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[4]
+      break
+    case "jungle":
+           if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[4]
+      break
+    case "top":
+           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[4]
+      break
+    case "mid":
+           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[0]
+      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[1]
+      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[2]
+      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[3]
+      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[4]
+      break
+  } 
+
+  // console.log(matchups)
+
+  this.opgg.matchups = matchups
+}
+
+
+OpGg.prototype.getMatchupFirst = async function(){
+    // let ot3 = await readFile(path.resolve("opgg", "theirTeam3.json"), "utf-8")
+  const w = await readFile(path.resolve("opgg", "matchup0.json"), "utf-8")
+  
+  // console.log(this.opgg.matchups)
+
+  let ttj = new TextToJson()
+  await ttj.readChampionId()
+  const champion_json = ttj.champion_json
+  const championName = champion_json[this.opgg.myTeam[0].championId].toLowerCase()
+
+  try{
+    const o = this.opgg.matchups[0].championId
+  }catch(e){
+    return
+  }
+
+  const url = `https://na.op.gg/champion/${championName}/statistics/${this.opgg.myTeam[0].assignedPosition}/matchup?targetChampionId=${this.opgg.matchups[0].championId}`
+  
+
+  console.log(url)
+
+
+  let p = new Promise((resolve,reject)=>{
+    https.get(url, (res) => {
+      const { statusCode } = res
+      const contentType = res.headers['content-type']
+
+      let error
+      if(statusCode !== 200)
+        error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
+      if(error){
+        console.error(error.message)
+        res.resume()
+        reject(error)
+      }
+
+      res.setEncoding('utf8')
+      let rawData = ''
+      res.on('data', (chunk) => rawData += chunk )
+      res.on('end', () => {
+        const $ = cheerio.load(rawData)
+        const selector = "body > div.l-wrap.l-wrap--champion > div.l-container > div > div.tabWrap._recognized > div.l-champion-statistics-content.tabItems > div.tabItem.Content.championLayout-matchup > div > div.l-champion-matchup-content > div.champion-matchup-header > div:nth-child(1) > div.champion-matchup-champion__winrate"
+        const winrate = $(selector)
+
+        console.log(winrate)
+
+        this.opgg.matchups[0].winrate = winrate
+
+
+        console.log(this.opgg.matchups[0].winrate)
+        writeFile(path.resolve("opgg", "matchup0.json"), JSON.stringify({"matchup0": this.opgg.matchups[0]}))
+        resolve()
+      })
+    }).on('error', function(e) {
+      console.error(`Got error: ${e.message}`)
+      reject(e)
+    })
+  })
+
+  return await p
+}
 
 
 function doRequest(url){

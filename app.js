@@ -7,6 +7,7 @@ app.use(cors())
 
 var LeagueClient = require('./league/LeagueClient')
 var OpGg = require('./opgg/OpGg')
+var OpGgPosition = require('./opgg/OpGgPosition')
 
 app.get('/', (req, res) => res.send('Hello World!'))
 // app.get('/league-client-reader', async function(req, res){
@@ -20,6 +21,7 @@ app.get('/league-client-reader-bans', async function(req, res){
     var league_client = new LeagueClient()
     await league_client.setLatestFile()
     await league_client.setLatestJson()
+
     var op_gg = new OpGg(league_client.league)
     await op_gg.getBanFirst()
     await op_gg.getBanSecond()
@@ -31,11 +33,21 @@ app.get('/league-client-reader-bans', async function(req, res){
     await op_gg.getPickThird()
     await op_gg.getPickFourth()
     await op_gg.getPickFifth()
+
+    await op_gg.setMatchups()
+    // await op_gg.getMatchupFirst()
+    // await op_gg.getMatchupSecond()
+    // await op_gg.getMatchupThird()
+    // await op_gg.getMatchupFourth()
+    // await op_gg.getMatchupFifth()
+
     res.send(op_gg.opgg)
 })
 
-app.post('league-client-reader-picks', async function(req, res){
-    res.send(op_gg.opgg)
+app.post('/league-client-reader-picks/:position-:indexTheirTeam', async function(req, res){
+    var op_gg_position = new OpGgPosition(req.params.position, req.params.indexTheirTeam)
+    await op_gg_position.main()
+    res.send()
 })
 
 app.listen(port, () => {
