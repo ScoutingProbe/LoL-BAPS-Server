@@ -1,5 +1,5 @@
 {
-  "name": "LoL-Draft-Pick-Scraper-Server",
+  "name": "lol-draft-ban-pick-scraper-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,18 +11,19 @@
     "test-ttj": "jasmine spec/text_to_json/TextToJsonSpec.js",
     "test-client": "jasmine spec/league/LeagueClientSpec.js",
     "test-opgg": "jasmine spec/opgg/OpGgSpec.js",
+    "test-skinner": "jasmine spec/skins/SkinnerSpec.js",
     "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andrewsrahn/lol-draft-pick-scraper-server.git"
+    "url": "git+https://github.com/andrewsrahn/lol-draft-ban-pick-scraper-server.git"
   },
   "author": "andrewsrahn@gmail.com",
   "license": "GPL",
   "bugs": {
-    "url": "https://github.com/andrewsrahn/lol-draft-pick-scraper-server/issues"
+    "url": "https://github.com/andrewsrahn/lol-draft-ban-pick-scraper-server/issues"
   },
-  "homepage": "https://github.com/andrewsrahn/lol-draft-pick-scraper-server#readme",
+  "homepage": "https://github.com/andrewsrahn/lol-draft-ban-pick-scraper-server#readme",
   "dependencies": {
     "@types/node": "^14.14.6",
     "cheerio": "^1.0.0-rc.5",
@@ -31,6 +32,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "jasmine": "^3.6.3"
+    "jasmine": "^3.6.3",
+    "sinon": "^11.1.1"
   }
 }

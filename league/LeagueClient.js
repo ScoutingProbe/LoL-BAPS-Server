@@ -1,12 +1,16 @@
 const fs = require('fs');
+const os = require('os');
 const util = require('util');
 
 const readdir = util.promisify(fs.readdir);
 const readFile = util.promisify(fs.readFile);
 
 function LeagueClient(){
-    this.directory_path = 'C:/Riot Games/League of Legends/Logs/LeagueClient Logs' //#TODO windows
-    //this.directory_path = '/Applications/League of Legends.app/Contents/LoL/Logs/LeagueClient Logs' #TODO mac
+    if(os.type() == "Windows_NT")
+        this.directory_path = 'C:/Riot Games/League of Legends/Logs/LeagueClient Logs' 
+    else 
+        this.directory_path = '/Applications/League of Legends.app/Contents/LoL/Logs/LeagueClient Logs' 
+    
 }
 
 LeagueClient.prototype.setLatestFile = async function(){
@@ -18,7 +22,7 @@ LeagueClient.prototype.setLatestFile = async function(){
 LeagueClient.prototype.setLatestJson = async function(){
     const file_string = await readFile(`${this.directory_path}/${this.latest_file}`, 'utf-8');
     // const file_array = file_string.split('\\r\\n'); #TODO windows
-    const file_array = file_string.split('\n');
+    const file_array = file_string.split(os.EOL);
     const file_array_reverse = file_array.reverse();
     const searchForMe = "rcp-be-lol-champ-select| /lol-champ-select/v1/session: ";
     let resultString = "";

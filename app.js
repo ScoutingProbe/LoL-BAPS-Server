@@ -35,7 +35,7 @@ app.get('/league-client-reader-bans', async function(req, res){
     await op_gg.getPickFifth()
 
     await op_gg.setMatchups()
-    // await op_gg.getMatchupFirst()
+    await op_gg.getMatchupFirst()
     // await op_gg.getMatchupSecond()
     // await op_gg.getMatchupThird()
     // await op_gg.getMatchupFourth()
@@ -50,7 +50,10 @@ app.post('/league-client-reader-picks/:position-:indexTheirTeam', async function
     res.send()
 })
 
+// app.post()
+
 app.listen(port, () => {
     console.log(`http://localhost:3000/league-client-reader`)
     console.log(`http://localhost:3000/league-client-reader-bans`)
+
 })

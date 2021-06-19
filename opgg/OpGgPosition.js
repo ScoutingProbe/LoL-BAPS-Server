@@ -25,7 +25,7 @@ OpGgPosition.prototype.main = async function(){
     return
   }
 
-  switch(this.position){
+  switch(this.position){ 
     case "Bottom": this.position = "bot"; break
     case "Support": this.position = "support"; break
     case "Middle": this.position = "mid"; break

@@ -113,6 +113,19 @@ OpGg.prototype.getBanFirst = async function(){
         text_array[0] = text_array[0].replace(/\n/g, '')
         text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
+        let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+        for(let i = 0; i < text_array2.length; i++){
+          switch(text_array2[i]){
+            case "Top": text_array2[i] = "top"; break
+            case "Middle": text_array2[i] = "mid"; break
+            case "Jungle": text_array2[i] = "jungle"; break
+            case "Support": text_array2[i] = "support"; break
+            case "Bottom": text_array2[i] = "bot"; break
+          }
+        }
+        this.opgg.myTeam[0].possiblePositions = text_array2
+        this.opgg.myTeam[0].assignedPosition = text_array2[0]
+        console.log(`${text_array2}`)
         console.log($('title').text())
         console.log(`${text_array}`)
         console.log("-------------------------------------------------------")
@@ -233,6 +246,19 @@ OpGg.prototype.getBanSecond = async function(){
         text_array[0] = text_array[0].replace(/\n/g, '')
         text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
+        let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+        for(let i = 0; i < text_array2.length; i++){
+          switch(text_array2[i]){
+            case "Top": text_array2[i] = "top"; break
+            case "Middle": text_array2[i] = "mid"; break
+            case "Jungle": text_array2[i] = "jungle"; break
+            case "Support": text_array2[i] = "support"; break
+            case "Bottom": text_array2[i] = "bot"; break
+          }
+        }
+        this.opgg.myTeam[1].possiblePositions = text_array2
+        this.opgg.myTeam[1].assignedPosition = text_array2[0]
+        console.log(`${text_array2}`)
         console.log($('title').text())
         console.log(`${text_array}`)
         console.log("-------------------------------------------------------")
@@ -353,6 +379,19 @@ OpGg.prototype.getBanThird = async function(){
         text_array[0] = text_array[0].replace(/\n/g, '')
         text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
+        let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+        for(let i = 0; i < text_array2.length; i++){
+          switch(text_array2[i]){
+            case "Top": text_array2[i] = "top"; break
+            case "Middle": text_array2[i] = "mid"; break
+            case "Jungle": text_array2[i] = "jungle"; break
+            case "Support": text_array2[i] = "support"; break
+            case "Bottom": text_array2[i] = "bot"; break
+          }
+        }
+        this.opgg.myTeam[2].possiblePositions = text_array2
+        this.opgg.myTeam[2].assignedPosition = text_array2[0]
+        console.log(`${text_array2}`)
         console.log($('title').text())
         console.log(`${text_array}`)
         console.log("-------------------------------------------------------")
@@ -473,6 +512,19 @@ OpGg.prototype.getBanFourth = async function(){
         text_array[0] = text_array[0].replace(/\n/g, '')
         text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
+        let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+        for(let i = 0; i < text_array2.length; i++){
+          switch(text_array2[i]){
+            case "Top": text_array2[i] = "top"; break
+            case "Middle": text_array2[i] = "mid"; break
+            case "Jungle": text_array2[i] = "jungle"; break
+            case "Support": text_array2[i] = "support"; break
+            case "Bottom": text_array2[i] = "bot"; break
+          }
+        }
+        this.opgg.myTeam[3].possiblePositions = text_array2
+        this.opgg.myTeam[3].assignedPosition = text_array2[0]
+        console.log(`${text_array2}`)
         console.log($('title').text())
         console.log(`${text_array}`)
         console.log("-------------------------------------------------------")
@@ -593,6 +645,19 @@ OpGg.prototype.getBanFifth = async function(){
         text_array[0] = text_array[0].replace(/\n/g, '')
         text_array[text_array.length - 1] = text_array[text_array.length-1].replace(/\n/g, '')
 
+        let text_array2 = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
+        for(let i = 0; i < text_array2.length; i++){
+          switch(text_array2[i]){
+            case "Top": text_array2[i] = "top"; break
+            case "Middle": text_array2[i] = "mid"; break
+            case "Jungle": text_array2[i] = "jungle"; break
+            case "Support": text_array2[i] = "support"; break
+            case "Bottom": text_array2[i] = "bot"; break
+          }
+        }
+        this.opgg.myTeam[4].possiblePositions = text_array2
+        this.opgg.myTeam[4].assignedPosition = text_array2[0]
+        console.log(`${text_array2}`)
         console.log($('title').text())
         console.log(`${text_array}`)
         console.log("-------------------------------------------------------")
@@ -1285,201 +1350,287 @@ OpGg.prototype.getPickFifth = async function(){
 // MATCHUPS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 OpGg.prototype.setMatchups = async function(){
-  let matchups = []
+  try{
+    const poo = this.opgg.myTeam[0].assignedPosition
+  }catch(e){
+    console.log(`No game log found`)
+    return
+  }
 
-  switch(this.opgg.myTeam[0].assignedPosition){
-    case "bot":
-           if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[4]
-      break
-    case "support":
-           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[4]
-      break
-    case "jungle":
-           if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[4]
-      break
-    case "top":
-           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[4]
-      break
-    case "mid":
-           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[4]
-      break
-  } 
+  let matchups_not_found = []
+  let matchups = {}
 
-  switch(this.opgg.myTeam[1].assignedPosition){
-    case "bot":
-           if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[4]
-      break
-    case "support":
-           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[4]
-      break
-    case "jungle":
-           if(this.opgg.theirTeam[0].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[4]
-      break
-    case "top":
-           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[4]
-      break
-    case "mid":
-           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[4]
-      break
-  } 
-
-  switch(this.opgg.myTeam[2].assignedPosition){
-    case "bot":
-           if(this.opgg.theirTeam[0].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[4]
-      break
-    case "support":
-           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[4]
-      break
-    case "jungle":
-           if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[4]
-      break
-    case "top":
-           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[4]
-      break
-    case "mid":
-           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[4]
-      break
-  } 
-
-  switch(this.opgg.myTeam[3].assignedPosition){
-    case "bot":
-           if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[4]
-      break
-    case "support":
-           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[4]
-      break
-    case "jungle":
-           if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[4]
-      break
-    case "top":
-           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[4]
-      break
-    case "mid":
-           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[4]
-      break
-  } 
-
-  switch(this.opgg.myTeam[4].assignedPosition){
-    case "bot":
-           if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[4]
-      break
-    case "support":
-           if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[4]
-      break
-    case "jungle":
-           if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[4]
-      break
-    case "top":
-           if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[4]
-      break
-    case "mid":
-           if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[0]
-      else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[1]
-      else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[2]
-      else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[3]
-      else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[4]
-      break
-  } 
+  for(let i = 0; i < 5; i++){
+    switch(this.opgg.myTeam[i].assignedPosition){
+      case "top":     matchups["top"]     = {"myTeam": this.opgg.myTeam[i]}; break
+      case "mid":     matchups["mid"]     = {"myTeam": this.opgg.myTeam[i]}; break
+      case "bot":     matchups["bot"]     = {"myTeam": this.opgg.myTeam[i]}; break
+      case "jungle":  matchups["jungle"]  = {"myTeam": this.opgg.myTeam[i]}; break
+      case "support": matchups["support"] = {"myTeam": this.opgg.myTeam[i]}; break
+    }
+  }
 
   // console.log(matchups)
 
+  // let pooflag = "pooflag"
+
+  for(let i = 0; i < 5; i++){
+    try{
+      const poo = this.opgg.theirTeam[i].assignedPosition
+    }catch(e){
+      console.log(`Cannot find assignedPosition ${this.opgg.theirTeam[i]}`)
+      continue
+    }
+
+    const t = this.opgg.theirTeam[i]
+
+    switch(t.assignedPosition){
+      case "top":
+        for(let j = 0; j < 5; j++){
+          if(this.opgg.myTeam[j].assignedPosition == "top")
+            matchups["top"] = { "theirTeam": t, "myTeam": matchups.top.myTeam}
+        }
+        break
+      case "mid": 
+        for(let j = 0; j < 5; j++){
+          if(this.opgg.myTeam[j].assignedPosition == "mid")
+            matchups["mid"] = { "theirTeam": t, "myTeam": matchups.mid.myTeam}
+        }
+        break    
+      case "bot":   
+        for(let j = 0; j < 5; j++){
+          if(this.opgg.myTeam[j].assignedPosition == "bot")
+            matchups["bot"] = { "theirTeam": t, "myTeam": matchups.bot.myTeam}
+        }
+        break     
+      case "jungle":   
+        for(let j = 0; j < 5; j++){
+          if(this.opgg.myTeam[j].assignedPosition == "jungle")
+            matchups["jungle"] = { "theirTeam": t, "myTeam": matchups.jungle.myTeam}
+        }
+        break  
+      case "support":  
+        for(let j = 0; j < 5; j++){
+          if(this.opgg.myTeam[j].assignedPosition == "support")
+            matchups["support"] = { "theirTeam": t, "myTeam": matchups.support.myTeam}
+        }
+        break  
+      default:
+        matchups_not_found.push(t)
+        break
+    }
+  }
+
+  console.log(matchups)
+
+  console.log(matchups_not_found)
+
   this.opgg.matchups = matchups
+
+  // if(pooflag == undefined){
+  //   console.log(`Cannot setMatchups; setting matchups with myTeam; without theirTeam`)
+  //   this.opgg.matchups = matchups
+  //   return 
+  // }
+
+  // this.opgg.theirTeam[0].possiblePositions = text_array2
+  // this.opgg.theirTeam[0].assignedPosition = text_array2[0]
+  // NAIVE 
+  // let matchups = []
+
+  // switch(this.opgg.myTeam[0].assignedPosition){
+  //   case "bot":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[0] = this.opgg.theirTeam[4]
+  //     break
+  //   case "support":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[0] = this.opgg.theirTeam[4]
+  //     break
+  //   case "jungle":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[0] = this.opgg.theirTeam[4]
+  //     break
+  //   case "top":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[0] = this.opgg.theirTeam[4]
+  //     break
+  //   case "mid":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[0] = this.opgg.theirTeam[4]
+  //     break
+  // } 
+
+  // switch(this.opgg.myTeam[1].assignedPosition){
+  //   case "bot":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[1] = this.opgg.theirTeam[4]
+  //     break
+  //   case "support":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[1] = this.opgg.theirTeam[4]
+  //     break
+  //   case "jungle":
+  //          if(this.opgg.theirTeam[0].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPositionn == "jungle") matchups[1] = this.opgg.theirTeam[4]
+  //     break
+  //   case "top":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[1] = this.opgg.theirTeam[4]
+  //     break
+  //   case "mid":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[1] = this.opgg.theirTeam[4]
+  //     break
+  // } 
+
+  // switch(this.opgg.myTeam[2].assignedPosition){
+  //   case "bot":
+  //          if(this.opgg.theirTeam[0].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition== "bot") matchups[2] = this.opgg.theirTeam[4]
+  //     break
+  //   case "support":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[2] = this.opgg.theirTeam[4]
+  //     break
+  //   case "jungle":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[2] = this.opgg.theirTeam[4]
+  //     break
+  //   case "top":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[2] = this.opgg.theirTeam[4]
+  //     break
+  //   case "mid":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[2] = this.opgg.theirTeam[4]
+  //     break
+  // } 
+
+  // switch(this.opgg.myTeam[3].assignedPosition){
+  //   case "bot":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[3] = this.opgg.theirTeam[4]
+  //     break
+  //   case "support":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[3] = this.opgg.theirTeam[4]
+  //     break
+  //   case "jungle":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[3] = this.opgg.theirTeam[4]
+  //     break
+  //   case "top":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[3] = this.opgg.theirTeam[4]
+  //     break
+  //   case "mid":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[3] = this.opgg.theirTeam[4]
+  //     break
+  // } 
+
+  // switch(this.opgg.myTeam[4].assignedPosition){
+  //   case "bot":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "bot") matchups[4] = this.opgg.theirTeam[4]
+  //     break
+  //   case "support":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "support") matchups[4] = this.opgg.theirTeam[4]
+  //     break
+  //   case "jungle":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "jungle") matchups[4] = this.opgg.theirTeam[4]
+  //     break
+  //   case "top":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "top") matchups[4] = this.opgg.theirTeam[4]
+  //     break
+  //   case "mid":
+  //          if(this.opgg.theirTeam[0].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[0]
+  //     else if(this.opgg.theirTeam[1].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[1]
+  //     else if(this.opgg.theirTeam[2].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[2]
+  //     else if(this.opgg.theirTeam[3].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[3]
+  //     else if(this.opgg.theirTeam[4].assignedPosition == "mid") matchups[4] = this.opgg.theirTeam[4]
+  //     break
+  // } 
+
+  // console.log(matchups)
+
+  // this.opgg.matchups = matchups
 }
 
 
@@ -1487,7 +1638,7 @@ OpGg.prototype.getMatchupFirst = async function(){
     // let ot3 = await readFile(path.resolve("opgg", "theirTeam3.json"), "utf-8")
   const w = await readFile(path.resolve("opgg", "matchup0.json"), "utf-8")
   
-  // console.log(this.opgg.matchups)
+  console.log(this.opgg.matchups)
 
   let ttj = new TextToJson()
   await ttj.readChampionId()
@@ -1526,7 +1677,7 @@ OpGg.prototype.getMatchupFirst = async function(){
       res.on('end', () => {
         const $ = cheerio.load(rawData)
         const selector = "body > div.l-wrap.l-wrap--champion > div.l-container > div > div.tabWrap._recognized > div.l-champion-statistics-content.tabItems > div.tabItem.Content.championLayout-matchup > div > div.l-champion-matchup-content > div.champion-matchup-header > div:nth-child(1) > div.champion-matchup-champion__winrate"
-        const winrate = $(selector)
+        const winrate = $(selector).text().replace(/\t/g, '')
 
         console.log(winrate)
 
