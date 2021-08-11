@@ -17,7 +17,6 @@ OpGg.prototype.getBan = async function(file, index){
   try{
     const p = this.league.myTeam[index].championId
   }catch(e) {
-    console.log(`No game log found ${file} ${index}`)
     return
   }
 
@@ -152,7 +151,6 @@ OpGg.prototype.getPick = async function(file, index){
   try{
     const p = this.league.theirTeam[index].championId
   }catch(e){
-    console.log(`Waiting on user to start the game... ${file} ${index}`)
     return
   }
 
@@ -277,195 +275,290 @@ OpGg.prototype.getPick = async function(file, index){
   return await p
 }
 
-OpGg.prototype.getMatchup = async function(myTeamIndex, write){
-  this.league.myTeam[myTeamIndex].championId
-  this.league.myTeam[myTeamIndex].championPickIntent
-  this.league.myTeam[myTeamIndex].counters
-  this.league.myTeam[myTeamIndex].assignedPosition
-
-  for(let i = 0; i < 5; i ++){ 
-    if(this.league.theirTeam[i].possiblePositions == undefined) {
-      continue
-    }
-    
-    for(let j = 0; j < this.league.theirTeam[i].possiblePositions.length; j++){
-      if(this.league.theirTeam[i].possiblePositions[j] == this.league.myTeam[myTeamIndex].assignedPosition){
-        
-      }
-
-    } // loops jungle support top mid bot
-
-  } // loops theirTeam0 theirTeam1 theirTeam2 theirTeam3 theirTeam4 theirTeam5
-
-
-}
-
-OpGg.prototype.getMatchup = async function(file, key){
+OpGg.prototype.getMatchup = async function(myTeamIndex, write, theirTeamOpen){
   try{
-    const o = this.league.matchups.key.myTeam.championId
-  }catch(e){
-    console.log(`OpGg#getMatchup Cannot find my champion ${file} ${key}`)
-    return
-  }
-  try{
-    const o = this.league.matchups.key.theirTeam.championId
+    const i = this.league.myTeam[myTeamIndex].championId
+    const p = this.league.myTeam[myTeamIndex].championPickIntent
+    if(i == 0 && p == 0)
+      return
   } catch(e){
-    console.log(`OpGg#getMatchup Cannot find their champion ${file} ${key}`)
     return
   }
 
-  const w = await readFile(path.resolve("opgg", file), "utf-8")
+  let matchup = {}
 
   let ttj = new TextToJson()
   await ttj.readChampionId()
-  const champion_json = ttj.champion_json
-  const championName = champion_json[this.league.matchups.key.myTeam.championId].toLowerCase()
 
-  const url = `https://na.op.gg/champion/${championName}/statistics/${this.league.matchups.key.myTeam.assignedPosition}/matchup?targetChampionId=${this.league.matchups.key.theirTeam.championId}`
-  // https://na.op.gg/champion/aatrox/statistics/top/matchup?targetChampionId=41
+  let url = 'https://na.op.gg/champion/!/statistics/@/matchup?targetChampionId=#'
+
+  for(let i = 0; i < theirTeamOpen.length; i ++){ 
+    console.log(`${theirTeamOpen[i].possiblePositions.length} ${i}`)
+    
+    if(theirTeamOpen[i].possiblePositions == undefined) {
+      continue
+    }
+    console.log(`${theirTeamOpen[i].possiblePositions.length} ${i}`)
+    console.log(theirTeamOpen[i])
+    for(let j = 0; j < theirTeamOpen[i].possiblePositions.length; j++){
+      if(theirTeamOpen[i].possiblePositions[j] == this.league.myTeam[myTeamIndex].assignedPosition){
+        // console.log(theirTeamOpen[i])
+        
+        const susi = theirTeamOpen[i].championId
+        const susp = theirTeamOpen[i].championPickIntent
+        const sus  = susi == 0 ? susp : susi
+
+        const ouri = this.league.myTeam[myTeamIndex].championId
+        const ourp = this.league.myTeam[myTeamIndex].championPickIntent
+        const our  = ouri == 0 ? ourp : ouri
+
+        theirTeamOpen.splice(i, 1)
+
+        matchup.myTeam = ttj.champion_json[our]
+        matchup.theirTeam = ttj.champion_json[sus]
+
+        url = url.replace('!', matchup.myTeam)
+                  .replace('@', this.league.myTeam[myTeamIndex].assignedPosition)
+                  .replace('#', sus) 
+      } // if theirPosition equals ourPosition
+    } // loops jungle support top mid bot
+  } // loops theirTeam0 theirTeam1 theirTeam2 theirTeam3 theirTeam4 theirTeam5
+  
+  if(matchup.myTeam == undefined){
+    const susi = theirTeamOpen[0].championId
+    const susp = theirTeamOpen[0].championPickIntent
+    const sus  = susi == 0 ? susp : susi
+
+    const ouri = this.league.myTeam[myTeamIndex].championId
+    const ourp = this.league.myTeam[myTeamIndex].championPickIntent
+    const our  = ouri == 0 ? ourp : ouri
+
+    theirTeamOpen.splice(0, 1)
+
+    matchup.myTeam = ttj.champion_json[our]
+    matchup.theirTeam = ttj.champion_json[sus]
+
+    url = url.replace('!', matchup.myTeam)
+              .replace('@', this.league.myTeam[myTeamIndex].assignedPosition)
+              .replace('#', sus)
+  }
+
+  console.log(theirTeamOpen)
   console.log(url)
-
-  let p = new Promise((resolve,reject)=>{
-    https.get(url, (res) => {
+  const p = new Promise((resolve, reject)=>{
+    https.get(url, (res)=>{
       const { statusCode } = res
-      const contentType = res.headers['content-type']
+      res.setEncoding('utf8')
 
       let error
-      if(statusCode !== 200)
+      if (statusCode !== 200){
         error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
+      }
+
       if(error){
         console.error(error.message)
         res.resume()
-        reject(error)
+        reject()
       }
-
-      res.setEncoding('utf8')
+      
       let rawData = ''
-      res.on('data', (chunk) => rawData += chunk )
+      res.on('data', (chunk) => {rawData += chunk})
       res.on('end', () => {
         const $ = cheerio.load(rawData)
+        let w = $('tbody > tr:nth-child(4) > td:nth-child(1)').text().replace(/\n/g, '').replace(/\t/g, '')
+        let p = $('tbody > tr:nth-child(5) > td:nth-child(1)').text().replace(/\n/g, '').replace(/\t/g, '')
+        if(p.includes('%') == false){
+            w = $('tbody > tr:nth-child(6) > td:nth-child(1)').text().replace(/\n/g, '').replace(/\t/g, '')
+            p = $('tbody > tr:nth-child(7) > td:nth-child(1)').text().replace(/\n/g, '').replace(/\t/g, '')
+        }
 
-        const dmg2Champs = $("tbody > tr:nth-child(4) > td:nth-child(1)").text().replace(/\t/g, '').replace(/\n/g, '')
-        const winRatio   = $("tbody > tr:nth-child(6) > td.champion-matchup-data.champion-matchup-data--win").text().replace(/\t/g, '').replace(/\n/g, '')
+        console.log(`${w} ${p}`)
 
-        console.log(dmg2Champs)
-        console.log(winRatio)
+        matchup.winRatio = w
+        matchup.positionWinRate = p
 
-        this.league.matchups.key.winRatio = winRatio
+        if(this.league.matchups == undefined)
+          this.league.matchups = []
+        
+        this.league.matchups[myTeamIndex] = matchup
 
-        console.log(this.league.matchups.key.winRatio)
-        writeFile(path.resolve("opgg", key), JSON.stringify(this.league.matchups.key))
-        resolve(this.league)
-      })
-    }).on('error', function(e) {
-      console.error(`Got error: ${e.message}`)
-      reject(e)
-    })
-  })
-
-  return await p
+        console.log(matchup)
+        // console.log(theirTeamOpen)
+        // console.log(theirTeamOpen.length)
+        console.log("-------------------------------------------------------")
+        resolve(theirTeamOpen)
+      }) // response
+    }) // https
+  }) // promise
+  return await p 
 }
 
-OpGg.prototype.setMatchups = async function(){
-  try{
-    const p = this.league.myTeam[0].assignedPosition
-  }catch(e){
-    console.log(`No game log found`)
-    return
-  }
+// OpGg.prototype.getMatchup = async function(file, key){
+//   try{
+//     const o = this.league.matchups.key.myTeam.championId
+//   }catch(e){
+//     console.log(`OpGg#getMatchup Cannot find my champion ${file} ${key}`)
+//     return
+//   }
+//   try{
+//     const o = this.league.matchups.key.theirTeam.championId
+//   } catch(e){
+//     console.log(`OpGg#getMatchup Cannot find their champion ${file} ${key}`)
+//     return
+//   }
 
-  this.league.theirTeam[0] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam0.json"), "utf-8"))
-  this.league.theirTeam[1] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam1.json"), "utf-8"))
-  this.league.theirTeam[2] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam2.json"), "utf-8"))
-  this.league.theirTeam[3] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam3.json"), "utf-8"))
-  this.league.theirTeam[4] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam4.json"), "utf-8"))
+//   const w = await readFile(path.resolve("opgg", file), "utf-8")
 
-  let matchups_not_found = []
-  let matchups = {}
+//   let ttj = new TextToJson()
+//   await ttj.readChampionId()
+//   const champion_json = ttj.champion_json
+//   const championName = champion_json[this.league.matchups.key.myTeam.championId].toLowerCase()
 
-  let mti, mmi, mbi, mji, msi
-  let tti, tmi, tbi, tji, tsi
+//   const url = `https://na.op.gg/champion/${championName}/statistics/${this.league.matchups.key.myTeam.assignedPosition}/matchup?targetChampionId=${this.league.matchups.key.theirTeam.championId}`
+//   // https://na.op.gg/champion/aatrox/statistics/top/matchup?targetChampionId=41
+//   console.log(url)
 
-  for(let i = 0; i < 5; i++){
-    try{
-      const p = this.league.theirTeam[i].assignedPosition
-    }catch(e){
-      console.log(`OpGg#setMatchups Cannot find assignedPosition ${this.league.theirTeam[i]}`)
-      continue
-    }
+//   let p = new Promise((resolve,reject)=>{
+//     https.get(url, (res) => {
+//       const { statusCode } = res
+//       const contentType = res.headers['content-type']
 
-    switch(this.league.myTeam[i].assignedPosition){
-      case "top":       
-        matchups["top"] = {"myTeam": this.league.myTeam[i]}
-        mti = i
-        break
-      case "middle":    
-        matchups["mid"] = {"myTeam": this.league.myTeam[i]}
-        mmi = i
-        break
-      case "bottom":    
-        matchups["bot"] = {"myTeam": this.league.myTeam[i]}
-        mbi = i ; 
-        break
-      case "jungle":
-        matchups["jungle"]  = {"myTeam": this.league.myTeam[i]}
-        mji = i
-        break
-      case "utility":
-        matchups["support"] = {"myTeam": this.league.myTeam[i]}
-        msi = i
-        break
-    }
-  }
+//       let error
+//       if(statusCode !== 200)
+//         error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
+//       if(error){
+//         console.error(error.message)
+//         res.resume()
+//         reject(error)
+//       }
 
-  // console.log(matchups)
-  // console.log(matchups_not_found)
+//       res.setEncoding('utf8')
+//       let rawData = ''
+//       res.on('data', (chunk) => rawData += chunk )
+//       res.on('end', () => {
+//         const $ = cheerio.load(rawData)
 
-  //let tti, tmi, tbi, tji, tsi
-  for(let i = 0; i < 5; i++){
-    switch(this.league.theirTeam[i].assignedPosition){
-      case "top":
-        matchups.top.theirTeam = this.league.theirTeam[i]
-        // this.setMatchup("top.json", "top")
-        tti = i
-        break
-      case "mid":     
-        matchups.mid.theirTeam = this.league.theirTeam[i]
-        // this.setMatchup("mid.json", "mid"); 
-        tmi = i
-        break  
-      case "bot":     
-        matchups.bot.theirTeam = this.league.theirTeam[i]
-        // this.setMatchup("bot.json", "bot"); 
-        tbi = i
-          break     
-      case "jungle":  
-        matchups.jungle.theirTeam = this.league.theirTeam[i]
-        // this.setMatchup("jungle.json", "jungle"); 
-        tji = i
-          break
-      case "support": 
-        matchups.support.theirTeam = this.league.theirTeam[i]
-        // this.setMatchup("support.json", "support"); 
-        tsi = i
-          break
-      default: 
-        matchups_not_found.push(this.league.theirTeam[i]); 
-        break
-    }
-  }
+//         const dmg2Champs = $("tbody > tr:nth-child(4) > td:nth-child(1)").text().replace(/\t/g, '').replace(/\n/g, '')
+//         const winRatio   = $("tbody > tr:nth-child(6) > td.champion-matchup-data.champion-matchup-data--win").text().replace(/\t/g, '').replace(/\n/g, '')
 
-  await writeFile(path.resolve("opgg", "jungle.json"), JSON.stringify(matchups.jungle))
-  await writeFile(path.resolve("opgg", "support.json"), JSON.stringify(matchups.support))
-  await writeFile(path.resolve("opgg", "top.json"), JSON.stringify(matchups.top))
-  await writeFile(path.resolve("opgg", "mid.json"), JSON.stringify(matchups.mid))
-  await writeFile(path.resolve("opgg", "bot.json"), JSON.stringify(matchups.bot))
+//         console.log(dmg2Champs)
+//         console.log(winRatio)
 
-  console.log(matchups)
-  console.log(matchups_not_found)
+//         this.league.matchups.key.winRatio = winRatio
 
-  this.league.matchups = matchups
-}
+//         console.log(this.league.matchups.key.winRatio)
+//         writeFile(path.resolve("opgg", key), JSON.stringify(this.league.matchups.key))
+//         resolve(this.league)
+//       })
+//     }).on('error', function(e) {
+//       console.error(`Got error: ${e.message}`)
+//       reject(e)
+//     })
+//   })
+
+//   return await p
+// }
+
+// OpGg.prototype.setMatchups = async function(){
+//   try{
+//     const p = this.league.myTeam[0].assignedPosition
+//   }catch(e){
+//     console.log(`No game log found`)
+//     return
+//   }
+
+//   this.league.theirTeam[0] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam0.json"), "utf-8"))
+//   this.league.theirTeam[1] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam1.json"), "utf-8"))
+//   this.league.theirTeam[2] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam2.json"), "utf-8"))
+//   this.league.theirTeam[3] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam3.json"), "utf-8"))
+//   this.league.theirTeam[4] = JSON.parse(await readFile(path.resolve("opgg", "theirTeam4.json"), "utf-8"))
+
+//   let matchups_not_found = []
+//   let matchups = {}
+
+//   let mti, mmi, mbi, mji, msi
+//   let tti, tmi, tbi, tji, tsi
+
+//   for(let i = 0; i < 5; i++){
+//     try{
+//       const p = this.league.theirTeam[i].assignedPosition
+//     }catch(e){
+//       console.log(`OpGg#setMatchups Cannot find assignedPosition ${this.league.theirTeam[i]}`)
+//       continue
+//     }
+
+//     switch(this.league.myTeam[i].assignedPosition){
+//       case "top":       
+//         matchups["top"] = {"myTeam": this.league.myTeam[i]}
+//         mti = i
+//         break
+//       case "middle":    
+//         matchups["mid"] = {"myTeam": this.league.myTeam[i]}
+//         mmi = i
+//         break
+//       case "bottom":    
+//         matchups["bot"] = {"myTeam": this.league.myTeam[i]}
+//         mbi = i ; 
+//         break
+//       case "jungle":
+//         matchups["jungle"]  = {"myTeam": this.league.myTeam[i]}
+//         mji = i
+//         break
+//       case "utility":
+//         matchups["support"] = {"myTeam": this.league.myTeam[i]}
+//         msi = i
+//         break
+//     }
+//   }
+
+//   // console.log(matchups)
+//   // console.log(matchups_not_found)
+
+//   //let tti, tmi, tbi, tji, tsi
+//   for(let i = 0; i < 5; i++){
+//     switch(this.league.theirTeam[i].assignedPosition){
+//       case "top":
+//         matchups.top.theirTeam = this.league.theirTeam[i]
+//         // this.setMatchup("top.json", "top")
+//         tti = i
+//         break
+//       case "mid":     
+//         matchups.mid.theirTeam = this.league.theirTeam[i]
+//         // this.setMatchup("mid.json", "mid"); 
+//         tmi = i
+//         break  
+//       case "bot":     
+//         matchups.bot.theirTeam = this.league.theirTeam[i]
+//         // this.setMatchup("bot.json", "bot"); 
+//         tbi = i
+//           break     
+//       case "jungle":  
+//         matchups.jungle.theirTeam = this.league.theirTeam[i]
+//         // this.setMatchup("jungle.json", "jungle"); 
+//         tji = i
+//           break
+//       case "support": 
+//         matchups.support.theirTeam = this.league.theirTeam[i]
+//         // this.setMatchup("support.json", "support"); 
+//         tsi = i
+//           break
+//       default: 
+//         matchups_not_found.push(this.league.theirTeam[i]); 
+//         break
+//     }
+//   }
+
+//   await writeFile(path.resolve("opgg", "jungle.json"), JSON.stringify(matchups.jungle))
+//   await writeFile(path.resolve("opgg", "support.json"), JSON.stringify(matchups.support))
+//   await writeFile(path.resolve("opgg", "top.json"), JSON.stringify(matchups.top))
+//   await writeFile(path.resolve("opgg", "mid.json"), JSON.stringify(matchups.mid))
+//   await writeFile(path.resolve("opgg", "bot.json"), JSON.stringify(matchups.bot))
+
+//   console.log(matchups)
+//   console.log(matchups_not_found)
+
+//   this.league.matchups = matchups
+// }
   
 module.exports = OpGg
 // function doRequest(url){

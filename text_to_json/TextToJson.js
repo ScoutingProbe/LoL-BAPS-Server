@@ -1,4 +1,5 @@
 const fs = require('fs')
+const os = require('os')
 const util = require('util')
 const path = require('path')
 
@@ -10,8 +11,7 @@ function TextToJson() {
 
 TextToJson.prototype.readChampionId = async function(){
   const championDocument = await readFile(path.resolve("text_to_json", 'champion-id.txt'), 'utf-8')
-  const championDocumentLines = championDocument.split('\r\n') //#windows
-  //const championDocumentLines = championDocument.split('\n') //#mac
+  const championDocumentLines = championDocument.split("\n") 
   // console.log(championDocumentLines)
   let championJson = {}
   for(let i = 0; i < championDocumentLines.length; i++){

@@ -50,39 +50,40 @@ describe("op.gg", function(){
 
     // await op_gg.setMatchups()
 
+    let theirTeamOpen
     // https://na.op.gg/champion/poppy/statistics/jungle/matchup?targetChampionId=106
-    await op_gg.getMatchup(0, "matchup0.json")
+    theirTeamOpen = await op_gg.getMatchup(0, "matchup0.json", opggComplete.theirTeam)
     expect(op_gg.league.matchups[0].myTeam).toEqual("Poppy")
     expect(op_gg.league.matchups[0].theirTeam).toEqual("Volibear")
-    expect(op_gg.league.matchups[0].winRatio).toEqual("48.92%")
-    expect(op_gg.league.matchups[0].positionWinRate).toEqual("14,732")
+    expect(op_gg.league.matchups[0].winRatio.includes('%')).toEqual(true)
+    expect(op_gg.league.matchups[0].positionWinRate.includes('%')).toEqual(true)
 
-    // // https://na.op.gg/champion/katarina/statistics/mid/matchup?targetChampionId=86
-    // await op_gg.getMatchup(1, "matchup1.json")
-    // expect(op_gg.league.matchups[1].myTeam).toEqual("Katarina")
-    // expect(op_gg.league.matchups[1].theirTeam).toEqual("Garen")
-    // expect(op_gg.league.matchups[1].winRatio).toEqual("45.55%")
-    // expect(op_gg.league.matchups[1].positionWinRate).toEqual("50.86%")
+    // https://na.op.gg/champion/katarina/statistics/mid/matchup?targetChampionId=86
+    theirTeamOpen = await op_gg.getMatchup(1, "matchup1.json", theirTeamOpen)
+    expect(op_gg.league.matchups[1].myTeam).toEqual("Katarina")
+    expect(op_gg.league.matchups[1].theirTeam).toEqual("Garen")
+    expect(op_gg.league.matchups[1].winRatio.includes('%')).toEqual(true)
+    expect(op_gg.league.matchups[1].positionWinRate.includes('%')).toEqual(true)
 
-    // // https://na.op.gg/champion/quinn/statistics/top/matchup?targetChampionId=103
-    // await op_gg.getMatchup(2, "matchup2.json")
-    // expect(op_gg.league.matchups[2].myTeam).toEqual("Quinn")
-    // expect(op_gg.league.matchups[2].theirTeam).toEqual("Ahri")
-    // expect(op_gg.league.matchups[2].winRatio).toEqual("🐒")
-    // expect(op_gg.league.matchups[2].positionWinRate).toEqual("🐒")
+    // https://na.op.gg/champion/quinn/statistics/top/matchup?targetChampionId=103
+    theirTeamOpen = await op_gg.getMatchup(2, "matchup2.json", theirTeamOpen)
+    expect(op_gg.league.matchups[2].myTeam).toEqual("Quinn")
+    expect(op_gg.league.matchups[2].theirTeam).toEqual("Vayne")
+    expect(op_gg.league.matchups[2].winRatio.includes('%')).toEqual(true)
+    expect(op_gg.league.matchups[2].positionWinRate.includes('%')).toEqual(true)
 
-    // // https://na.op.gg/champion/akshan/statistics/bot/matchup?targetChampionId=67
-    // await op_gg.getMatchup(3, "matchup3.json")
-    // expect(op_gg.league.matchups[3].myTeam).toEqual("Akshan")
-    // expect(op_gg.league.matchups[3].theirTeam).toEqual("Vayne")
-    // expect(op_gg.league.matchups[3].winRatio).toEqual("37.71%")
-    // expect(op_gg.league.matchups[3].positionWinRate).toEqual("40.24%")
+    // https://na.op.gg/champion/akshan/statistics/bot/matchup?targetChampionId=67
+    theirTeamOpen = await op_gg.getMatchup(3, "matchup3.json", theirTeamOpen)
+    expect(op_gg.league.matchups[3].myTeam).toEqual("Akshan")
+    expect(op_gg.league.matchups[3].theirTeam).toEqual("Ahri")
+    expect(op_gg.league.matchups[3].winRatio).toEqual("")
+    expect(op_gg.league.matchups[3].positionWinRate).toEqual("")
 
-    // // https://na.op.gg/champion/lulu/statistics/support/matchup?targetChampionId=267
-    // await op_gg.getMatchup(4, "matchup4.json")
-    // expect(op_gg.league.matchups[4].myTeam).toEqual("Lulu")
-    // expect(op_gg.league.matchups[4].theirTeam).toEqual("Nami")
-    // expect(op_gg.league.matchups[4].winRatio).toEqual("51.8%")
-    // expect(op_gg.league.matchups[4].positionWinRate).toEqual("50.41%")
+    // https://na.op.gg/champion/lulu/statistics/support/matchup?targetChampionId=267
+    theirTeamOpen = await op_gg.getMatchup(4, "matchup4.json", theirTeamOpen)
+    expect(op_gg.league.matchups[4].myTeam).toEqual("Lulu")
+    expect(op_gg.league.matchups[4].theirTeam).toEqual("Nami")
+    expect(op_gg.league.matchups[4].winRatio.includes('%')).toEqual(true)
+    expect(op_gg.league.matchups[4].positionWinRate.includes('%')).toEqual(true)
   })
 })
