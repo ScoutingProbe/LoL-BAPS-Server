@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "script-ttj": "node text_to_json/TextToJson.js",
-    "test-ttj": "jasmine spec/text_to_json/TextToJsonSpec.js",
+    "script-allocator": "node scripts/Allocator.js",
+    "test-allocator": "jasmine spec/scripts/AllocatorSpec.js",
     "test-league": "jasmine spec/league/LeagueClientSpec.js",
     "test-opgg": "jasmine spec/opgg/OpGgSpec.js",
     "test-mongo": "jasmine spec/mongo/MongoSpec.js",

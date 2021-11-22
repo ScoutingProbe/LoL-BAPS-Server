@@ -259,8 +259,8 @@ OpGg.prototype.getPick = async function(file, index){
             }
             writeFile(path.resolve("opgg", file), JSON.stringify(this.league.theirTeam[index]))
             resolve(this.league)
-          })
-        })
+          }) // end response
+        }) // end https
       } // end if (statusCode == 301){
       else if(statusCode == 200){
         console.log(irl)
