@@ -3,6 +3,7 @@ describe("AllocatorSpec", function(){
   var allocator
 
   beforeEach(function(){
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000
     allocator = new Allocator()
   })
 

@@ -1,4 +1,4 @@
-const TextToJson = require('../text_to_json/TextToJson')
+const Allocator = require('../scripts/Allocator')
 const https = require('https')
 const path = require('path')
 const util = require('util')
@@ -20,8 +20,8 @@ OpGgPosition.prototype.main = async function(){
  
   // console.log(league)
 
-  let ttj = new TextToJson()
-  await ttj.readChampionId()
+  let allocator = new Allocator()
+  await allocator.readChampionId()
 
   // if(league.championId == undefined && league.championPickIntent == undefined){
   //   return 
@@ -32,7 +32,7 @@ OpGgPosition.prototype.main = async function(){
 
   const championId = lci == "0" ? lpi : lci
 
-  let championName = ttj.champion_json[championId].toLowerCase()
+  let championName = allocator.champion_json[championId].toLowerCase()
 
   if(championName == undefined){
     return

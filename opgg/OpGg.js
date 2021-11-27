@@ -1,4 +1,4 @@
-const TextToJson = require('../text_to_json/TextToJson')
+const Allocator = require('../scripts/Allocator')
 const https = require('https')
 const path = require('path')
 const util = require('util')
@@ -49,9 +49,9 @@ OpGg.prototype.getBan = async function(file, index){
     return
   }
 
-  let ttj = new TextToJson()
-  await ttj.readChampionId()
-  const champion_json = ttj.champion_json
+  let allocator = new Allocator()
+  await allocator.readChampionId()
+  const champion_json = allocator.champion_json
   const championId = lci == "0" ? lpi : lci
   const championName = champion_json[championId]
 
@@ -175,9 +175,9 @@ OpGg.prototype.getPick = async function(file, index){
     return
   }
 
-  let ttj = new TextToJson()
-  await ttj.readChampionId()
-  const champion_json = ttj.champion_json
+  let allocator = new Allocator()
+  await allocator.readChampionId()
+  const champion_json = allocator.champion_json
   const championName = champion_json[lci]
 
   if(championName == undefined){
@@ -287,8 +287,8 @@ OpGg.prototype.getMatchup = async function(myTeamIndex, write, theirTeamOpen){
 
   let matchup = {}
 
-  let ttj = new TextToJson()
-  await ttj.readChampionId()
+  let allocator = new Allocator()
+  await allocator.readChampionId()
 
   let url = 'https://na.op.gg/champion/!/statistics/@/matchup?targetChampionId=#'
 
@@ -409,9 +409,9 @@ OpGg.prototype.getMatchup = async function(myTeamIndex, write, theirTeamOpen){
 
 //   const w = await readFile(path.resolve("opgg", file), "utf-8")
 
-//   let ttj = new TextToJson()
-//   await ttj.readChampionId()
-//   const champion_json = ttj.champion_json
+//   let allocator = new Allocator()
+//   await allocator.readChampionId()
+//   const champion_json = allocator.champion_json
 //   const championName = champion_json[this.league.matchups.key.myTeam.championId].toLowerCase()
 
 //   const url = `https://na.op.gg/champion/${championName}/statistics/${this.league.matchups.key.myTeam.assignedPosition}/matchup?targetChampionId=${this.league.matchups.key.theirTeam.championId}`
