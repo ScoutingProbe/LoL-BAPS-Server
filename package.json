@@ -7,11 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "script-allocator": "node scripts/Allocator.js",
-    "test-allocator": "jasmine spec/scripts/AllocatorSpec.js",
-    "test-league": "jasmine spec/league/LeagueClientSpec.js",
-    "test-opgg": "jasmine spec/opgg/OpGgSpec.js",
-    "test-mongo": "jasmine spec/mongo/MongoSpec.js",
+    "test-opggservice": "jasmine spec/service/OpGgServiceSpec.js",
+    "test-opggdao": "jasmine spec/dao/OpGgDaoSpec.js",
+    "test-league": "jasmine spec/dao/RiotLeagueLogDaoSpec.js",
     "start": "node app.js"
   },
   "repository": {
@@ -25,12 +23,10 @@
   },
   "homepage": "https://github.com/andrewsrahn/lol-draft-ban-pick-scraper-server#readme",
   "dependencies": {
-    "@types/node": "^14.14.6",
     "cheerio": "^1.0.0-rc.5",
     "cheerio-select": "^1.1.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongodb": "^4.0.0"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "jasmine": "^3.6.3"
