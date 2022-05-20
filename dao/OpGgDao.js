@@ -79,7 +79,8 @@ OpGgDao.prototype.createPositions = async function(){
 }
 
 OpGgDao.prototype.writeCounter = async function(name, role){
-let url = `https://na.op.gg/champions/${name}/${role}/counters`
+  let url = `https://na.op.gg/champions/${name}/${role}/counters`
+  // url += '?tier=all'
   console.log(`${url} request sent x)`)
   const p = new Promise((resolve, reject)=>{
     https.get(url, (response)=>{
@@ -95,15 +96,20 @@ let url = `https://na.op.gg/champions/${name}/${role}/counters`
           let counters = []
           let wins = []
           let playeds = []
-          $('div.info > div.name').each(function(i, el){
+          $('tbody > tr > td:nth-child(2) > div > div').each(function(i, el){
             counters.push($(this).text())
           })
-          $('span.win').each(function(i, el){
+          $('tbody > tr > td:nth-child(3) > span').each(function(i, el){
             wins.push($(this).text())
           })
-          $('span.played-count').each(function(i, el){
+          $('tbody > tr > td:nth-child(4) > span').each(function(i, el){
             playeds.push($(this).text())
           })
+
+          console.log(`${counters.length} ${wins.length} ${playeds.length}`)
+          console.log(counters)
+          console.log(wins)
+          console.log(playeds)
 
           let arr = []
           for(let i = 0; i < counters.length; i ++){
@@ -127,7 +133,7 @@ let url = `https://na.op.gg/champions/${name}/${role}/counters`
           })
 
           console.log(`request complete xD\n${JSON.stringify(arr)}`)
-          fs.writeFile(path.resolve('cache', `${name}-${role}.json`), JSON.stringify(arr), () => resolve(counters))
+          fs.writeFile(path.resolve('cache', 'counters', `${name}-${role}.json`), JSON.stringify(arr), () => resolve(counters))
         })
         
       }
