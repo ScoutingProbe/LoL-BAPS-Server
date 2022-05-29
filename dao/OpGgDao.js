@@ -106,6 +106,12 @@ OpGgDao.prototype.writeCounter = async function(name, role){
             playeds.push($(this).text())
           })
 
+          console.log($('.name:nth-child(3)').text())
+
+          // counters[0] = $('span.name').text()
+          // wins.unshift($('span.percent').text())
+          // playeds.unshift('42069')
+
           console.log(`${counters.length} ${wins.length} ${playeds.length}`)
           console.log(counters)
           console.log(wins)
