@@ -4,6 +4,7 @@ const util = require('util')
 const path = require('path')
 const https = require('https')
 const cheerio = require('cheerio')
+const puppeteer = require('puppeteer')
 
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
@@ -78,7 +79,7 @@ OpGgDao.prototype.createPositions = async function(){
   })
 }
 
-OpGgDao.prototype.writeCounter = async function(name, role){
+OpGgDao.prototype.writeCounterr = async function(name, role){
   let url = `https://na.op.gg/champions/${name}/${role}/counters`
   // url += '?tier=all'
   console.log(`${url} request sent x)`)
@@ -106,7 +107,7 @@ OpGgDao.prototype.writeCounter = async function(name, role){
             playeds.push($(this).text())
           })
 
-          console.log($('.name:nth-child(3)').text())
+          console.log($('tbody > tr:nth-child(1) > td:nth-child(2) > div > div'))
 
           // counters[0] = $('span.name').text()
           // wins.unshift($('span.percent').text())
@@ -146,6 +147,50 @@ OpGgDao.prototype.writeCounter = async function(name, role){
     })
   })
   return await p
+}
+
+OpGgDao.prototype.writeCounter = async function(name, role){
+  let url = `https://na.op.gg/champions/${name}/${role}/counters`
+  // url += '?tier=all'
+  console.log(`${url} request sent x)`)
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  await page.goto(url)
+
+  const arrarr = await page.evaluate(()=>{
+    return[
+      Array.from(document.getElementsByClassName("css-aj4kza eocu2m71")).map(function(i){ return i.textContent}),
+      Array.from(document.getElementsByClassName("css-ekbdas eocu2m73")).map(function(i){ return i.textContent}),
+      Array.from(document.getElementsByClassName("css-1nfew2i eocu2m75")).map(function(i){ return i.textContent})
+    ]
+  })
+
+  console.log(arrarr)
+
+  const arr = []
+  for(let i = 0; i < arrarr[0].length; i++){
+    arr.push(
+      {
+        'counter': arrarr[0][i],
+        'win': arrarr[1][i],
+        'played': arrarr[2][i]
+      }
+    )
+  }
+
+  arr.sort((a, b) => {
+    let winA = a.win.replace('%', '')
+    let winB = b.win.replace('%', '')
+
+    winA = parseFloat(winA)
+    winB = parseFloat(winB)
+    
+    return winB - winA
+  })
+
+  console.log(`request complete xD\n${JSON.stringify(arr)}`)
+  fs.writeFile(path.resolve('cache', 'counters', `${name}-${role}.json`), JSON.stringify(arr), () => {})
+  await browser.close()
 }
 
 module.exports = OpGgDao
