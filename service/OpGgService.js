@@ -22,6 +22,81 @@ OpGgService.prototype.getBan = async function(file, index){
 
   let om0 = await readFile(path.resolve("cache", file), "utf-8")
   om0 = JSON.parse(om0)
+  console.log(om0)
+
+  const ob1 = om0.counters                           //undefined, defined
+  const oci = om0.championId                          //0, 1-500
+  const opi = om0.championPickIntent                  //0, 1-500
+  
+  // if(this.league.myTeam[index].summonerId != om0.summonerId){
+  //   // await writeFile(path.resolve("cache", file), JSON.stringify(this.league.myTeam[index]))
+  //   return
+  // }
+
+  const lci = this.league.myTeam[index].championId          //0, 1-500
+  const lpi = this.league.myTeam[index].championPickIntent  //0, 1-500
+
+  // console.log(`${oci} ${lci}`)
+  // console.log(`${opi} ${lpi}`)
+  // console.log(`${ob1}`)
+
+  const eci = oci == lci
+  const epi = opi == lpi
+  const eb1 = ob1 != undefined
+
+  if(eci && epi && ob1){
+    this.league.myTeam[index] = om0
+    return
+  }
+
+  let opggdao = new OpGgDao()
+  await opggdao.readChampionId()
+  const champion_json = opggdao.champion_json
+  const championId = lci == "0" ? lpi : lci
+  const championName = champion_json[championId]
+
+  if(championName == undefined){
+    return
+  }
+
+  switch(this.league.myTeam[index].assignedPosition){
+    case "bottom" : this.league.myTeam[index].assignedPosition = "adc"; break
+    case "utility": this.league.myTeam[index].assignedPosition = "support"; break
+    case "middle" : this.league.myTeam[index].assignedPosition = "mid"; break
+    // default    : this.league.myTeam[i].assignedPosition = "mid"
+  }
+
+  console.log(`${championId} ${championName} ${this.league.myTeam[index].assignedPosition}`)
+
+  const cl = await opggdao.requestCounters(championName, this.league.myTeam[index].assignedPosition)
+
+  console.log(cl)
+
+  // switch(roles[0]){
+  //   case "Top"    : this.league.myTeam[index].assignedPosition = "top"; break
+  //   case "Middle" : this.league.myTeam[index].assignedPosition = "middle"; break
+  //   case "Jungle" : this.league.myTeam[index].assignedPosition = "jungle"; break
+  //   case "Support": this.league.myTeam[index].assignedPosition = "support"; break
+  //   case "Bottom" : this.league.myTeam[index].assignedPosition = "bot"; break
+  // }
+  
+  this.league.myTeam[index].counters = []
+  this.league.myTeam[index].counters = cl[0]
+
+  this.league.myTeam[index].lanes = cl[1]
+  writeFile(path.resolve("cache", file), JSON.stringify(this.league.myTeam[index]))
+  return this.league
+}
+
+OpGgService.prototype.getBann = async function(file, index){
+  try{
+    const p = this.league.myTeam[index].championId
+  }catch(e) {
+    return
+  }
+
+  let om0 = await readFile(path.resolve("cache", file), "utf-8")
+  om0 = JSON.parse(om0)
   // console.log(om0)
 
   const ob1 = om0.counters                           //undefined, defined
@@ -61,7 +136,7 @@ OpGgService.prototype.getBan = async function(file, index){
   }
 
   switch(this.league.myTeam[index].assignedPosition){
-    case "bottom" : this.league.myTeam[index].assignedPosition = "bot"; break
+    case "bottom" : this.league.myTeam[index].assignedPosition = "adc"; break
     case "utility": this.league.myTeam[index].assignedPosition = "support"; break
     case "middle" : this.league.myTeam[index].assignedPosition = "mid"; break
     // default    : this.league.myTeam[i].assignedPosition = "mid"

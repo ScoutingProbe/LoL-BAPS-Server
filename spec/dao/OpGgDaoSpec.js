@@ -34,38 +34,69 @@ describe("OpGgDaoSpec", function(){
   // })
 
   describe('Write championName-role.json files inside /cache', function(){
-    // it('single test', async function(){
-    //   await opggdao.writeCounter('monkeyking', 'top')
-    //   await opggdao.writeCounter('sona', 'support')
-    // })
-    
-    it('loop test', function(){
-      fs.readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8', function(error, OpGgPositions){
-        if(error) 
-          console.log(error)
-        console.log(OpGgPositions)
-        OpGgPositions = JSON.parse(OpGgPositions)
-        // console.log(OpGgPositions.top)
-        // OpGgPositions.top.forEach(async function(c, i, a){
-        //   console.log(`${c} top`)
-        // })
-        let promises = []
-        for(let role in OpGgPositions){
-          for (let name of OpGgPositions[role] ){
-            name = name.toLowerCase()
-            name = name.includes("'") ? name.replace("'", "") : name
-            name = name.includes(". ") ? name.replace(". ", "") : name
-            name = name.includes(" ") ? name.replace(" ", "") : name
-            name = name == 'nunu& willump' ? 'nunu' : name
-            name = name == 'renata glasc' ? 'renata' : name
-            name = name == 'wukong' ? 'monkeyking' : name
-            // console.log(`${name} ${role}`)
-            promises.push(opggdao.writeCounter(name, role))
-          }
-        }
-        Promise.all(promises)
-      })
+    it('single test', async function(){
+      console.log(await opggdao.requestCounters('monkeyking', 'top'))
+      // console.log(await opggdao.requestCounters('sona', 'support'))
     })
+    
+    // it('loop test for cheerio', function(){
+    //   fs.readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8', function(error, OpGgPositions){
+    //     if(error) 
+    //       console.log(error)
+    //     console.log(OpGgPositions)
+    //     OpGgPositions = JSON.parse(OpGgPositions)
+    //     // console.log(OpGgPositions.top)
+    //     // OpGgPositions.top.forEach(async function(c, i, a){
+    //     //   console.log(`${c} top`)
+    //     // })
+    //     let promises = []
+    //     for(let role in OpGgPositions){
+    //       for (let name of OpGgPositions[role] ){
+    //         name = name.toLowerCase()
+    //         name = name.includes("'") ? name.replace("'", "") : name
+    //         name = name.includes(". ") ? name.replace(". ", "") : name
+    //         name = name.includes(" ") ? name.replace(" ", "") : name
+    //         name = name == 'nunu& willump' ? 'nunu' : name
+    //         name = name == 'renata glasc' ? 'renata' : name
+    //         name = name == 'wukong' ? 'monkeyking' : name
+    //         // console.log(`${name} ${role}`)
+    //         promises.push(opggdao.writeCounter(name, role))
+    //       }
+    //     }
+    //     Promise.all(promises)
+    //   })
+    // })
+
+    // it('loop test for puppeteer; nodejs memory leaks 😫', async function(){
+    //   fs.readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8', async function(error, OpGgPositions){
+    //     if(error) 
+    //       console.log(error)
+    //     console.log(OpGgPositions)
+    //     OpGgPositions = JSON.parse(OpGgPositions)
+    //     // console.log(OpGgPositions.top)
+    //     // OpGgPositions.top.forEach(async function(c, i, a){
+    //     //   console.log(`${c} top`)
+    //     // })
+    //     let promises = []
+    //     for(let role in OpGgPositions){
+    //       for (let name of OpGgPositions[role] ){
+    //         name = name.toLowerCase()
+    //         name = name.includes("'") ? name.replace("'", "") : name
+    //         name = name.includes(". ") ? name.replace(". ", "") : name
+    //         name = name.includes(" ") ? name.replace(" ", "") : name
+    //         name = name == 'nunu& willump' ? 'nunu' : name
+    //         name = name == 'renata glasc' ? 'renata' : name
+    //         name = name == 'wukong' ? 'monkeyking' : name
+    //         // console.log(`${name} ${role}`)
+    //         promises.push(opggdao.writeCounter(name, role))
+    //       }
+    //     }
+    //     console.log(promises)
+    //     while(promises.length){
+    //       await Promise.all( promises.splice(0, 1).map(p => p.then(()=>console.log('yay'), () => console.log('boo') )))
+    //     }
+    //   })
+    // })
   })
 })
 

@@ -79,7 +79,7 @@ OpGgDao.prototype.createPositions = async function(){
   })
 }
 
-OpGgDao.prototype.writeCounterr = async function(name, role){
+OpGgDao.prototype.writeCounter = async function(name, role){
   let url = `https://na.op.gg/champions/${name}/${role}/counters`
   // url += '?tier=all'
   console.log(`${url} request sent x)`)
@@ -149,7 +149,7 @@ OpGgDao.prototype.writeCounterr = async function(name, role){
   return await p
 }
 
-OpGgDao.prototype.writeCounter = async function(name, role){
+OpGgDao.prototype.requestCounters = async function(name, role){
   let url = `https://na.op.gg/champions/${name}/${role}/counters`
   // url += '?tier=all'
   console.log(`${url} request sent x)`)
@@ -157,28 +157,33 @@ OpGgDao.prototype.writeCounter = async function(name, role){
   const page = await browser.newPage()
   await page.goto(url)
 
-  const arrarr = await page.evaluate(()=>{
+  const scraped = await page.evaluate(()=>{
     return[
       Array.from(document.getElementsByClassName("css-aj4kza eocu2m71")).map(function(i){ return i.textContent}),
       Array.from(document.getElementsByClassName("css-ekbdas eocu2m73")).map(function(i){ return i.textContent}),
-      Array.from(document.getElementsByClassName("css-1nfew2i eocu2m75")).map(function(i){ return i.textContent})
+      Array.from(document.getElementsByClassName("css-1nfew2i eocu2m75")).map(function(i){ return i.textContent}),
+      document.getElementsByClassName("css-1o0mfs9 e1uquoo0").item(0).firstChild.alt,
+      document.getElementsByClassName("css-jtbu8n e1uquoo0").item(0) == null ? null : document.getElementsByClassName("css-jtbu8n e1uquoo0").item(0).firstChild.alt,
+      document.getElementsByClassName("css-jtbu8n e1uquoo0").item(1) == null ? null : document.getElementsByClassName("css-jtbu8n e1uquoo0").item(1).firstChild.alt
     ]
   })
 
-  console.log(arrarr)
+  await browser.close()
 
-  const arr = []
-  for(let i = 0; i < arrarr[0].length; i++){
-    arr.push(
+  console.log(scraped)
+
+  const counters = []
+  for(let i = 0; i < scraped[0].length; i++){
+    counters.push(
       {
-        'counter': arrarr[0][i],
-        'win': arrarr[1][i],
-        'played': arrarr[2][i]
+        'counter': scraped[0][i],
+        'win': scraped[1][i],
+        'played': scraped[2][i]
       }
     )
   }
 
-  arr.sort((a, b) => {
+  counters.sort((a, b) => {
     let winA = a.win.replace('%', '')
     let winB = b.win.replace('%', '')
 
@@ -188,9 +193,18 @@ OpGgDao.prototype.writeCounter = async function(name, role){
     return winB - winA
   })
 
-  console.log(`request complete xD\n${JSON.stringify(arr)}`)
-  fs.writeFile(path.resolve('cache', 'counters', `${name}-${role}.json`), JSON.stringify(arr), () => {})
-  await browser.close()
+  const lanes = [ scraped[3], scraped[4], scraped[5] ]
+
+  for(let i = 0; i < lanes.length; i++){
+    if(lanes[i] == undefined){
+      lanes.splice(i)
+    }
+  }
+
+  console.log(lanes)
+
+  console.log(`request complete xD\n${JSON.stringify([counters, lanes])}`)
+  return [ counters, lanes]
 }
 
 module.exports = OpGgDao
