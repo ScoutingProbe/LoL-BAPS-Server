@@ -162,7 +162,7 @@ OpGgDao.prototype.requestCounters = async function(name, role){
       Array.from(document.getElementsByClassName("css-aj4kza eocu2m71")).map(function(i){ return i.textContent}),
       Array.from(document.getElementsByClassName("css-ekbdas eocu2m73")).map(function(i){ return i.textContent}),
       Array.from(document.getElementsByClassName("css-1nfew2i eocu2m75")).map(function(i){ return i.textContent}),
-      document.getElementsByClassName("css-1o0mfs9 e1uquoo0").item(0).firstChild.alt,
+      document.getElementsByClassName("css-1o0mfs9 e1uquoo0").item(0) == null ? null : document.getElementsByClassName("css-1o0mfs9 e1uquoo0").item(0).firstChild.alt,
       document.getElementsByClassName("css-jtbu8n e1uquoo0").item(0) == null ? null : document.getElementsByClassName("css-jtbu8n e1uquoo0").item(0).firstChild.alt,
       document.getElementsByClassName("css-jtbu8n e1uquoo0").item(1) == null ? null : document.getElementsByClassName("css-jtbu8n e1uquoo0").item(1).firstChild.alt
     ]

@@ -80,10 +80,18 @@ OpGgService.prototype.getBan = async function(file, index){
   //   case "Bottom" : this.league.myTeam[index].assignedPosition = "bot"; break
   // }
   
-  this.league.myTeam[index].counters = []
-  this.league.myTeam[index].counters = cl[0]
+  // needs error catching
+  // if(cl[0].length == 0){
 
-  this.league.myTeam[index].lanes = cl[1]
+  // }
+
+  // if(cl[1].length = 0){
+
+  // }
+
+  this.league.myTeam[index].counters = cl[0]
+  this.league.myTeam[index].possiblePositions = cl[1]
+
   writeFile(path.resolve("cache", file), JSON.stringify(this.league.myTeam[index]))
   return this.league
 }
@@ -252,6 +260,93 @@ OpGgService.prototype.getPick = async function(file, index){
   let opggdao = new OpGgDao()
   await opggdao.readChampionId()
   const champion_json = opggdao.champion_json
+  let championName = champion_json[lci]
+
+  if(championName == undefined){
+    return
+  }  
+
+  championName = championName.toLowerCase()
+  // championName = championName.includes("'") ? championName.replace("'", "") : championName
+  // championName = championName.includes(". ") ? championName.replace(". ", "") : championName
+  // championName = championName.includes(" ") ? championName.replace(" ", "") : championName
+  // championName = championName == 'nunu& willump' ? 'nunu' : championName
+  // championName = championName == 'renata glasc' ? 'renata' : championName
+  // championName = championName == 'wukong' ? 'monkeyking' : championName
+
+  const opggPositions = JSON.parse(await readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8'))
+
+  let position = ''
+  for(let p in opggPositions){
+    for(let c of opggPositions[p]){
+      c = c.toLowerCase()
+      c = c.includes("'") ? c.replace("'", "") : c
+      c = c.includes(". ") ? c.replace(". ", "") : c
+      c = c.includes(" ") ? c.replace(" ", "") : c
+      c = c == 'nunu& willump' ? 'nunu' : c
+      c = c == 'renata glasc' ? 'renata' : c
+      c = c == 'wukong' ? 'monkeyking' : c
+      // console.log(`${championName} ${p} ${c}`)
+      if(championName == c){
+        console.log(`${championName} ${p}`)
+        position = p
+      }
+    }
+  }
+
+  const cl = await opggdao.requestCounters(championName, position)
+
+  console.log(cl)
+
+  this.league.theirTeam[index].counters = cl[0]
+  this.league.theirTeam[index].assignedPosition = cl[1][0]
+  this.league.theirTeam[index].possiblePositions = cl[1]
+
+  // if(cl[0].length == 0){
+
+  // }
+
+  // if(cl[1].length = 0){
+
+  // }
+
+  console.log(this.league.theirTeam[index])
+
+  writeFile(path.resolve("cache", file), JSON.stringify(this.league.theirTeam[index]))
+  return this.league
+}
+
+OpGgService.prototype.getPickk = async function(file, index){
+  try{
+    const p = this.league.theirTeam[index].championId
+  }catch(e){
+    return
+  }
+
+  let ot0 = await readFile(path.resolve("cache", file), "utf-8")
+  ot0 = JSON.parse(ot0)
+
+  //console.log(ot0)
+  //console.log(this.league.theirTeam[index])
+
+  const tb1 = ot0.counters
+  const tci = ot0.championId
+  const lci = this.league.theirTeam[index].championId               //0, 1-500
+  
+  // console.log(`${tci} ${lci}`)
+  // console.log(`${tb1}`)
+
+  const eci = tci == lci
+  const eb1 = tb1 != undefined
+
+  if(eci && eb1){
+    this.league.theirTeam[index] = ot0
+    return
+  }
+
+  let opggdao = new OpGgDao()
+  await opggdao.readChampionId()
+  const champion_json = opggdao.champion_json
   const championName = champion_json[lci]
 
   if(championName == undefined){
@@ -348,6 +443,7 @@ OpGgService.prototype.getPick = async function(file, index){
   })
   return await p
 }
+
 
 OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamOpen){
   try{
