@@ -1,9 +1,6 @@
 const fs = require('fs')
-const os = require('os')
 const util = require('util')
 const path = require('path')
-const https = require('https')
-const cheerio = require('cheerio')
 const puppeteer = require('puppeteer')
 
 const readFile = util.promisify(fs.readFile)
@@ -32,123 +29,6 @@ OpGgDao.prototype.writeChampionId = async function(){
   console.log(this.champion_json)
 }
 
-OpGgDao.prototype.createPositions = async function(){
-  await fs.readFile(path.resolve('cache', 'OpGgChampions.html'), 'utf8', function(error, data){
-    if(error) {
-      console.error(error)
-      return
-    }
-
-    let positions = {
-      "top" : [],
-      "mid" : [],
-      "adc" : [],
-      "jungle" : [],
-      "support" : []
-    }
-
-    const $ = cheerio.load(data)
-
-    for(let i = 2; i < 316; i += 2){
-      // console.log($(`body > a:nth-child(${i}) > span > strong`).text())
-      // console.log($(`body > a:nth-child(${i}) > span > small`).text())
-      
-      const name = $(`body > a:nth-child(${i}) > span > strong`).text()
-      let roles = $(`body > a:nth-child(${i}) > span > small`).text()
-      roles = roles.split(',')
-      for(let role of roles){
-        // console.log(`${role} ${name}`)
-        switch(role){
-          case 'Top': positions.top.push(name); break
-          case 'Middle': positions.mid.push(name); break
-          case 'Bottom': positions.adc.push(name); break
-          case 'Jungle': positions.jungle.push(name); break
-          case 'Support': positions.support.push(name); break
-        }
-      }
-
-      fs.writeFile(path.resolve('cache', 'OpGgPositions.json'), JSON.stringify(positions), function(error){
-        if(error){
-          console.error(error)
-          return
-        }
-      })
-    }
-    this.positions = positions
-    console.log(positions)
-  })
-}
-
-OpGgDao.prototype.writeCounter = async function(name, role){
-  let url = `https://na.op.gg/champions/${name}/${role}/counters`
-  // url += '?tier=all'
-  console.log(`${url} request sent x)`)
-  const p = new Promise((resolve, reject)=>{
-    https.get(url, (response)=>{
-      response.setEncoding('utf8')
-      if(response.statusCode != 200)
-        reject(response.statusCode)
-      else if(response.statusCode == 200){
-        let data = ''
-        response.on('data', (chunk)=> data += chunk)
-        response.on('error', (error)=> console.log(error))
-        response.on('end', ()=>{
-          const $ = cheerio.load(data)
-          let counters = []
-          let wins = []
-          let playeds = []
-          $('tbody > tr > td:nth-child(2) > div > div').each(function(i, el){
-            counters.push($(this).text())
-          })
-          $('tbody > tr > td:nth-child(3) > span').each(function(i, el){
-            wins.push($(this).text())
-          })
-          $('tbody > tr > td:nth-child(4) > span').each(function(i, el){
-            playeds.push($(this).text())
-          })
-
-          console.log($('tbody > tr:nth-child(1) > td:nth-child(2) > div > div'))
-
-          // counters[0] = $('span.name').text()
-          // wins.unshift($('span.percent').text())
-          // playeds.unshift('42069')
-
-          console.log(`${counters.length} ${wins.length} ${playeds.length}`)
-          console.log(counters)
-          console.log(wins)
-          console.log(playeds)
-
-          let arr = []
-          for(let i = 0; i < counters.length; i ++){
-            arr.push(
-              {
-                'counter': counters[i],
-                'win': wins[i],
-                'played': playeds[i]
-              }
-            )
-          }
-
-          arr.sort((a, b) => {
-            let winA = a.win.replace('%', '')
-            let winB = b.win.replace('%', '')
-
-            winA = parseFloat(winA)
-            winB = parseFloat(winB)
-            
-            return winB - winA
-          })
-
-          console.log(`request complete xD\n${JSON.stringify(arr)}`)
-          fs.writeFile(path.resolve('cache', 'counters', `${name}-${role}.json`), JSON.stringify(arr), () => resolve(counters))
-        })
-        
-      }
-    })
-  })
-  return await p
-}
-
 OpGgDao.prototype.requestCounters = async function(name, role){
   let url = `https://na.op.gg/champions/${name}/${role}/counters`
   // url += '?tier=all'
@@ -170,7 +50,7 @@ OpGgDao.prototype.requestCounters = async function(name, role){
 
   await browser.close()
 
-  console.log(scraped)
+  // console.log(scraped)
 
   const counters = []
   for(let i = 0; i < scraped[0].length; i++){
@@ -201,10 +81,35 @@ OpGgDao.prototype.requestCounters = async function(name, role){
     }
   }
 
-  console.log(lanes)
+  // console.log(lanes)
+  // console.log(JSON.stringify([counters, lanes]))
 
-  console.log(`request complete xD\n${JSON.stringify([counters, lanes])}`)
+  console.log(`request complete xD`)
   return [ counters, lanes]
+}
+
+OpGgDao.prototype.requestTiers = async function(role){
+  let url = `https://na.op.gg/champions?region=na&tier=platinum_plus&position=${role}`
+  console.log(`${url} request sent 😆`)
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  await page.goto(url)
+
+  const scraped = await page.evaluate(()=>{
+    let scrapelength = document.getElementsByTagName('tbody').item(0).children.length
+    let scraped = []
+    for (let i = 0; i < scrapelength; i++){
+      scraped.push([document.getElementsByTagName('tbody').item(0).children.item(i).children.item(1).textContent, 
+      document.getElementsByTagName('tbody').item(0).children.item(i).children.item(2).textContent
+      ])
+    }
+    return scraped
+  })
+
+  await browser.close()
+
+  console.log(`request complete 😊`)
+  return scraped
 }
 
 module.exports = OpGgDao

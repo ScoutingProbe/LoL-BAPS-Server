@@ -22,89 +22,6 @@ OpGgService.prototype.getBan = async function(file, index){
 
   let om0 = await readFile(path.resolve("cache", file), "utf-8")
   om0 = JSON.parse(om0)
-  console.log(om0)
-
-  const ob1 = om0.counters                           //undefined, defined
-  const oci = om0.championId                          //0, 1-500
-  const opi = om0.championPickIntent                  //0, 1-500
-  
-  // if(this.league.myTeam[index].summonerId != om0.summonerId){
-  //   // await writeFile(path.resolve("cache", file), JSON.stringify(this.league.myTeam[index]))
-  //   return
-  // }
-
-  const lci = this.league.myTeam[index].championId          //0, 1-500
-  const lpi = this.league.myTeam[index].championPickIntent  //0, 1-500
-
-  // console.log(`${oci} ${lci}`)
-  // console.log(`${opi} ${lpi}`)
-  // console.log(`${ob1}`)
-
-  const eci = oci == lci
-  const epi = opi == lpi
-  const eb1 = ob1 != undefined
-
-  if(eci && epi && ob1){
-    this.league.myTeam[index] = om0
-    return
-  }
-
-  let opggdao = new OpGgDao()
-  await opggdao.readChampionId()
-  const champion_json = opggdao.champion_json
-  const championId = lci == "0" ? lpi : lci
-  const championName = champion_json[championId]
-
-  if(championName == undefined){
-    return
-  }
-
-  switch(this.league.myTeam[index].assignedPosition){
-    case "bottom" : this.league.myTeam[index].assignedPosition = "adc"; break
-    case "utility": this.league.myTeam[index].assignedPosition = "support"; break
-    case "middle" : this.league.myTeam[index].assignedPosition = "mid"; break
-    // default    : this.league.myTeam[i].assignedPosition = "mid"
-  }
-
-  console.log(`${championId} ${championName} ${this.league.myTeam[index].assignedPosition}`)
-
-  const cl = await opggdao.requestCounters(championName, this.league.myTeam[index].assignedPosition)
-
-  console.log(cl)
-
-  // switch(roles[0]){
-  //   case "Top"    : this.league.myTeam[index].assignedPosition = "top"; break
-  //   case "Middle" : this.league.myTeam[index].assignedPosition = "middle"; break
-  //   case "Jungle" : this.league.myTeam[index].assignedPosition = "jungle"; break
-  //   case "Support": this.league.myTeam[index].assignedPosition = "support"; break
-  //   case "Bottom" : this.league.myTeam[index].assignedPosition = "bot"; break
-  // }
-  
-  // needs error catching
-  // if(cl[0].length == 0){
-
-  // }
-
-  // if(cl[1].length = 0){
-
-  // }
-
-  this.league.myTeam[index].counters = cl[0]
-  this.league.myTeam[index].possiblePositions = cl[1]
-
-  writeFile(path.resolve("cache", file), JSON.stringify(this.league.myTeam[index]))
-  return this.league
-}
-
-OpGgService.prototype.getBann = async function(file, index){
-  try{
-    const p = this.league.myTeam[index].championId
-  }catch(e) {
-    return
-  }
-
-  let om0 = await readFile(path.resolve("cache", file), "utf-8")
-  om0 = JSON.parse(om0)
   // console.log(om0)
 
   const ob1 = om0.counters                           //undefined, defined
@@ -139,7 +56,6 @@ OpGgService.prototype.getBann = async function(file, index){
   const championName = champion_json[championId]
 
   if(championName == undefined){
-
     return
   }
 
@@ -150,83 +66,34 @@ OpGgService.prototype.getBann = async function(file, index){
     // default    : this.league.myTeam[i].assignedPosition = "mid"
   }
 
-  console.log(`${championId} ${championName} ${this.league.myTeam[index].assignedPosition}`)
+  // console.log(`${championId} ${championName} ${this.league.myTeam[index].assignedPosition}`)
 
-  const url = 'https://na.op.gg/champion/!/statistics/@/build'
-  const irl = url.replace("!", championName).replace("@", this.league.myTeam[index].assignedPosition)
+  const cl = await opggdao.requestCounters(championName, this.league.myTeam[index].assignedPosition)
+
+  // console.log(cl)
+
+  // switch(roles[0]){
+  //   case "Top"    : this.league.myTeam[index].assignedPosition = "top"; break
+  //   case "Middle" : this.league.myTeam[index].assignedPosition = "middle"; break
+  //   case "Jungle" : this.league.myTeam[index].assignedPosition = "jungle"; break
+  //   case "Support": this.league.myTeam[index].assignedPosition = "support"; break
+  //   case "Bottom" : this.league.myTeam[index].assignedPosition = "bot"; break
+  // }
   
-  console.log(irl)
+  // needs error catching
+  // if(cl[0].length == 0){
 
-  let p = new Promise((resolve, reject) => {
-    https.get(irl, (res) =>{
-      const {statusCode} = res
-      // const contentType = res.headers['content-type']
-      res.setEncoding('utf-8')
-      let error
+  // }
 
-      if(statusCode !== 200){
-        error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
-        console.error(res.headers.location)
-      }
+  // if(cl[1].length = 0){
 
-      if(error){
-        console.error(error.message)
-        res.resume()
-        resolve(this.league)
-      }
+  // }
 
-      let raw = ''
-      res.on('data', (chunk) =>{raw += chunk})
-      res.on('end', () => {
-        // console.log(raw)
+  this.league.myTeam[index].counters = cl[0]
+  this.league.myTeam[index].possiblePositions = cl[1]
 
-        const $ = cheerio.load(raw)
-
-        let counters = $("tr[data-champion-id] > td.champion-stats-header-matchup__table__champion:nth-child(1)").text().replace(/\t/g, '').split('\n\n')
-        for(let i = 0; i < counters.length; i++){
-          counters[i] = counters[i].replace(/\n/g, '')
-        }
-        if(counters.length == 1){
-          this.league.myTeam[index].counters = []
-        } else {
-          this.league.myTeam[index].counters = counters
-        }
-
-        let roles = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
-        for(let i = 0; i < roles.length; i++){
-          switch(roles[i]){
-            case "Top"    : roles[i] = "top"; break
-            case "Middle" : roles[i] = "mid"; break
-            case "Jungle" : roles[i] = "jungle"; break
-            case "Support": roles[i] = "support"; break
-            case "Bottom" : roles[i] = "bot"; break
-          }
-        }
-
-        switch(roles[0]){
-          case "Top"    : this.league.myTeam[index].assignedPosition = "top"; break
-          case "Middle" : this.league.myTeam[index].assignedPosition = "middle"; break
-          case "Jungle" : this.league.myTeam[index].assignedPosition = "jungle"; break
-          case "Support": this.league.myTeam[index].assignedPosition = "support"; break
-          case "Bottom" : this.league.myTeam[index].assignedPosition = "bot"; break
-        }
-
-        this.league.myTeam[index].possiblePositions = roles
-
-        console.log(`${counters}`)
-        console.log(`${roles}`)
-        console.log("---------------------------------")
-
-        writeFile(path.resolve("cache", file), JSON.stringify(this.league.myTeam[index]))
-        resolve(this.league)
-
-      }).on('error', (e) => {
-        console.error(`OpGgService#getBan HTTP error ${e.message}`)
-        resolve(this.league)
-      })
-    })
-  })
-  return await p
+  writeFile(path.resolve("cache", file), JSON.stringify(this.league.myTeam[index]))
+  return this.league
 }
 
 OpGgService.prototype.getPick = async function(file, index){
@@ -296,7 +163,7 @@ OpGgService.prototype.getPick = async function(file, index){
 
   const cl = await opggdao.requestCounters(championName, position)
 
-  console.log(cl)
+  // console.log(cl)
 
   this.league.theirTeam[index].counters = cl[0]
   this.league.theirTeam[index].assignedPosition = cl[1][0]
@@ -310,140 +177,11 @@ OpGgService.prototype.getPick = async function(file, index){
 
   // }
 
-  console.log(this.league.theirTeam[index])
+  // console.log(this.league.theirTeam[index])
 
   writeFile(path.resolve("cache", file), JSON.stringify(this.league.theirTeam[index]))
   return this.league
 }
-
-OpGgService.prototype.getPickk = async function(file, index){
-  try{
-    const p = this.league.theirTeam[index].championId
-  }catch(e){
-    return
-  }
-
-  let ot0 = await readFile(path.resolve("cache", file), "utf-8")
-  ot0 = JSON.parse(ot0)
-
-  //console.log(ot0)
-  //console.log(this.league.theirTeam[index])
-
-  const tb1 = ot0.counters
-  const tci = ot0.championId
-  const lci = this.league.theirTeam[index].championId               //0, 1-500
-  
-  // console.log(`${tci} ${lci}`)
-  // console.log(`${tb1}`)
-
-  const eci = tci == lci
-  const eb1 = tb1 != undefined
-
-  if(eci && eb1){
-    this.league.theirTeam[index] = ot0
-    return
-  }
-
-  let opggdao = new OpGgDao()
-  await opggdao.readChampionId()
-  const champion_json = opggdao.champion_json
-  const championName = champion_json[lci]
-
-  if(championName == undefined){
-    return
-  }  
-
-  const url = 'https://na.op.gg/champion/!/statistics'
-  let irl = url.replace("!", championName)
-  console.log(irl)
-
-  let p = new Promise((resolve,reject) =>{
-    https.get(irl, (res) =>{
-      const { statusCode } = res
-      const contentType = res.headers['content-type']
-      res.setEncoding('utf8')
-
-      let error
-      if (statusCode !== 301 && statusCode !== 200){
-        error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
-      }
-      if(error){
-        console.error(error.message)
-        res.resume()
-        reject(this.league)
-      }
-      if (statusCode == 301){
-        irl = `https://na.op.gg${res.headers.location}`
-
-        https.get(irl, (res) =>{
-          const {statusCode } = res
-          const contentType = res.headers['content-type']
-          res.setEncoding('utf8')
-          
-          let error
-          if(statusCode !== 200){
-            error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
-          }
-
-          if(error){
-            console.error(error.message)
-            res.resume()
-            reject(this.league)
-          }
-
-          let rawData = ''
-          res.on('data', (chunk) => {rawData += chunk})
-          res.on('end', () => {
-            const $ = cheerio.load(rawData)
-            let counters = $("tr[data-champion-id] > td.champion-stats-header-matchup__table__champion:nth-child(1)").text().replace(/\t/g, '').split('\n\n')
-            for(let j = 0; j < counters.length; j++)
-              counters[j] = counters[j].replace(/\n/g, '')
-            
-            counters[0] = counters[0].replace(/\n/g, '')
-            counters[counters.length - 1] = counters[counters.length-1].replace(/\n/g, '')
-
-            let roles = $(".champion-stats-header__position__role").text().split(/(?=[A-Z])/)
-            for(let j = 0; j < roles.length; j++){
-              switch(roles[j]){
-                case "Top": roles[j] = "top"; break
-                case "Middle": roles[j] = "mid"; break
-                case "Jungle": roles[j] = "jungle"; break
-                case "Support": roles[j] = "support"; break
-                case "Bottom": roles[j] = "bot"; break
-              }
-            }
-            this.league.theirTeam[index].possiblePositions = roles
-            this.league.theirTeam[index].assignedPosition = roles[0]
-
-            console.log(`${counters}`)
-            console.log(`${roles}`)
-            console.log("-------------------------------------------------------")
-
-            if(counters.length == 1){
-              console.log(irl)
-              console.log(`End of OpGgService#getPick(${file} ${index})`)
-              this.league.theirTeam[index].counters = []
-            } else {
-              this.league.theirTeam[index].counters = counters
-            }
-            writeFile(path.resolve("cache", file), JSON.stringify(this.league.theirTeam[index]))
-            resolve(this.league)
-          }) // end response
-        }) // end https
-      } // end if (statusCode == 301){
-      else if(statusCode == 200){
-        console.log(irl)
-        console.log(`End of OpGgService#getPick(${file} ${index})`)
-        this.league.theirTeam[index].counters = []
-        // this.league.theirTeam[index].assignedPosition = ''
-        writeFile(path.resolve("cache", file), JSON.stringify(this.league.theirTeam[index]))
-        resolve(this.league)
-      }
-    })
-  })
-  return await p
-}
-
 
 OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamOpen){
   try{
@@ -513,7 +251,7 @@ OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamO
               .replace('#', sus)
   }
 
-  console.log(theirTeamOpen)
+  // console.log(theirTeamOpen)
   console.log(url)
   const p = new Promise((resolve, reject)=>{
     https.get(url, (res)=>{

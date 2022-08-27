@@ -34,10 +34,18 @@ describe("OpGgDaoSpec", function(){
   // })
 
   describe('Write championName-role.json files inside /cache', function(){
-    it('single test', async function(){
-      console.log(await opggdao.requestCounters('monkeyking', 'top'))
-      // console.log(await opggdao.requestCounters('sona', 'support'))
+    it('champion tiers from /champions?region=na&tier=platinum_plus&position=#', async function(){
+      console.log(await opggdao.requestTiers('top'))
+      console.log(await opggdao.requestTiers('jungle'))
+      console.log(await opggdao.requestTiers('mid'))
+      console.log(await opggdao.requestTiers('adc'))
+      console.log(await opggdao.requestTiers('support'))
     })
+
+    // it('single test', async function(){
+    //   console.log(await opggdao.requestCounters('monkeyking', 'top'))
+    //   console.log(await opggdao.requestCounters('sona', 'support'))
+    // })
     
     // it('loop test for cheerio', function(){
     //   fs.readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8', function(error, OpGgPositions){

@@ -10,6 +10,7 @@ Ashe 22
 AurelionSol 136
 Azir 268
 Bard 432
+Belveth 200
 Blitzcrank 53
 Brand 63
 Braum 201
