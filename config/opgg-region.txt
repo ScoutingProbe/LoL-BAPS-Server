@@ -1,0 +1,15 @@
+global
+na
+euw
+eune
+oce
+kr
+jp
+br
+las
+lan
+ru
+tr
+
+What's your region?
+na

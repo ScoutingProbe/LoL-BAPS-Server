@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
+    "test-opggtierservice": "jasmine spec/service/OpGgTierServiceSpec.js",
     "test-opggservice": "jasmine spec/service/OpGgServiceSpec.js",
     "test-opggdao": "jasmine spec/dao/OpGgDaoSpec.js",
     "test-league": "jasmine spec/dao/RiotLeagueLogDaoSpec.js",

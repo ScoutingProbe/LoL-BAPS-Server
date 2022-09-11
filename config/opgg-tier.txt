@@ -1,0 +1,17 @@
+all
+challenger
+grandmaster
+master_plus
+master
+diamond_plus
+diamond
+platinum_plus
+platinum
+gold_plus
+gold
+silver
+gronze
+iron
+
+What's your tier?
+platinum_plus

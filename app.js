@@ -8,6 +8,7 @@ app.use(cors())
 var RiotLeagueLogDao = require('./dao/RiotLeagueLogDao')
 var OpGgService = require('./service/OpGgService')
 var OpGgPositionService = require('./service/OpGgPositionService')
+var OpGgTierService = require('./service/OpGgTierService')
 
 // app.get('/', (req, res) => res.send('Hello World!'))
 
@@ -32,13 +33,18 @@ app.get('/league-client-reader-bans', async function(req, res){
     res.send(op_gg.league)
 })
 
-app.post('/league-client-reader-picks/:position-:file', async function(req, res){
+app.post('/opgg-position/:position-:file', async function(req, res){
     var op_gg_position = new OpGgPositionService(req.params.position, req.params.file)
     await op_gg_position.main()
     res.send()
 })
 
+app.get('/opgg-tiers', async function(req, res){
+    var op_gg_tiers = new OpGgTierService()
+    const tierUpdateTimestamp = await op_gg_tiers.main()
+    res.send(tierUpdateTimestamp)
+})
+
 app.listen(port, () => {
-    console.log(`http://localhost:3000/league-client-reader-bans`)
-    console.log(`http://localhost:3000/league-client-reader-picks`)
+    console.log(`listening on http://localhost:3000/`)
 })
