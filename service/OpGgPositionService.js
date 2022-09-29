@@ -143,11 +143,65 @@ OpGgPositionService.prototype.main = async function(){
   console.log(`${this.position} ${this.file} ${championName}`)
 
   const cl = await opggdao.requestCounters(championName, this.position)
+  let counters = cl[0]
+  let possible_positions = cl[1]
 
-  console.log(cl)
+  const tiers_support = JSON.parse(await readFile(path.resolve('cache', 'tiers-support.json')))
+  const tiers_adc = JSON.parse(await readFile(path.resolve('cache', 'tiers-adc.json')))
+  const tiers_mid = JSON.parse(await readFile(path.resolve('cache', 'tiers-mid.json')))
+  const tiers_jungle = JSON.parse(await readFile(path.resolve('cache', 'tiers-jungle.json')))
+  const tiers_top = JSON.parse(await readFile(path.resolve('cache', 'tiers-top.json')))
 
-  league.counters = []
+  // console.log(cl)
+
+  for(let counter of counters){
+    switch(this.position){
+      case "adc":
+        for(let tier of tiers_adc){
+          if(counter.counter == tier[0]){
+            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} adc`)
+            counter.tiers = [{'tier': tier[1], 'role': 'Bottom'}]
+          }
+        }
+        break
+      case "support":
+        for(let tier of tiers_support){
+          if(counter.counter == tier[0]){
+            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} support`)
+            counter.tiers = [{'tier': tier[1], 'role': 'Support'}]
+          }
+        }
+        break
+      case "mid":
+        for(let tier of tiers_mid){
+          if(counter.counter == tier[0]){
+            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} mid`)
+            counter.tiers = [{'tier': tier[1], 'role': 'Middle'}]
+          }
+        }
+        break
+      case "jungle":
+        for(let tier of tiers_jungle){
+          if(counter.counter == tier[0]){
+            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} jungle`)
+            counter.tiers = [{'tier': tier[1], 'role': 'Jungle'}]
+          }
+        }
+        break
+      case "top":
+        for(let tier of tiers_top){
+          if(counter.counter == tier[0]){
+            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} top`)
+            counter.tiers = [{'tier': tier[1], 'role': 'Top'}]
+          }
+        }
+        break
+      // default
+    }
+  }
+
   league.counters = counters
+  league.possiblePositions = possible_positions
   await writeFile(path.resolve("cache", `${this.file}.json`), JSON.stringify(league))
 }
 
