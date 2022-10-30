@@ -1,7 +1,13 @@
 const express = require('express')
 const cors = require('cors')
+const fs = require('fs')
+const util = require('util')
+const path = require('path')
+
 const app = express()
 const port = 3000
+
+const writeFile = util.promisify(fs.writeFile)
 
 app.use(cors())
 
@@ -30,6 +36,7 @@ app.get('/league-client-reader-bans', async function(req, res){
     await op_gg.getPick("theirTeam3.json", 3)
     await op_gg.getPick("theirTeam4.json", 4) 
     
+    await writeFile(path.resolve("cache", "opgg.json"), JSON.stringify(op_gg.league))
     res.send(op_gg.league)
 })
 
