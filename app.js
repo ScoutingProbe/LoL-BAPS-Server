@@ -15,6 +15,7 @@ var RiotLeagueLogDao = require('./dao/RiotLeagueLogDao')
 var OpGgService = require('./service/OpGgService')
 var OpGgPositionService = require('./service/OpGgPositionService')
 var OpGgTierService = require('./service/OpGgTierService')
+var BapsCounterService = require('./service/BapsCounterService')
 
 // app.get('/', (req, res) => res.send('Hello World!'))
 
@@ -40,7 +41,7 @@ app.get('/league-client-reader-bans', async function(req, res){
     res.send(op_gg.league)
 })
 
-app.post('/opgg-position/:position-:file', async function(req, res){
+app.post('/opgg-positions/:position-:file', async function(req, res){
     var op_gg_position = new OpGgPositionService(req.params.position, req.params.file)
     await op_gg_position.main()
     res.send()
@@ -52,6 +53,12 @@ app.get('/opgg-tiers', async function(req, res){
     res.send(tierUpdateTimestamp)
 })
 
+app.post('/baps-counters/:file-:key', async function(req, res){
+    var baps_counters = new BapsCounterService(req.params.file, req.params.key)
+    await baps_counters.main()
+    res.send()
+})
+
 app.listen(port, () => {
-    console.log(`listening on http://localhost:3000/`)
+    console.log(`😤 Listening on http://localhost:3000/`)
 })

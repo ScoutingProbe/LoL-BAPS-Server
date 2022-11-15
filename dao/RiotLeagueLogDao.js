@@ -21,7 +21,7 @@ RiotLeagueLogDao.prototype.setSession = async function(){
         let stringLine = fileArray[i]
         // console.log(stringLine)
         if(stringLine.includes(stringIncludesSession)){
-            console.log("Session Information Found! ^^")
+            console.log("😎 Session information found!")
             stringSession = stringLine
             break
         }
@@ -42,7 +42,7 @@ RiotLeagueLogDao.prototype.setSession = async function(){
             await writeFile(path.resolve("cache", "mid.json"), "{}")
             await writeFile(path.resolve("cache", "top.json"), "{}")
 
-            console.log("Previous Game Information Clean -_-")
+            console.log("😅 Previous session information cleaned.")
             break
         }
         
@@ -52,15 +52,15 @@ RiotLeagueLogDao.prototype.setSession = async function(){
     stringSession = stringSession == null ? "{}" : stringSession.substring(intStart, stringSession.length).replace(/\\/g, '')
     // console.log(stringSession)
     try{
-        this.jsonSession = stringSession == null ? {"Ready": "Hover a Champion! :D"} : JSON.parse(stringSession)
+        this.jsonSession = stringSession == null ? {"Ready": "😀 Hover a Champion!"} : JSON.parse(stringSession)
         this.doubleGameID = this.jsonSession.gameId == undefined ? "0" : "" + this.jsonSession.gameId
         // console.log(this.jsonSession)
 
         await writeFile(path.resolve("cache", "gameID.txt"), "" + this.doubleGameID)
-        console.log(`Session GameID ${this.doubleGameID} found! ^^ `)
+        console.log(`😁 Session ${this.doubleGameID} found!`)
     } catch(error) {
         console.error(error)
-        this.jsonSession = {"Error Message T-T": error.toString()}
+        this.jsonSession = {"Error message 😥": error.toString()}
         this.doubleGameID = "1"
     }
 }

@@ -32,7 +32,7 @@ OpGgDao.prototype.writeChampionId = async function(){
 OpGgDao.prototype.requestCounters = async function(name, role){
   let url = `https://na.op.gg/champions/${name}/${role}/counters`
   // url += '?tier=all'
-  console.log(`${url} request sent x)`)
+  console.log(`😫 ${url} request sent`)
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.goto(url)
@@ -84,13 +84,13 @@ OpGgDao.prototype.requestCounters = async function(name, role){
   // console.log(lanes)
   // console.log(JSON.stringify([counters, lanes]))
 
-  console.log(`request complete xD`)
+  console.log(`😎 ${url} request complete`)
   return [ counters, lanes]
 }
 
 OpGgDao.prototype.requestTiers = async function(region, tier, position){
   let url = `https://na.op.gg/champions?region=${region}&tier=${tier}&position=${position}`
-  console.log(`${url} request sent 😆`)
+  console.log(`😫 ${url} request sent`)
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.goto(url)
@@ -108,7 +108,7 @@ OpGgDao.prototype.requestTiers = async function(region, tier, position){
 
   await browser.close()
 
-  console.log(`request complete 😊`)
+  console.log(`😎 ${url} request complete`)
   return scraped
 }
 

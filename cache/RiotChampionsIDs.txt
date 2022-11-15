@@ -60,6 +60,7 @@ Khazix 121
 Kindred 203
 Kled 240
 KogMaw 96
+KSante 897
 LeBlanc 7
 LeeSin 64
 Leona 89
