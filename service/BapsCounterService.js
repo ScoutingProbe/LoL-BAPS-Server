@@ -12,57 +12,62 @@ function BapsCounterService(file, key){
 }
 
 BapsCounterService.prototype.main = async function(){
-    let summoner = await readFile(path.resolve('cache', `${this.file}.json`), 'utf-8')
+    let summoner = await readFile(path.resolve('cache', `summoner-${this.file}.json`), 'utf-8')
     summoner = JSON.parse(summoner)
     
-    let tiers
-    let tier = summoner.counters.tiers
-    
     let counters = summoner.counters
-    console.log(JSON.stringify(counters))
+    // console.log(util.inspect(counters, false, null, true))
 
 
 
-    // counters = counters.sort((a, b)=>{
-    //     if(a.played > b.played) 
-    //         return 1
-    //     else if (a.played < b.played) 
-    //         return -1
-    //     else if(a.played == b.played){
-    //         if(a.tiers){
-    //             let win_a = a.win
-    //             win_a = win_a.substring(0, 5)
-    //             win_a = parseFloat(win_a)
+    switch(this.key){
+        case 'winratios':
+            counters = counters.sort((a, b)=>{
+                // console.log(`${parseFloat(a.win.replace('%', ''))} ${a.win}`)
+                // console.log(`${parseFloat(b.win.replace('%', ''))} ${b.win}`)
+                if(parseFloat(a.win.replace('%', '')) > parseFloat(b.win.replace('%', ''))) 
+                    return -1
+                else if (parseFloat(a.win.replace('%', '')) < parseFloat(b.win.replace('%', ''))) 
+                    return 1
+                else
+                    return 0
+            })
+            break
+        case 'samplesizes':
+            counters = counters.sort((a, b)=>{
+                // console.log(`${parseInt(a.played.replace(',', ''))} ${a.played}`)
+                // console.log(`${parseInt(b.played.replace(',', ''))} ${b.played}`)
+                if(parseInt(a.played.replace(',', '')) > parseInt(b.played.replace(',', ''))) 
+                    return -1
+                else if (parseInt(a.played.replace(',', '')) < parseInt(b.played.replace(',', ''))) 
+                    return 1
+                else
+                    return 0
+            })
+            break
+        case 'tiers':
+            counters = counters.sort((a, b)=>{
+                // console.log(`${a.tiers[0].tier}`)
+                // console.log(`${b.tiers[0].tier}`)
+                if(a.tiers == undefined || b.tiers == undefined)
+                    return 1
+                else if(a.tiers[0].tier > b.tiers[0].tier) 
+                    return 1
+                else if (a.tiers[0].tier < b.tiers[0].tier) 
+                    return -1
+                else
+                    return 0
+            })
+            break
+    }
 
-    //             let win_b = b.win
-    //             win_b = win_b.substring(0, 5)
-    //             win_b = parseFloat(win_b)
-    //         }
-    //         if(win_a > win_b)
-    //             return 1
-    //         else if(win_a < win_b)
-    //             return -1
-    //         else 
-    //             return 0
-            
+    // console.log(util.inspect(counters, false, null, true))
 
-    //     }
-    // })
-
-    // switch(this.key){
-    //     case 'Win Rates':
-    //         break
-    //     case 'Sample Sizes':
-    //         break
-    //     case 'Tiers':
-    //         break
-
-    // }
-
+    summoner.counterSortKey = this.key
     summoner.counters = counters
     summoner = JSON.stringify(summoner)
     
-    // await writeFile(path.resolve('cache', `${this.file}.json`), 'utf-8')
+    await writeFile(path.resolve('cache', `summoner-${this.file}.json`), summoner)
 }
 
 module.exports = BapsCounterService

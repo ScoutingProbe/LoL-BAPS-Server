@@ -15,7 +15,7 @@ function OpGgPositionService(position, file){
 }
 
 OpGgPositionService.prototype.main = async function(){
-	let league = await readFile(path.resolve("cache", `${this.file}.json`), "utf-8")
+	let league = await readFile(path.resolve("cache", `summoner-${this.file}.json`), "utf-8")
   league = JSON.parse(league)
  
   console.log(league)
@@ -115,7 +115,7 @@ OpGgPositionService.prototype.main = async function(){
 
   league.counters = counters
   league.possiblePositions = possible_positions
-  await writeFile(path.resolve("cache", `${this.file}.json`), JSON.stringify(league))
+  await writeFile(path.resolve("cache", `summoner-${this.file}.json`), JSON.stringify(league))
 }
 
 module.exports = OpGgPositionService

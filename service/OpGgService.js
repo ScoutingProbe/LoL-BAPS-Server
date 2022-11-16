@@ -80,6 +80,7 @@ OpGgService.prototype.getBan = async function(file, index){
 
   // console.log(cl)
 
+  this.league.myTeam[index].counterSortKey = 'winratio'
   for(let counter of counters){
     switch(this.league.myTeam[index].assignedPosition){
       case "adc":
@@ -220,6 +221,7 @@ OpGgService.prototype.getPick = async function(file, index){
 
   // console.log(cl)
 
+  this.league.theirTeam[index].counterSortKey = 'winratio'
   this.league.theirTeam[index].counters = cl[0]
   this.league.theirTeam[index].assignedPosition = cl[1][0]
   this.league.theirTeam[index].possiblePositions = cl[1]
