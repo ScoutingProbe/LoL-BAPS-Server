@@ -222,9 +222,62 @@ OpGgService.prototype.getPick = async function(file, index){
   // console.log(cl)
 
   this.league.theirTeam[index].counterSortKey = 'winratio'
-  this.league.theirTeam[index].counters = cl[0]
   this.league.theirTeam[index].assignedPosition = cl[1][0]
   this.league.theirTeam[index].possiblePositions = cl[1]
+  let counters = cl[0]
+  
+  const tiers_support = JSON.parse(await readFile(path.resolve('cache', 'tiers-support.json')))
+  const tiers_adc = JSON.parse(await readFile(path.resolve('cache', 'tiers-adc.json')))
+  const tiers_mid = JSON.parse(await readFile(path.resolve('cache', 'tiers-mid.json')))
+  const tiers_jungle = JSON.parse(await readFile(path.resolve('cache', 'tiers-jungle.json')))
+  const tiers_top = JSON.parse(await readFile(path.resolve('cache', 'tiers-top.json')))
+
+  for(let t of counters){
+    for(let p in opggPositions){
+      for(let c of opggPositions[p]){
+        if(t.counter == c){
+          // console.log(`${t.counter} ${p} ${c}`)
+          switch(p){
+            case "adc":
+              for(let r of tiers_adc){
+                if(r[0] == c)
+                  t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Bottom'}] : t.tiers.push({'tier': r[1], 'role': 'Bottom'})
+              }
+              break
+            case "support":
+              for(let r of tiers_support){
+                if(r[0] == c)
+                  t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Support'}] : t.tiers.push({'tier': r[1], 'role': 'Support'})
+              }
+              break
+            case "jungle":
+              for(let r of tiers_jungle){
+                if(r[0] == c)
+                  t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Jungle'}] : t.tiers.push({'tier': r[1], 'role': 'Jungle'})
+              }
+              break
+            case "mid":
+              for(let r of tiers_mid){
+                if(r[0] == c)
+                  t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Middle'}] : t.tiers.push({'tier': r[1], 'role': 'Middle'})
+              }
+              break
+            case "top":
+              for(let r of tiers_top){
+                if(r[0] == c)
+                  t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Top'}] : t.tiers.push({'tier': r[1], 'role': 'Top'})
+              }
+              break
+            //default
+          }
+        }
+      }
+    }
+  }
+
+
+  this.league.theirTeam[index].counters = counters
+
 
   // if(cl[0].length == 0){
 
