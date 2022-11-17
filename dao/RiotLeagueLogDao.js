@@ -32,15 +32,15 @@ RiotLeagueLogDao.prototype.setSession = async function(){
             await writeFile(path.resolve("cache", "gameID.txt"), "0")
 
             for(let i = 0; i < 5; i++){
-                await writeFile(path.resolve("cache", `myTeam${i}.json`), "{}")
-                await writeFile(path.resolve("cache", `theirTeam${i}.json`), "{}")
+                await writeFile(path.resolve("cache", `summoner-myTeam${i}.json`), "{}")
+                await writeFile(path.resolve("cache", `summoner-theirTeam${i}.json`), "{}")
             }
 
-            await writeFile(path.resolve("cache", "jungle.json"), "{}")
-            await writeFile(path.resolve("cache", "support.json"), "{}")
-            await writeFile(path.resolve("cache", "bot.json"), "{}")
-            await writeFile(path.resolve("cache", "mid.json"), "{}")
-            await writeFile(path.resolve("cache", "top.json"), "{}")
+            await writeFile(path.resolve("cache", "matchups-jungle.json"), "{}")
+            await writeFile(path.resolve("cache", "matchups-support.json"), "{}")
+            await writeFile(path.resolve("cache", "matchups-bot.json"), "{}")
+            await writeFile(path.resolve("cache", "matchups-mid.json"), "{}")
+            await writeFile(path.resolve("cache", "matchups-top.json"), "{}")
 
             console.log("😅 Previous session information cleaned.")
             break
