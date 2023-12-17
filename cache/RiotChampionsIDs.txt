@@ -14,6 +14,7 @@ Belveth 200
 Blitzcrank 53
 Brand 63
 Braum 201
+Briar 233
 Caitlyn 51
 Camille 164
 Cassiopeia 69
@@ -38,6 +39,7 @@ Gragas 79
 Graves 104
 Hecarim 120
 Heimerdinger 74
+Hwei 910
 Illaoi 420
 Irelia 39
 Ivern 427
