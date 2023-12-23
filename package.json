@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test-opggtierservice": "jasmine spec/service/OpGgTierServiceSpec.js",
     "test-opggpositionservice": "jasmine spec/service/OpGgPositionServiceSpec.js",
     "test-opggservice": "jasmine spec/service/OpGgServiceSpec.js",
     "test-opggdao": "jasmine spec/dao/OpGgDaoSpec.js",

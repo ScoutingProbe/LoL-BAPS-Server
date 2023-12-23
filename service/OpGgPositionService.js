@@ -13,20 +13,20 @@ function OpGgPositionService(position, file){
 }
 
 OpGgPositionService.prototype.main = async function(){
-	let league = await readFile(path.resolve("cache", `${this.file}`), "utf-8")
-  league = JSON.parse(league)
+	let summoner = await readFile(path.resolve("cache", `${this.file}`), "utf-8")
+  summoner = JSON.parse(summoner)
  
-  // console.log(league)
+  // console.log(summoner)
 
   let opggdao = new OpGgDao()
   await opggdao.readChampionId()
 
-  // if(league.championId == undefined && league.championPickIntent == undefined){
+  // if(summoner.championId == undefined && summoner.championPickIntent == undefined){
   //   return 
   // }
 
-  const lci = league.championId          //0, 1-500
-  const lpi = league.championPickIntent  //0, 1-500
+  const lci = summoner.championId          //0, 1-500
+  const lpi = summoner.championPickIntent  //0, 1-500
 
   const championId = lci == "0" ? lpi : lci
   let championName = opggdao.champion_json[championId].toLowerCase()
@@ -45,7 +45,7 @@ OpGgPositionService.prototype.main = async function(){
     case "Top": this.position = "top"; break
   }
 
-  league.assignedPosition = this.position
+  summoner.assignedPosition = this.position
 
   console.log(`${this.position} ${this.file} ${championName}`)
 
@@ -107,9 +107,10 @@ OpGgPositionService.prototype.main = async function(){
     }
   }
 
-  league.counters = counters
-  league.possiblePositions = possible_positions
-  await writeFile(path.resolve("cache", `summoner-${this.file}.json`), JSON.stringify(league))
+  summoner.counters = counters
+  summoner.possiblePositions = possible_positions
+  this.summoner = summoner
+  await writeFile(path.resolve("cache", `summoner-${this.file}.json`), JSON.stringify(summoner))
 }
 
 module.exports = OpGgPositionService

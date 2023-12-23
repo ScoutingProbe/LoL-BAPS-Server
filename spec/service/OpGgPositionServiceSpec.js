@@ -13,9 +13,13 @@ describe('OpGgPositionService', function(){
   it('main mid ourTeam3.json', async function(){
     const op_gg_position_service = new OpGgPositionService("Jungle", "summoner-myTeam3.json")
     await op_gg_position_service.main()
-    expect("").toEqual(op_gg_position_service.league.counters.myTeam[3].counters[0].counter)
-    expect("").toEqual(op_gg_position_service.league.counters.myTeam[3].counters[0].role)
-    expect("").toEqual(op_gg_position_service.league.counters.myTeam[3].counters[0].tier)
+    console.log(op_gg_position_service.summoner)
+
+    expect("Sylas").toEqual(op_gg_position_service.summoner.counters[0].counter)
+    expect("54.79%").toEqual(op_gg_position_service.summoner.counters[0].win)
+    console.log(op_gg_position_service.summoner.counters[1].tiers)
+    expect("3").toEqual(op_gg_position_service.summoner.counters[1].tiers[0].tier)
+    expect("Jungle").toEqual(op_gg_position_service.summoner.counters[1].tiers[0].role)
   });
 
 //   it('main Jungle theirTeam.json', async function(){

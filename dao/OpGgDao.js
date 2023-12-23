@@ -90,7 +90,7 @@ OpGgDao.prototype.requestCounters = async function(name, role){
 }
 
 OpGgDao.prototype.requestTiers = async function(region, tier, position){
-  let url = `https://na.op.gg/champions?region=${region}&tier=${tier}&position=${position}`
+  let url = `https://www.op.gg/champions?region=${region}&tier=${tier}&position=${position}`
   console.log(`😫 ${url} request sent`)
   const browser = await puppeteer.launch()
   const page = await browser.newPage()

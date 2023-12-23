@@ -1,9 +1,7 @@
 const OpGgDao = require('../dao/OpGgDao')
-const https = require('https')
 const path = require('path')
 const util = require('util')
 const fs = require('fs')
-const cheerio = require('cheerio')
 
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
