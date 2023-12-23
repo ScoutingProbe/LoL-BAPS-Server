@@ -1,9 +1,7 @@
 const OpGgDao = require('../dao/OpGgDao')
-const https = require('https')
 const path = require('path')
 const util = require('util')
 const fs = require('fs')
-const cheerio = require('cheerio')
 
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
@@ -11,14 +9,14 @@ const writeFile = util.promisify(fs.writeFile)
 function OpGgPositionService(position, file){
 	this.position = position
 	this.file = file
-  console.log(`${this.position} ${this.file}`)
+  // console.log(`${this.position} ${this.file}`)
 }
 
 OpGgPositionService.prototype.main = async function(){
-	let league = await readFile(path.resolve("cache", `summoner-${this.file}.json`), "utf-8")
+	let league = await readFile(path.resolve("cache", `${this.file}`), "utf-8")
   league = JSON.parse(league)
  
-  console.log(league)
+  // console.log(league)
 
   let opggdao = new OpGgDao()
   await opggdao.readChampionId()
@@ -31,7 +29,6 @@ OpGgPositionService.prototype.main = async function(){
   const lpi = league.championPickIntent  //0, 1-500
 
   const championId = lci == "0" ? lpi : lci
-
   let championName = opggdao.champion_json[championId].toLowerCase()
 
   if(championName == undefined){
@@ -50,9 +47,6 @@ OpGgPositionService.prototype.main = async function(){
 
   league.assignedPosition = this.position
 
-  const url = `https://na.op.gg/champion/${championName}/${this.position}/build`
-  
-  console.log(url)
   console.log(`${this.position} ${this.file} ${championName}`)
 
   const cl = await opggdao.requestCounters(championName, this.position)
@@ -121,6 +115,8 @@ OpGgPositionService.prototype.main = async function(){
 module.exports = OpGgPositionService
 
 // cheerio code saved, just in case.
+// const https = require('https')
+// const cheerio = require('cheerio')
 // OpGgPositionService.prototype.mainn = async function(){
 // 	let league = await readFile(path.resolve("cache", `${this.file}.json`), "utf-8")
 //   league = JSON.parse(league)

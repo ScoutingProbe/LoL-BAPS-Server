@@ -293,6 +293,7 @@ OpGgService.prototype.getPick = async function(file, index){
   return this.league
 }
 
+//need to convert from cheerio to puppeteer 
 OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamOpen){
   try{
     const i = this.league.myTeam[myTeamIndex].championId

@@ -17,8 +17,6 @@ var OpGgPositionService = require('./service/OpGgPositionService')
 var OpGgTierService = require('./service/OpGgTierService')
 var BapsCounterService = require('./service/BapsCounterService')
 
-// app.get('/', (req, res) => res.send('Hello World!'))
-
 app.get('/league-client-reader-bans', async function(req, res){
     var league_client = new RiotLeagueLogDao()
     await league_client.setFile()
@@ -42,7 +40,7 @@ app.get('/league-client-reader-bans', async function(req, res){
 })
 
 app.post('/opgg-positions/:position-:file', async function(req, res){
-    var op_gg_position = new OpGgPositionService(req.params.position, req.params.file)
+    var op_gg_position = new OpGgPositionService(req.params.position, `summoner-${req.params.file}.json`)
     await op_gg_position.main()
     res.send()
 })

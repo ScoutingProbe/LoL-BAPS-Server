@@ -17,7 +17,7 @@ OpGgDao.prototype.readChampionId = async function(){
   for(let i = 0; i < championDocumentLines.length; i++){
     const championDocumentLinePair = championDocumentLines[i].split(' ')
     const championName = championDocumentLinePair[0]
-    const championNumber = championDocumentLinePair[1]
+    const championNumber = championDocumentLinePair[1].replace('\r', '')
     // console.log(`${championName} ${championNumber}`)
     championJson[championNumber] = championName
   }
@@ -30,8 +30,9 @@ OpGgDao.prototype.writeChampionId = async function(){
 }
 
 OpGgDao.prototype.requestCounters = async function(name, role){
-  let url = `https://na.op.gg/champions/${name}/${role}/counters`
+  let url = `https://www.op.gg/champions/${name}/counters/${role}`
   // url += '?tier=all'
+  // url += '&region=na'
   console.log(`😫 ${url} request sent`)
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
@@ -39,18 +40,18 @@ OpGgDao.prototype.requestCounters = async function(name, role){
 
   const scraped = await page.evaluate(()=>{
     return[
-      Array.from(document.getElementsByClassName("css-aj4kza eocu2m71")).map(function(i){ return i.textContent}),
-      Array.from(document.getElementsByClassName("css-ekbdas eocu2m73")).map(function(i){ return i.textContent}),
-      Array.from(document.getElementsByClassName("css-1nfew2i eocu2m75")).map(function(i){ return i.textContent}),
-      document.getElementsByClassName("css-1o0mfs9 e1uquoo0").item(0) == null ? null : document.getElementsByClassName("css-1o0mfs9 e1uquoo0").item(0).firstChild.alt,
-      document.getElementsByClassName("css-jtbu8n e1uquoo0").item(0) == null ? null : document.getElementsByClassName("css-jtbu8n e1uquoo0").item(0).firstChild.alt,
-      document.getElementsByClassName("css-jtbu8n e1uquoo0").item(1) == null ? null : document.getElementsByClassName("css-jtbu8n e1uquoo0").item(1).firstChild.alt
+      Array.from(document.getElementsByClassName("css-72rvq0 ee0p1b94")).map(function(i){ return i.textContent}),
+      Array.from(document.getElementsByClassName("css-ekbdas ee0p1b92")).map(function(i){ return i.textContent}),
+      Array.from(document.getElementsByClassName("css-1nfew2i ee0p1b90")).map(function(i){ return i.textContent}),
+      document.getElementsByClassName("css-ya0ckv e19c8h541").item(0) == null ? null : document.getElementsByClassName("css-ya0ckv e19c8h541").item(0).firstChild.firstChild.alt,
+      document.getElementsByClassName("css-1yesfem e19c8h541").item(0) == null ? null : document.getElementsByClassName("css-1yesfem e19c8h541").item(0).firstChild.firstChild.alt,
+      document.getElementsByClassName("css-1yesfem e19c8h541").item(1) == null ? null : document.getElementsByClassName("css-1yesfem e19c8h541").item(1).firstChild.firstChild.alt
     ]
   })
 
   await browser.close()
 
-  // console.log(scraped)
+  console.log(scraped)
 
   const counters = []
   for(let i = 0; i < scraped[0].length; i++){

@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
-    "test-opggtierservice": "jasmine spec/service/OpGgTierServiceSpec.js",
+    "test-opggpositionservice": "jasmine spec/service/OpGgPositionServiceSpec.js",
     "test-opggservice": "jasmine spec/service/OpGgServiceSpec.js",
     "test-opggdao": "jasmine spec/dao/OpGgDaoSpec.js",
     "test-league": "jasmine spec/dao/RiotLeagueLogDaoSpec.js",
@@ -24,8 +21,6 @@
   },
   "homepage": "https://github.com/andrewsrahn/lol-draft-ban-pick-scraper-server#readme",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.5",
-    "cheerio-select": "^1.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "puppeteer": "^14.1.2"
