@@ -62,48 +62,45 @@ OpGgPositionService.prototype.main = async function(){
   // console.log(cl)
 
   for(let counter of counters){
-    switch(this.position){
-      case "adc":
-        for(let tier of tiers_adc){
-          if(counter.counter == tier[0]){
-            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} adc`)
-            counter.tiers = [{'tier': tier[1], 'role': 'Bottom'}]
-          }
-        }
-        break
-      case "support":
-        for(let tier of tiers_support){
-          if(counter.counter == tier[0]){
-            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} support`)
-            counter.tiers = [{'tier': tier[1], 'role': 'Support'}]
-          }
-        }
-        break
-      case "mid":
-        for(let tier of tiers_mid){
-          if(counter.counter == tier[0]){
-            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} mid`)
-            counter.tiers = [{'tier': tier[1], 'role': 'Middle'}]
-          }
-        }
-        break
-      case "jungle":
-        for(let tier of tiers_jungle){
-          if(counter.counter == tier[0]){
-            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} jungle`)
-            counter.tiers = [{'tier': tier[1], 'role': 'Jungle'}]
-          }
-        }
-        break
-      case "top":
-        for(let tier of tiers_top){
-          if(counter.counter == tier[0]){
-            // console.log(`${counter.counter} ${tier[0]} ${tier[1]} top`)
-            counter.tiers = [{'tier': tier[1], 'role': 'Top'}]
-          }
-        }
-        break
-      // default
+    for(let tier of tiers_adc){
+      if(counter.counter == tier[0]){
+        if(counter.tiers == undefined)
+          counter.tiers = [{'tier': tier[1], 'role': 'Bottom'}]
+        else 
+          counter.tiers.push({'tier': tier[1], 'role': 'Bottom'}) 
+      }
+    }
+    for(let tier of tiers_support){
+      if(counter.counter == tier[0]){
+        if(counter.tiers == undefined)
+          counter.tiers = [{'tier': tier[1], 'role': 'Support'}]
+        else
+          counter.tiers.push({'tier': tier[1], 'role': 'Support'}) 
+      }
+    }
+    for(let tier of tiers_mid){
+      if(counter.counter == tier[0]){
+        if(counter.tiers == undefined)
+          counter.tiers = [{'tier': tier[1], 'role': 'Middle'}]
+        else 
+          counter.tiers.push({'tier': tier[1], 'role': 'Middle'}) 
+      }
+    }
+    for(let tier of tiers_jungle){
+      if(counter.counter == tier[0]){
+        if(counter.tiers == undefined)
+          counter.tiers = [{'tier': tier[1], 'role': 'Jungle'}]
+        else 
+          counter.tiers.push({'tier': tier[1], 'role': 'Jungle'})
+      }
+    }
+    for(let tier of tiers_top){
+      if(counter.counter == tier[0]){
+        if(counter.tiers == undefined)
+          counter.tiers = [{'tier': tier[1], 'role': 'Top'}]
+        else 
+          counter.tiers.push({'tier': tier[1], 'role': 'Top'})
+      }
     }
   }
 

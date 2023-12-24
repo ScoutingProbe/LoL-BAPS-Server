@@ -51,7 +51,7 @@ OpGgDao.prototype.requestCounters = async function(name, role){
 
   await browser.close()
 
-  console.log(scraped)
+  // console.log(scraped)
 
   const counters = []
   for(let i = 0; i < scraped[0].length; i++){

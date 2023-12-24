@@ -7,7 +7,7 @@ describe("OpGgDaoSpec", function(){
   var opggdao
 
   beforeEach(function(){
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
     opggdao = new OpGgDao()
   })
 
@@ -61,14 +61,14 @@ describe("OpGgDaoSpec", function(){
       expect("5").toEqual(jungle[36][1])
     })
 
-    // it('single test', async function(){
-    //   console.log(await opggdao.requestCounters('monkeyking', 'top'))
-    //   console.log(await opggdao.requestCounters('monkeyking', 'jungle'))
-    //   console.log(await opggdao.requestCounters('sona', 'support'))
-    //   console.log(await opggdao.requestCounters('zac', 'jungle'))
-    //   console.log(await opggdao.requestCounters('zac', 'support'))
-    //   console.log(await opggdao.requestCounters('zac', 'top'))
-    // })
+    it('single test', async function(){
+      console.log(await opggdao.requestCounters('monkeyking', 'top'))
+      console.log(await opggdao.requestCounters('monkeyking', 'jungle'))
+      console.log(await opggdao.requestCounters('sona', 'support'))
+      console.log(await opggdao.requestCounters('zac', 'jungle'))
+      console.log(await opggdao.requestCounters('zac', 'support'))
+      console.log(await opggdao.requestCounters('zac', 'top'))
+    })
     
     // it('loop test for cheerio', function(){
     //   fs.readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8', function(error, OpGgPositions){

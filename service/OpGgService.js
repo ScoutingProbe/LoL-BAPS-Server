@@ -197,6 +197,7 @@ OpGgService.prototype.getPick = async function(file, index){
   // championName = championName == 'renata glasc' ? 'renata' : championName
   // championName = championName == 'wukong' ? 'monkeyking' : championName
 
+  
   const opggPositions = JSON.parse(await readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8'))
 
   let position = ''
