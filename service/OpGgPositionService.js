@@ -107,7 +107,7 @@ OpGgPositionService.prototype.main = async function(){
   summoner.counters = counters
   summoner.possiblePositions = possible_positions
   this.summoner = summoner
-  await writeFile(path.resolve("cache", `summoner-${this.file}.json`), JSON.stringify(summoner))
+  await writeFile(path.resolve("cache", `${this.file}`), JSON.stringify(summoner))
 }
 
 module.exports = OpGgPositionService

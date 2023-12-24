@@ -198,7 +198,50 @@ OpGgService.prototype.getPick = async function(file, index){
   // championName = championName == 'wukong' ? 'monkeyking' : championName
 
   
-  const opggPositions = JSON.parse(await readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8'))
+  // const opggPositions = JSON.parse(await readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8'))
+
+  // let position = ''
+  // for(let p in opggPositions){
+  //   for(let c of opggPositions[p]){
+  //     c = c.toLowerCase()
+  //     c = c.includes("'") ? c.replace("'", "") : c
+  //     c = c.includes(". ") ? c.replace(". ", "") : c
+  //     c = c.includes(" ") ? c.replace(" ", "") : c
+  //     c = c == 'nunu& willump' ? 'nunu' : c
+  //     c = c == 'renata glasc' ? 'renata' : c
+  //     c = c == 'wukong' ? 'monkeyking' : c
+  //     // console.log(`${championName} ${p} ${c}`)
+  //     if(championName == c){
+  //       console.log(`${championName} ${p}`)
+  //       position = p
+  //     }
+  //   }
+  // }
+  
+  const tiers_support = JSON.parse(await readFile(path.resolve('cache', 'tiers-support.json')))
+  const tiers_adc = JSON.parse(await readFile(path.resolve('cache', 'tiers-adc.json')))
+  const tiers_mid = JSON.parse(await readFile(path.resolve('cache', 'tiers-mid.json')))
+  const tiers_jungle = JSON.parse(await readFile(path.resolve('cache', 'tiers-jungle.json')))
+  const tiers_top = JSON.parse(await readFile(path.resolve('cache', 'tiers-top.json')))
+
+  let opggPositions = {
+    'top': [],
+    'mid': [],
+    'jungle': [],
+    'adc': [],
+    'support': []
+  }
+
+  for(let top of tiers_top) 
+    opggPositions.top.push(top[0])  
+  for(let mid of tiers_mid)
+    opggPositions.mid.push(mid[0])
+  for(let jungle of tiers_jungle) 
+    opggPositions.jungle.push(jungle[0])
+  for(let adc of tiers_adc)
+    opggPositions.adc.push(adc[0])
+  for(let support of tiers_support)
+    opggPositions.support.push(support[0])
 
   let position = ''
   for(let p in opggPositions){
@@ -218,54 +261,48 @@ OpGgService.prototype.getPick = async function(file, index){
     }
   }
 
-  const cl = await opggdao.requestCounters(championName, position)
+  const championRolesAndPosition = await opggdao.requestCounters(championName, position)
 
-  // console.log(cl)
+  // console.log(championRolesAndPosition)
 
   this.league.theirTeam[index].counterSortKey = 'winratio'
-  this.league.theirTeam[index].assignedPosition = cl[1][0]
-  this.league.theirTeam[index].possiblePositions = cl[1]
-  let counters = cl[0]
-  
-  const tiers_support = JSON.parse(await readFile(path.resolve('cache', 'tiers-support.json')))
-  const tiers_adc = JSON.parse(await readFile(path.resolve('cache', 'tiers-adc.json')))
-  const tiers_mid = JSON.parse(await readFile(path.resolve('cache', 'tiers-mid.json')))
-  const tiers_jungle = JSON.parse(await readFile(path.resolve('cache', 'tiers-jungle.json')))
-  const tiers_top = JSON.parse(await readFile(path.resolve('cache', 'tiers-top.json')))
+  this.league.theirTeam[index].assignedPosition = championRolesAndPosition[1][0]
+  this.league.theirTeam[index].possiblePositions = championRolesAndPosition[1]
+  let counters = championRolesAndPosition[0]
 
   for(let t of counters){
     for(let p in opggPositions){
-      for(let c of opggPositions[p]){
-        if(t.counter == c){
+      for(let championOPGGPosition of opggPositions[p]){
+        if(t.counter == championOPGGPosition){
           // console.log(`${t.counter} ${p} ${c}`)
           switch(p){
             case "adc":
               for(let r of tiers_adc){
-                if(r[0] == c)
+                if(r[0] == championOPGGPosition)
                   t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Bottom'}] : t.tiers.push({'tier': r[1], 'role': 'Bottom'})
               }
               break
             case "support":
               for(let r of tiers_support){
-                if(r[0] == c)
+                if(r[0] == championOPGGPosition)
                   t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Support'}] : t.tiers.push({'tier': r[1], 'role': 'Support'})
               }
               break
             case "jungle":
               for(let r of tiers_jungle){
-                if(r[0] == c)
+                if(r[0] == championOPGGPosition)
                   t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Jungle'}] : t.tiers.push({'tier': r[1], 'role': 'Jungle'})
               }
               break
             case "mid":
               for(let r of tiers_mid){
-                if(r[0] == c)
+                if(r[0] == championOPGGPosition)
                   t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Middle'}] : t.tiers.push({'tier': r[1], 'role': 'Middle'})
               }
               break
             case "top":
               for(let r of tiers_top){
-                if(r[0] == c)
+                if(r[0] == championOPGGPosition)
                   t.tiers == undefined ? t.tiers = [{'tier': r[1], 'role': 'Top'}] : t.tiers.push({'tier': r[1], 'role': 'Top'})
               }
               break
