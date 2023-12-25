@@ -3,3 +3,4 @@ Features to build in the future:
     a. op.gg data can be scraped with december 2023 implementation.
     b. riot games match api matchId and league of legends logs gameId do not match.  this would be preferable but riot games is probably refactoring their api.  need to check again next time i have some free time.
 2. Riot Games API Champion Mastery endpoint works now and Data Dragon summoner ID lookup works for myself only (I know my inGameName and tagline).  It's possible to implement champion mastery for myself only.  I'd also like to implement champion mastery for my team as well but that's technically not possible due to Riot Games API status.  
+3. Flex picks by the opposing team is a difficult problem and there's a math problem buried in there somewhere.  Need to create some scenarios, define the logic, and design a user interface to solve that problem.
