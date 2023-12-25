@@ -74,10 +74,7 @@ RiotLeagueLogDao.prototype.setFile = async function(){
 }
 
 function RiotLeagueLogDao(){
-    if(os.type() == "Windows_NT")
-        this.stringPath = 'C:/Riot Games/League of Legends/Logs/LeagueClient Logs' 
-    else 
-        this.stringPath = '/Applications/League of Legends.app/Contents/LoL/Logs/LeagueClient Logs' 
+    this.stringPath = 'C:/Riot Games/League of Legends/Logs/LeagueClient Logs' 
 }
 
 module.exports = RiotLeagueLogDao
