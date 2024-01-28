@@ -10,6 +10,41 @@ const writeFile = util.promisify(fs.writeFile)
 const stringIncludesSession = "rcp-be-lol-champ-select| /lol-champ-select/v1/session: "
 const stringIncludesReadyCheck = "rcp-be-lol-gameflow| GAMEFLOW_EVENT.ENTERED_CHAMP_SELECT"
 const stringIncludesDodge = "rcp-be-lol-gameflow| Received dodge data."
+const stringIncludesGameEnd = "rcp-be-lol-gameflow| GameflowStateMachine HandleEvent 'GAMEFLOW_EVENT.GAME_COMPLETED'"
+
+RiotLeagueLogDao.prototype.isGameComplete = async function(){
+    const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
+    // console.log(`${stringFile}`)
+    const fileArray = stringFile.split(os.EOL).reverse()
+
+    for(let i = 0; i < fileArray.length; i++){
+        let stringLine = fileArray[i]
+        // console.log(stringLine)
+        if(this.doubleGameId == 0)
+            return false
+        else if(stringLine.includes(stringIncludesGameEnd))
+            return true
+        
+    }
+}
+
+RiotLeagueLogDao.prototype.saveFile = async function(op_gg_augmented_league_json){
+    const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
+    // console.log(`${stringFile}`)
+    const fileArray = stringFile.split(os.EOL).reverse()
+
+    for(let i = 0; i < fileArray.length; i++){
+        let stringLine = fileArray[i]
+        // console.log(stringLine)
+        if(this.doubleGameId == 0)
+            break
+        else if(stringLine.includes(stringIncludesGameEnd)){
+            await writeFile(path.resolve("lake", `${this.doubleGameID}.json`), JSON.stringify(op_gg_augmented_league_json))
+            console.log("🤓 Game completed and data saved!")
+            break
+        }
+    }
+}
 
 RiotLeagueLogDao.prototype.setSession = async function(){
     const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
@@ -25,8 +60,7 @@ RiotLeagueLogDao.prototype.setSession = async function(){
             stringSession = stringLine
             break
         }
-        else if(stringLine.includes(stringIncludesReadyCheck) ||
-                stringLine.includes(stringIncludesDodge)        ){
+        else if(stringLine.includes(stringIncludesReadyCheck) || stringLine.includes(stringIncludesDodge)){
             this.doubleGameID = "0"
             this.jsonSession = {}
             await writeFile(path.resolve("cache", "gameID.txt"), "0")

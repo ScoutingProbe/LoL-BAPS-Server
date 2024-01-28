@@ -35,7 +35,8 @@ app.get('/league-client-reader-bans', async function(req, res){
     await op_gg.getPick("summoner-theirTeam3.json", 3)
     await op_gg.getPick("summoner-theirTeam4.json", 4) 
     
-    await writeFile(path.resolve("cache", "reference-opgg.json"), JSON.stringify(op_gg.league))
+    await op_gg.getGameResult(league_client.isGameComplete())
+    await league_client.saveFile(op_gg.league)
     res.send(op_gg.league)
 })
 

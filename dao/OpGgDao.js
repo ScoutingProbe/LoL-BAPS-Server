@@ -113,4 +113,82 @@ OpGgDao.prototype.requestTiers = async function(region, tier, position){
   return scraped
 }
 
+OpGgDao.prototype.getLastUpdated = async function(region, summonername, summonertag){
+  let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
+  console.log(`😫 ${url} request sent`)
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  await page.goto(url)
+  let divLastUpdate = await page.evaluate(()=>{
+    return document.getElementsByClassName('last-update').item(0).textContent
+  })
+  await browser.close()
+  console.log(`😎 ${url} request complete`)
+  return divLastUpdate
+}
+
+OpGgDao.prototype.updateMatchHistory = async function(region, summonername, summonertag){
+  let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
+  console.log(`😫 ${url} request sent`)
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  await page.goto(url)
+  await page.evaluate(()=>{
+    document.querySelector(".buttons > button").click()
+  })
+  await browser.close()
+  console.log(`😎 ${url} request complete`)
+}
+
+OpGgDao.prototype.requestMatchHistory = async function(region, summonername, summonertag, myTeam0, myTeam1, myTeam2, myTeam3, myTeam4){
+  let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
+  console.log(`😫 ${url} request sent`)
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  await page.goto(url)
+  await page.evaluate(()=>{
+    document.querySelector("div.actions > button").click()
+  })
+  // const myTeam = await page.evaluate(()=>{
+  //   return [
+  //     document.querySelectorAll("td.champion > a > div > img").item(0).alt,
+  //     document.querySelectorAll("td.champion > a > div > img").item(1).alt,
+  //     document.querySelectorAll("td.champion > a > div > img").item(2).alt,
+  //     document.querySelectorAll("td.champion > a > div > img").item(3).alt,
+  //     document.querySelectorAll("td.champion > a > div > img").item(4).alt
+  //   ]
+  // })
+  const myTeam = await page.evaluate(()=>{
+    return [
+      document.querySelectorAll("td.champion > a > div > img").alt,
+      document.querySelectorAll("td.champion > a > div > img").alt,
+      document.querySelectorAll("td.champion > a > div > img").alt,
+      document.querySelectorAll("td.champion > a > div > img").alt,
+      document.querySelectorAll("td.champion > a > div > img").alt
+    ]
+  })
+  if(myTeam0 == myTeam[0] && myTeam1 == myTeam[1] && myTeam2 == myTeam[2] && myTeam3 == myTeam[3] && myTeam4 == myTeam[4]){
+    const result = await page.evaluate(()=>{
+      return {
+        'result': document.getElementsByClassName("result").item(0).textContent,
+        'link': document.querySelector("input.copy-link").value
+      }
+    })
+    await browser.close()
+    console.log(result)
+    console.log(`${myTeam0} ${myTeam1} ${myTeam2} ${myTeam3} ${myTeam4}`)
+    console.log(`${myTeam}`)
+    console.log(`😎 ${url} request complete`)
+    return result
+  }
+  else {
+    console.log('match not found')
+    console.log(`${myTeam0} ${myTeam1} ${myTeam2} ${myTeam3} ${myTeam4}`)
+    console.log(`${myTeam}`)
+    this.requestMatchHistory(region, summonername, summonertag, myTeam0, myTeam1, myTeam2, myTeam3, myTeam4)
+  }
+  await browser.close()
+  console.log(`😎 ${url} request complete`)
+}
+
 module.exports = OpGgDao

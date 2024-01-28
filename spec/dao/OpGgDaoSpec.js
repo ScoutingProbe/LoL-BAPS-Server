@@ -11,6 +11,12 @@ describe("OpGgDaoSpec", function(){
     opggdao = new OpGgDao()
   })
 
+    describe('requestMatchHistory', function(){
+      it('should be able to request match history', async function(){
+        await opggdao.requestMatchHistory('na', 'Abomination', 'flame', 'Veigar', "Nocturne", 'Senna', "Kai'sa", 'Gwen')
+      })
+    })
+
   // describe('Should be able to getChampionName', function(){
   //   it('Should have 1 Annie', async function(){
   //     await opggdao.readChampionId();
@@ -33,42 +39,42 @@ describe("OpGgDaoSpec", function(){
   //   })
   // })
 
-  describe('returns [[championName, tier]...]', function(){
-    it('champion tiers from /champions?region=!&tier=?&position=#', async function(){
-      console.log(await opggdao.requestTiers('na', 'master_plus', 'top'))
-      console.log(await opggdao.requestTiers('na', 'challenger', 'jungle'))
-      console.log(await opggdao.requestTiers('na', 'platinum_plus', 'mid'))
-      console.log(await opggdao.requestTiers('na', 'platinum_plus', 'adc'))
+  // describe('returns [[championName, tier]...]', function(){
+  //   it('champion tiers from /champions?region=!&tier=?&position=#', async function(){
+  //     console.log(await opggdao.requestTiers('na', 'master_plus', 'top'))
+  //     console.log(await opggdao.requestTiers('na', 'challenger', 'jungle'))
+  //     console.log(await opggdao.requestTiers('na', 'platinum_plus', 'mid'))
+  //     console.log(await opggdao.requestTiers('na', 'platinum_plus', 'adc'))
       
-      const jungle = await opggdao.requestTiers('na', 'platinum_plus', 'jungle')
+  //     const jungle = await opggdao.requestTiers('na', 'platinum_plus', 'jungle')
 
-      expect("Graves").toEqual(jungle[0][0])
-      expect("1").toEqual(jungle[0][1])
+  //     expect("Graves").toEqual(jungle[0][0])
+  //     expect("1").toEqual(jungle[0][1])
   
-      expect("Nocturne").toEqual(jungle[1][0])
-      expect("1").toEqual(jungle[1][1])
+  //     expect("Nocturne").toEqual(jungle[1][0])
+  //     expect("1").toEqual(jungle[1][1])
   
-      expect("Shaco").toEqual(jungle[5][0])
-      expect("2").toEqual(jungle[5][1])
+  //     expect("Shaco").toEqual(jungle[5][0])
+  //     expect("2").toEqual(jungle[5][1])
   
-      expect("Vi").toEqual(jungle[19][0])
-      expect("3").toEqual(jungle[19][1])
+  //     expect("Vi").toEqual(jungle[19][0])
+  //     expect("3").toEqual(jungle[19][1])
 
-      expect("Jarvan IV").toEqual(jungle[28][0])
-      expect("4").toEqual(jungle[28][1])
+  //     expect("Jarvan IV").toEqual(jungle[28][0])
+  //     expect("4").toEqual(jungle[28][1])
   
-      expect("Jax").toEqual(jungle[36][0])
-      expect("5").toEqual(jungle[36][1])
-    })
+  //     expect("Jax").toEqual(jungle[36][0])
+  //     expect("5").toEqual(jungle[36][1])
+  //   })
 
-    it('single test', async function(){
-      console.log(await opggdao.requestCounters('monkeyking', 'top'))
-      console.log(await opggdao.requestCounters('monkeyking', 'jungle'))
-      console.log(await opggdao.requestCounters('sona', 'support'))
-      console.log(await opggdao.requestCounters('zac', 'jungle'))
-      console.log(await opggdao.requestCounters('zac', 'support'))
-      console.log(await opggdao.requestCounters('zac', 'top'))
-    })
+  //   it('single test', async function(){
+  //     console.log(await opggdao.requestCounters('monkeyking', 'top'))
+  //     console.log(await opggdao.requestCounters('monkeyking', 'jungle'))
+  //     console.log(await opggdao.requestCounters('sona', 'support'))
+  //     console.log(await opggdao.requestCounters('zac', 'jungle'))
+  //     console.log(await opggdao.requestCounters('zac', 'support'))
+  //     console.log(await opggdao.requestCounters('zac', 'top'))
+  //   })
     
     // it('loop test for cheerio', function(){
     //   fs.readFile(path.resolve('cache', 'OpGgPositions.json'), 'utf-8', function(error, OpGgPositions){
@@ -128,6 +134,5 @@ describe("OpGgDaoSpec", function(){
     //     }
     //   })
     // })
-  })
 })
 

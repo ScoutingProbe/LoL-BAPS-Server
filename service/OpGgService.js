@@ -13,6 +13,36 @@ function OpGgService(league){
   this.league = league
 }
 
+OpGgService.prototype.getGameResult = async function(isGameComplete){
+  if(!isGameComplete)
+    return
+
+  let region = await readFile(path.resolve("config", "opgg-region.txt"), "utf-8")
+  region = region.split("\n")[14]
+  let summonername = await readFile(path.resolve("config", "opgg-username.txt"), "utf-8")
+  summonername = summonername.split("\n")[1]
+  let summonertag = await readFile(path.resolve("config", "opgg-username.txt"), "utf-8")
+  summonertag = summonertag.split("\n")[4]
+
+  console.log(`${region} ${summonername} ${summonertag}`)
+
+  let opggdao = new OpGgDao()
+  await opggdao.readChampionId()
+  const champion_json = opggdao.champion_json
+
+  let op_gg_dao_match_history = await opggdao.requestMatchHistory(
+    region, summonername, summonertag, 
+    champion_json[this.league.myTeam[0].championId], 
+    champion_json[this.league.myTeam[1].chapmionId],
+    champion_json[this.league.myTeam[2].championId], 
+    champion_json[this.league.myTeam[3].championId], 
+    champion_json[this.league.myTeam[4].championId]
+  )
+
+  this.league.gameResult = op_gg_dao_match_history.result
+  this.league.gameResultLink = op_gg_dao_match_history.link
+}
+
 OpGgService.prototype.getBan = async function(file, index){
   try{
     const p = this.league.myTeam[index].championId
