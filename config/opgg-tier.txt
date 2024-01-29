@@ -5,13 +5,15 @@ master_plus
 master
 diamond_plus
 diamond
+emerald_plus
+emerald
 platinum_plus
 platinum
 gold_plus
 gold
 silver
-gronze
+bronze
 iron
 
 What's your tier?
-platinum_plus
+silver

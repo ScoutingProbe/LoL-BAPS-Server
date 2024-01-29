@@ -143,30 +143,31 @@ OpGgDao.prototype.updateMatchHistory = async function(region, summonername, summ
 OpGgDao.prototype.requestMatchHistory = async function(region, summonername, summonertag, myTeam0, myTeam1, myTeam2, myTeam3, myTeam4){
   let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
   console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({headless: false})
   const page = await browser.newPage()
+  await page.setViewport({width: 1920, height: 1200})
   await page.goto(url)
-  await page.evaluate(()=>{
-    document.querySelector("div.actions > button").click()
+  setTimeout(function(){}, 10000)
+  await page.evaluate(()=> document.querySelector("div.actions > button").click())
+  const myTeam = await page.evaluate(()=>{
+    return [
+      document.querySelectorAll("td.champion > a > div > img").item(0).alt,
+      document.querySelectorAll("td.champion > a > div > img").item(1).alt,
+      document.querySelectorAll("td.champion > a > div > img").item(2).alt,
+      document.querySelectorAll("td.champion > a > div > img").item(3).alt,
+      document.querySelectorAll("td.champion > a > div > img").item(4).alt
+    ]
   })
   // const myTeam = await page.evaluate(()=>{
   //   return [
-  //     document.querySelectorAll("td.champion > a > div > img").item(0).alt,
-  //     document.querySelectorAll("td.champion > a > div > img").item(1).alt,
-  //     document.querySelectorAll("td.champion > a > div > img").item(2).alt,
-  //     document.querySelectorAll("td.champion > a > div > img").item(3).alt,
-  //     document.querySelectorAll("td.champion > a > div > img").item(4).alt
+  //     document.querySelectorAll("td.champion > a > div > img").alt,
+  //     document.querySelectorAll("td.champion > a > div > img").alt,
+  //     document.querySelectorAll("td.champion > a > div > img").alt,
+  //     document.querySelectorAll("td.champion > a > div > img").alt,
+  //     document.querySelectorAll("td.champion > a > div > img").alt
   //   ]
   // })
-  const myTeam = await page.evaluate(()=>{
-    return [
-      document.querySelectorAll("td.champion > a > div > img").alt,
-      document.querySelectorAll("td.champion > a > div > img").alt,
-      document.querySelectorAll("td.champion > a > div > img").alt,
-      document.querySelectorAll("td.champion > a > div > img").alt,
-      document.querySelectorAll("td.champion > a > div > img").alt
-    ]
-  })
+  console.log(myTeam)
   if(myTeam0 == myTeam[0] && myTeam1 == myTeam[1] && myTeam2 == myTeam[2] && myTeam3 == myTeam[3] && myTeam4 == myTeam[4]){
     const result = await page.evaluate(()=>{
       return {

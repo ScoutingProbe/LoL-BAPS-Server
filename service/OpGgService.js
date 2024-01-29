@@ -18,13 +18,13 @@ OpGgService.prototype.getGameResult = async function(isGameComplete){
     return
 
   let region = await readFile(path.resolve("config", "opgg-region.txt"), "utf-8")
-  region = region.split("\n")[14]
+  region = region.split("\r\n")[14]
   let summonername = await readFile(path.resolve("config", "opgg-username.txt"), "utf-8")
-  summonername = summonername.split("\n")[1]
+  summonername = summonername.split("\r\n")[1]
   let summonertag = await readFile(path.resolve("config", "opgg-username.txt"), "utf-8")
-  summonertag = summonertag.split("\n")[4]
+  summonertag = summonertag.split("\r\n")[4]
 
-  console.log(`${region} ${summonername} ${summonertag}`)
+  // console.log(`${region} ${summonername} ${summonertag}`)
 
   let opggdao = new OpGgDao()
   await opggdao.readChampionId()
