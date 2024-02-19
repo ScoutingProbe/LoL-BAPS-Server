@@ -1,13 +1,7 @@
 const express = require('express')
 const cors = require('cors')
-const fs = require('fs')
-const util = require('util')
-const path = require('path')
 
 const app = express()
-const port = 3000
-
-const writeFile = util.promisify(fs.writeFile)
 
 app.use(cors())
 
@@ -35,9 +29,9 @@ app.get('/league-client-reader-bans', async function(req, res){
     await op_gg.getPick("summoner-theirTeam3.json", 3)
     await op_gg.getPick("summoner-theirTeam4.json", 4) 
     
-    await op_gg.getGameResult(league_client.isGameComplete())
-    await league_client.saveFile(op_gg.league)
-    res.send(op_gg.league)
+    const op_gg_augmented_league_json = await op_gg.getGameResult(league_client.isGameComplete())
+    await league_client.saveFile(op_gg_augmented_league_json)
+    res.send(op_gg_augmented_league_json)
 })
 
 app.post('/opgg-positions/:position-:file', async function(req, res){
@@ -58,6 +52,6 @@ app.post('/baps-counters/:file-:key', async function(req, res){
     res.send()
 })
 
-app.listen(port, () => {
+app.listen(3000, () => {
     console.log(`😤 Listening on http://localhost:3000/`)
 })

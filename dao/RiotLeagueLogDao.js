@@ -29,6 +29,8 @@ RiotLeagueLogDao.prototype.isGameComplete = async function(){
 }
 
 RiotLeagueLogDao.prototype.saveFile = async function(op_gg_augmented_league_json){
+    if(op_gg_augmented_league_json == undefined)
+        return
     const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
     // console.log(`${stringFile}`)
     const fileArray = stringFile.split(os.EOL).reverse()

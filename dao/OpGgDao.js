@@ -34,7 +34,7 @@ OpGgDao.prototype.requestCounters = async function(name, role){
   // url += '?tier=all'
   // url += '&region=na'
   console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({headless: "new"})
   const page = await browser.newPage()
   await page.goto(url)
 
@@ -92,7 +92,7 @@ OpGgDao.prototype.requestCounters = async function(name, role){
 OpGgDao.prototype.requestTiers = async function(region, tier, position){
   let url = `https://www.op.gg/champions?region=${region}&tier=${tier}&position=${position}`
   console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({headless: "new"})
   const page = await browser.newPage()
   await page.goto(url)
 
@@ -116,7 +116,7 @@ OpGgDao.prototype.requestTiers = async function(region, tier, position){
 OpGgDao.prototype.getLastUpdated = async function(region, summonername, summonertag){
   let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
   console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({headless: "new"})
   const page = await browser.newPage()
   await page.goto(url)
   let divLastUpdate = await page.evaluate(()=>{
@@ -130,11 +130,13 @@ OpGgDao.prototype.getLastUpdated = async function(region, summonername, summoner
 OpGgDao.prototype.updateMatchHistory = async function(region, summonername, summonertag){
   let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
   console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({headless: "new"})
   const page = await browser.newPage()
   await page.goto(url)
   await page.evaluate(()=>{
-    document.querySelector(".buttons > button").click()
+    // document.querySelector(".buttons > button").click()
+    document.querySelector("html>body>div:nth-child(1)>div:nth-child(4)>div:nth-child(1)>div>div:nth-child(1)>div:nth-child(2)>div-nth-child(5)>button")
+    //html/body/div[1]/div[4]/div[1]/div/div[1]/div[2]/div[5]/button
   })
   await browser.close()
   console.log(`😎 ${url} request complete`)
@@ -143,35 +145,26 @@ OpGgDao.prototype.updateMatchHistory = async function(region, summonername, summ
 OpGgDao.prototype.requestMatchHistory = async function(region, summonername, summonertag, myTeam0, myTeam1, myTeam2, myTeam3, myTeam4){
   let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
   console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch({headless: false})
+  const browser = await puppeteer.launch({headless: "new"})
   const page = await browser.newPage()
-  await page.setViewport({width: 1920, height: 1200})
   await page.goto(url)
-  setTimeout(function(){}, 10000)
-  await page.evaluate(()=> document.querySelector("div.actions > button").click())
+  const expandElement = await page.waitForSelector("pierce/div.css-1jxewmm > div:nth-of-type(1) div.actions > button")
+  await expandElement.click()
+  await page.waitForSelector("td.champion > a > div > img") // await new Promise(resolve => setTimeout(resolve, 1000))
   const myTeam = await page.evaluate(()=>{
     return [
       document.querySelectorAll("td.champion > a > div > img").item(0).alt,
       document.querySelectorAll("td.champion > a > div > img").item(1).alt,
       document.querySelectorAll("td.champion > a > div > img").item(2).alt,
       document.querySelectorAll("td.champion > a > div > img").item(3).alt,
-      document.querySelectorAll("td.champion > a > div > img").item(4).alt
+      document.querySelectorAll("td.champion > a > div > img").item(4).alt  
     ]
   })
-  // const myTeam = await page.evaluate(()=>{
-  //   return [
-  //     document.querySelectorAll("td.champion > a > div > img").alt,
-  //     document.querySelectorAll("td.champion > a > div > img").alt,
-  //     document.querySelectorAll("td.champion > a > div > img").alt,
-  //     document.querySelectorAll("td.champion > a > div > img").alt,
-  //     document.querySelectorAll("td.champion > a > div > img").alt
-  //   ]
-  // })
-  console.log(myTeam)
-  if(myTeam0 == myTeam[0] && myTeam1 == myTeam[1] && myTeam2 == myTeam[2] && myTeam3 == myTeam[3] && myTeam4 == myTeam[4]){
+  const myTeamNoSpaces = myTeam.map((v,i,a)=>v.replace(" ", ""))
+  if(myTeamNoSpaces.includes(myTeam0) && myTeamNoSpaces.includes(myTeam1) && myTeamNoSpaces.includes(myTeam2) && myTeamNoSpaces.includes(myTeam3) && myTeamNoSpaces.includes(myTeam4)){
     const result = await page.evaluate(()=>{
       return {
-        'result': document.getElementsByClassName("result").item(0).textContent,
+        'result': document.querySelector("span.result").innerHTML,
         'link': document.querySelector("input.copy-link").value
       }
     })
@@ -183,13 +176,10 @@ OpGgDao.prototype.requestMatchHistory = async function(region, summonername, sum
     return result
   }
   else {
-    console.log('match not found')
     console.log(`${myTeam0} ${myTeam1} ${myTeam2} ${myTeam3} ${myTeam4}`)
     console.log(`${myTeam}`)
-    this.requestMatchHistory(region, summonername, summonertag, myTeam0, myTeam1, myTeam2, myTeam3, myTeam4)
+    console.log('🤯 match not found')
   }
-  await browser.close()
-  console.log(`😎 ${url} request complete`)
 }
 
 module.exports = OpGgDao
