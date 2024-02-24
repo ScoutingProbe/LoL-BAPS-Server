@@ -13,7 +13,7 @@ describe("OpGgDaoSpec", function(){
 
     describe('requestMatchHistory', function(){
       it('should be able to request match history', async function(){
-        await opggdao.requestMatchHistory('na', 'Abomination', 'flame', 'Seraphine', "Tryndamere", 'MasterYi', "Veigar", 'Lux')
+        await opggdao.requestMatchHistory('na', 'Abomination', 'flame', 'Nasus', "Nocturne", 'Ahri', "Ashe", "Vel'Koz")
       })
     })
 

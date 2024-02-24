@@ -13,7 +13,6 @@ var BapsCounterService = require('./service/BapsCounterService')
 
 app.get('/league-client-reader-bans', async function(req, res){
     var league_client = new RiotLeagueLogDao()
-    await league_client.setFile()
     await league_client.setSession()
 
     var op_gg = new OpGgService(league_client.jsonSession)
@@ -29,9 +28,8 @@ app.get('/league-client-reader-bans', async function(req, res){
     await op_gg.getPick("summoner-theirTeam3.json", 3)
     await op_gg.getPick("summoner-theirTeam4.json", 4) 
     
-    const op_gg_augmented_league_json = await op_gg.getGameResult(league_client.isGameComplete())
-    await league_client.saveFile(op_gg_augmented_league_json)
-    res.send(op_gg_augmented_league_json)
+    await op_gg.getGameResult(await league_client.isGameComplete())
+    res.send(op_gg.op_gg_augmented_league)
 })
 
 app.post('/opgg-positions/:position-:file', async function(req, res){

@@ -28,27 +28,31 @@ RiotLeagueLogDao.prototype.isGameComplete = async function(){
     }
 }
 
-RiotLeagueLogDao.prototype.saveFile = async function(op_gg_augmented_league_json){
-    if(op_gg_augmented_league_json == undefined)
-        return
-    const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
-    // console.log(`${stringFile}`)
-    const fileArray = stringFile.split(os.EOL).reverse()
+// RiotLeagueLogDao.prototype.saveFile = async function(op_gg_augmented_league_json){
+//     if(op_gg_augmented_league_json == undefined)
+//         return
+//     const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
+//     // console.log(`${stringFile}`)
+//     const fileArray = stringFile.split(os.EOL).reverse()
 
-    for(let i = 0; i < fileArray.length; i++){
-        let stringLine = fileArray[i]
-        // console.log(stringLine)
-        if(this.doubleGameId == 0)
-            break
-        else if(stringLine.includes(stringIncludesGameEnd)){
-            await writeFile(path.resolve("lake", `${this.doubleGameID}.json`), JSON.stringify(op_gg_augmented_league_json))
-            console.log("🤓 Game completed and data saved!")
-            break
-        }
-    }
-}
+//     for(let i = 0; i < fileArray.length; i++){
+//         let stringLine = fileArray[i]
+//         // console.log(stringLine)
+//         if(this.doubleGameId == 0)
+//             break
+//         else if(stringLine.includes(stringIncludesGameEnd)){
+//             await writeFile(path.resolve("lake", `${this.doubleGameID}.json`), JSON.stringify(op_gg_augmented_league_json))
+//             console.log("🤓 Game completed and data saved!")
+//             break
+//         }
+//     }
+// }
 
 RiotLeagueLogDao.prototype.setSession = async function(){
+    this.doubleGameID = await readFile(path.resolve("cache", "gameID.txt"), "utf-8")
+    let stringNames = await readdir(this.stringPath)
+    stringNames.reverse();
+    this.stringFile = stringNames.find(e => e.includes('LeagueClient.log'))
     const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
     // console.log(`${stringFile}`)
     const fileArray = stringFile.split(os.EOL).reverse()
@@ -72,11 +76,11 @@ RiotLeagueLogDao.prototype.setSession = async function(){
                 await writeFile(path.resolve("cache", `summoner-theirTeam${i}.json`), "{}")
             }
 
-            await writeFile(path.resolve("cache", "matchups-jungle.json"), "{}")
-            await writeFile(path.resolve("cache", "matchups-support.json"), "{}")
-            await writeFile(path.resolve("cache", "matchups-bot.json"), "{}")
-            await writeFile(path.resolve("cache", "matchups-mid.json"), "{}")
-            await writeFile(path.resolve("cache", "matchups-top.json"), "{}")
+            // await writeFile(path.resolve("cache", "matchups-jungle.json"), "{}")
+            // await writeFile(path.resolve("cache", "matchups-support.json"), "{}")
+            // await writeFile(path.resolve("cache", "matchups-bot.json"), "{}")
+            // await writeFile(path.resolve("cache", "matchups-mid.json"), "{}")
+            // await writeFile(path.resolve("cache", "matchups-top.json"), "{}")
 
             console.log("😅 Previous session information cleaned.")
             break
@@ -99,14 +103,6 @@ RiotLeagueLogDao.prototype.setSession = async function(){
         this.jsonSession = {"Error message 😥": error.toString()}
         this.doubleGameID = "1"
     }
-}
-
-RiotLeagueLogDao.prototype.setFile = async function(){
-    this.doubleGameID = await readFile(path.resolve("cache", "gameID.txt"), "utf-8")
-
-    let stringNames = await readdir(this.stringPath)
-    stringNames.reverse();
-    this.stringFile = stringNames.find(e => e.includes('LeagueClient.log'))
 }
 
 function RiotLeagueLogDao(){

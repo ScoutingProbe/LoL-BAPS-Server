@@ -8,15 +8,17 @@ const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
 
 function OpGgService(league){
-  this.league = league
+  this.op_gg_augmented_league = league
 }
 
 OpGgService.prototype.getGameResult = async function(isGameComplete){
-  if(isGameComplete == false || this.league.myTeam == undefined)
+  // console.log(`${isGameComplete} ${this.op_gg_augmented_league.myTeam[0].assignedPosition}`)
+  if(isGameComplete == false || this.op_gg_augmented_league.myTeam == undefined)
     return
 
   const gameID = await readFile(path.resolve("cache", "gameID.txt"), "utf-8")
   const op_gg_json = await readFile(path.resolve("lake", `${gameID}.json`), "utf-8")
+  // console.log(`${JSON.parse(op_gg_json).gameResult}`)
   if(JSON.parse(op_gg_json).gameResult != undefined){
     return
   }
@@ -38,27 +40,29 @@ OpGgService.prototype.getGameResult = async function(isGameComplete){
   try{
     op_gg_dao_match_history = await opggdao.requestMatchHistory(
       region, summonername, summonertag, 
-      champion_json[this.league.myTeam[0].championId],
-      champion_json[this.league.myTeam[1].championId],
-      champion_json[this.league.myTeam[2].championId],
-      champion_json[this.league.myTeam[3].championId],
-      champion_json[this.league.myTeam[4].championId]
+      champion_json[this.op_gg_augmented_league.myTeam[0].championId],
+      champion_json[this.op_gg_augmented_league.myTeam[1].championId],
+      champion_json[this.op_gg_augmented_league.myTeam[2].championId],
+      champion_json[this.op_gg_augmented_league.myTeam[3].championId],
+      champion_json[this.op_gg_augmented_league.myTeam[4].championId]
     )
+    console.log(op_gg_dao_match_history)
+
   } catch(e){
     console.log("😅 puppeteer timeout")
-    return
   }
 
-  console.log(op_gg_dao_match_history)
-
-  this.league.gameResult = op_gg_dao_match_history.result
-  this.league.gameResultLink = op_gg_dao_match_history.link
-  return this.league
+  if(op_gg_dao_match_history != null){
+    this.op_gg_augmented_league.gameResult = op_gg_dao_match_history.result
+    this.op_gg_augmented_league.gameResultLink = op_gg_dao_match_history.link
+  }
+  if(this.op_gg_augmented_league.myTeam != undefined)
+    await writeFile(path.resolve("lake", `${gameID}.json`), JSON.stringify(this.op_gg_augmented_league))
 }
 
 OpGgService.prototype.getBan = async function(file, index){
   try{
-    const p = this.league.myTeam[index].championId
+    const p = this.op_gg_augmented_league.myTeam[index].championId
   }catch(e) {
     return
   }
@@ -71,8 +75,8 @@ OpGgService.prototype.getBan = async function(file, index){
   const oci = om0.championId                          //0, 1-500
   const opi = om0.championPickIntent                  //0, 1-500
 
-  const lci = this.league.myTeam[index].championId          //0, 1-500
-  const lpi = this.league.myTeam[index].championPickIntent  //0, 1-500
+  const lci = this.op_gg_augmented_league.myTeam[index].championId          //0, 1-500
+  const lpi = this.op_gg_augmented_league.myTeam[index].championPickIntent  //0, 1-500
 
   // console.log(`${oci} ${lci}`)
   // console.log(`${opi} ${lpi}`)
@@ -83,7 +87,7 @@ OpGgService.prototype.getBan = async function(file, index){
   const eb1 = ob1 != undefined
 
   if(eci && epi && ob1){
-    this.league.myTeam[index] = om0
+    this.op_gg_augmented_league.myTeam[index] = om0
     return
   }
 
@@ -97,17 +101,22 @@ OpGgService.prototype.getBan = async function(file, index){
     return
   }
 
-  switch(this.league.myTeam[index].assignedPosition){
-    case "bottom" : this.league.myTeam[index].assignedPosition = "adc"; break
-    case "utility": this.league.myTeam[index].assignedPosition = "support"; break
-    case "middle" : this.league.myTeam[index].assignedPosition = "mid"; break
+  switch(this.op_gg_augmented_league.myTeam[index].assignedPosition){
+    case "bottom" : this.op_gg_augmented_league.myTeam[index].assignedPosition = "adc"; break
+    case "utility": this.op_gg_augmented_league.myTeam[index].assignedPosition = "support"; break
+    case "middle" : this.op_gg_augmented_league.myTeam[index].assignedPosition = "mid"; break
   }
 
   // console.log(`${championId} ${championName} ${this.league.myTeam[index].assignedPosition}`)
 
-  const cl = await opggdao.requestCounters(championName, this.league.myTeam[index].assignedPosition)
-  let counters = cl[0]
-  let possible_positions = cl[1]
+  let championList
+  try{
+    championList = await opggdao.requestCounters(championName, this.op_gg_augmented_league.myTeam[index].assignedPosition)
+  }catch(e){
+    return
+  }
+  let counters = championList[0]
+  let possible_positions = championList[1]
 
   const tiers_support = JSON.parse(await readFile(path.resolve('cache', 'tiers-support.json')))
   const tiers_adc = JSON.parse(await readFile(path.resolve('cache', 'tiers-adc.json')))
@@ -115,11 +124,11 @@ OpGgService.prototype.getBan = async function(file, index){
   const tiers_jungle = JSON.parse(await readFile(path.resolve('cache', 'tiers-jungle.json')))
   const tiers_top = JSON.parse(await readFile(path.resolve('cache', 'tiers-top.json')))
 
-  // console.log(cl)
+  // console.log(championList)
 
-  this.league.myTeam[index].counterSortKey = 'winratio'
+  this.op_gg_augmented_league.myTeam[index].counterSortKey = 'winratio'
   for(let counter of counters){
-    switch(this.league.myTeam[index].assignedPosition){
+    switch(this.op_gg_augmented_league.myTeam[index].assignedPosition){
       case "adc":
         for(let tier of tiers_adc){
           if(counter.counter == tier[0]){
@@ -164,16 +173,16 @@ OpGgService.prototype.getBan = async function(file, index){
     }
   }
 
-  this.league.myTeam[index].counters = counters
-  this.league.myTeam[index].possiblePositions = possible_positions
+  this.op_gg_augmented_league.myTeam[index].counters = counters
+  this.op_gg_augmented_league.myTeam[index].possiblePositions = possible_positions
 
-  writeFile(path.resolve("cache", file), JSON.stringify(this.league.myTeam[index]))
-  return this.league
+  writeFile(path.resolve("cache", file), JSON.stringify(this.op_gg_augmented_league.myTeam[index]))
+  return this.op_gg_augmented_league
 }
 
 OpGgService.prototype.getPick = async function(file, index){
   try{
-    const p = this.league.theirTeam[index].championId
+    const p = this.op_gg_augmented_league.theirTeam[index].championId
   }catch(e){
     return
   }
@@ -186,7 +195,7 @@ OpGgService.prototype.getPick = async function(file, index){
 
   const tb1 = ot0.counters
   const tci = ot0.championId
-  const lci = this.league.theirTeam[index].championId               //0, 1-500
+  const lci = this.op_gg_augmented_league.theirTeam[index].championId               //0, 1-500
   
   // console.log(`${tci} ${lci}`)
   // console.log(`${tb1}`)
@@ -195,7 +204,7 @@ OpGgService.prototype.getPick = async function(file, index){
   const eb1 = tb1 != undefined
 
   if(eci && eb1){
-    this.league.theirTeam[index] = ot0
+    this.op_gg_augmented_league.theirTeam[index] = ot0
     return
   }
 
@@ -253,13 +262,18 @@ OpGgService.prototype.getPick = async function(file, index){
     }
   }
 
-  const championRolesAndPosition = await opggdao.requestCounters(championName, position)
+  let championRolesAndPosition
+  try{
+    championRolesAndPosition = await opggdao.requestCounters(championName, position)
+  } catch(e){
+    return
+  }
 
   // console.log(championRolesAndPosition)
 
-  this.league.theirTeam[index].counterSortKey = 'winratio'
-  this.league.theirTeam[index].assignedPosition = championRolesAndPosition[1][0]
-  this.league.theirTeam[index].possiblePositions = championRolesAndPosition[1]
+  this.op_gg_augmented_league.theirTeam[index].counterSortKey = 'winratio'
+  this.op_gg_augmented_league.theirTeam[index].assignedPosition = championRolesAndPosition[1][0]
+  this.op_gg_augmented_league.theirTeam[index].possiblePositions = championRolesAndPosition[1]
   let counters = championRolesAndPosition[0]
 
   for(let t of counters){
@@ -305,19 +319,19 @@ OpGgService.prototype.getPick = async function(file, index){
   }
 
 
-  this.league.theirTeam[index].counters = counters
+  this.op_gg_augmented_league.theirTeam[index].counters = counters
 
   // console.log(this.league.theirTeam[index])
 
-  writeFile(path.resolve("cache", file), JSON.stringify(this.league.theirTeam[index]))
-  return this.league
+  writeFile(path.resolve("cache", file), JSON.stringify(this.op_gg_augmented_league.theirTeam[index]))
+  return this.op_gg_augmented_league
 }
 
 //need to convert from cheerio to puppeteer 
 OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamOpen){
   try{
-    const i = this.league.myTeam[myTeamIndex].championId
-    const p = this.league.myTeam[myTeamIndex].championPickIntent
+    const i = this.op_gg_augmented_league.myTeam[myTeamIndex].championId
+    const p = this.op_gg_augmented_league.myTeam[myTeamIndex].championPickIntent
     if(i == 0 && p == 0)
       return
   } catch(e){
@@ -340,15 +354,15 @@ OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamO
     console.log(`${theirTeamOpen[i].possiblePositions.length} ${i}`)
     console.log(theirTeamOpen[i])
     for(let j = 0; j < theirTeamOpen[i].possiblePositions.length; j++){
-      if(theirTeamOpen[i].possiblePositions[j] == this.league.myTeam[myTeamIndex].assignedPosition){
+      if(theirTeamOpen[i].possiblePositions[j] == this.op_gg_augmented_league.myTeam[myTeamIndex].assignedPosition){
         // console.log(theirTeamOpen[i])
         
         const susi = theirTeamOpen[i].championId
         const susp = theirTeamOpen[i].championPickIntent
         const sus  = susi == 0 ? susp : susi
 
-        const ouri = this.league.myTeam[myTeamIndex].championId
-        const ourp = this.league.myTeam[myTeamIndex].championPickIntent
+        const ouri = this.op_gg_augmented_league.myTeam[myTeamIndex].championId
+        const ourp = this.op_gg_augmented_league.myTeam[myTeamIndex].championPickIntent
         const our  = ouri == 0 ? ourp : ouri
 
         theirTeamOpen.splice(i, 1)
@@ -357,7 +371,7 @@ OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamO
         matchup.theirTeam = opggdao.champion_json[sus]
 
         url = url.replace('!', matchup.myTeam)
-                  .replace('@', this.league.myTeam[myTeamIndex].assignedPosition)
+                  .replace('@', this.op_gg_augmented_league.myTeam[myTeamIndex].assignedPosition)
                   .replace('#', sus) 
       } // if theirPosition equals ourPosition
     } // loops jungle support top mid bot
@@ -368,8 +382,8 @@ OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamO
     const susp = theirTeamOpen[0].championPickIntent
     const sus  = susi == 0 ? susp : susi
 
-    const ouri = this.league.myTeam[myTeamIndex].championId
-    const ourp = this.league.myTeam[myTeamIndex].championPickIntent
+    const ouri = this.op_gg_augmented_league.myTeam[myTeamIndex].championId
+    const ourp = this.op_gg_augmented_league.myTeam[myTeamIndex].championPickIntent
     const our  = ouri == 0 ? ourp : ouri
 
     theirTeamOpen.splice(0, 1)
@@ -378,7 +392,7 @@ OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamO
     matchup.theirTeam = opggdao.champion_json[sus]
 
     url = url.replace('!', matchup.myTeam)
-              .replace('@', this.league.myTeam[myTeamIndex].assignedPosition)
+              .replace('@', this.op_gg_augmented_league.myTeam[myTeamIndex].assignedPosition)
               .replace('#', sus)
   }
 
@@ -416,10 +430,10 @@ OpGgService.prototype.getMatchup = async function(myTeamIndex, write, theirTeamO
         matchup.winRatio = w
         matchup.positionWinRate = p
 
-        if(this.league.matchups == undefined)
-          this.league.matchups = []
+        if(this.op_gg_augmented_league.matchups == undefined)
+          this.op_gg_augmented_league.matchups = []
         
-        this.league.matchups[myTeamIndex] = matchup
+        this.op_gg_augmented_league.matchups[myTeamIndex] = matchup
 
         console.log(matchup)
         // console.log(theirTeamOpen)

@@ -26,7 +26,7 @@ OpGgTierService.prototype.main = async function(){
   let region = await readFile(path.resolve("config", "opgg-region.txt"), "utf-8")
   region = region.split("\n")[14]
   let tier = await readFile(path.resolve("config", "opgg-tier.txt"), "utf-8")
-  tier = tier.split("\n")[16]
+  tier = tier.split("\n")[18]
 
   console.log(`😐 OP.GG region is ${region} and summoner rank is ${tier}`)
 

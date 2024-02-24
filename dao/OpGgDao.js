@@ -100,9 +100,13 @@ OpGgDao.prototype.requestTiers = async function(region, tier, position){
     let scrapelength = document.getElementsByTagName('tbody').item(0).children.length
     let scraped = []
     for (let i = 0; i < scrapelength; i++){
-      scraped.push([document.getElementsByTagName('tbody').item(0).children.item(i).children.item(1).textContent, 
-      document.getElementsByTagName('tbody').item(0).children.item(i).children.item(2).textContent
-      ])
+      if(document.getElementsByTagName('tbody').item(0).children.item(i).children.item(1) == null)
+        continue
+      scraped.push(
+        [ document.getElementsByTagName('tbody').item(0).children.item(i).children.item(1).textContent, 
+          document.getElementsByTagName('tbody').item(0).children.item(i).children.item(2).textContent
+        ]
+      )
     }
     return scraped
   })
@@ -113,41 +117,60 @@ OpGgDao.prototype.requestTiers = async function(region, tier, position){
   return scraped
 }
 
-OpGgDao.prototype.getLastUpdated = async function(region, summonername, summonertag){
-  let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
-  console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch({headless: "new"})
-  const page = await browser.newPage()
-  await page.goto(url)
-  let divLastUpdate = await page.evaluate(()=>{
-    return document.getElementsByClassName('last-update').item(0).textContent
-  })
-  await browser.close()
-  console.log(`😎 ${url} request complete`)
-  return divLastUpdate
-}
+// OpGgDao.prototype.getLastUpdated = async function(region, summonername, summonertag){
+//   let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
+//   console.log(`😫 ${url} get last updated request sent`)
+//   const browser = await puppeteer.launch({headless: "new"})
+//   const page = await browser.newPage()
+//   await page.goto(url)
+//   let divLastUpdate = await page.evaluate(()=>{
+//     return document.getElementsByClassName('last-update').item(0).textContent
+//   })
+//   await browser.close()
+//   console.log(`😎 ${url} get last updated request complete`)
+//   return divLastUpdate
+// }
 
-OpGgDao.prototype.updateMatchHistory = async function(region, summonername, summonertag){
-  let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
-  console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch({headless: "new"})
-  const page = await browser.newPage()
-  await page.goto(url)
-  await page.evaluate(()=>{
-    // document.querySelector(".buttons > button").click()
-    document.querySelector("html>body>div:nth-child(1)>div:nth-child(4)>div:nth-child(1)>div>div:nth-child(1)>div:nth-child(2)>div-nth-child(5)>button")
-    //html/body/div[1]/div[4]/div[1]/div/div[1]/div[2]/div[5]/button
-  })
-  await browser.close()
-  console.log(`😎 ${url} request complete`)
-}
+// OpGgDao.prototype.updateMatchHistory = async function(region, summonername, summonertag){
+//   let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
+//   console.log(`😫 ${url} update match history request sent`)
+//   const browser = await puppeteer.launch({headless: "new"})
+//   const page = await browser.newPage()
+//   await page.goto(url)
+//   await page.evaluate(()=>{
+//     document.querySelector(".buttons > button").click()
+//   })
+//   await browser.close()
+//   console.log(`😎 ${url} request complete`)
+// }
 
 OpGgDao.prototype.requestMatchHistory = async function(region, summonername, summonertag, myTeam0, myTeam1, myTeam2, myTeam3, myTeam4){
   let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
-  console.log(`😫 ${url} request sent`)
+  console.log(`😫 ${url} request match history request sent`)
+  // const browser = await puppeteer.launch({headless: false})
   const browser = await puppeteer.launch({headless: "new"})
   const page = await browser.newPage()
+  // page.setViewport({width: 1920, height: 1200})
   await page.goto(url)
+  
+  while(true){
+    try{
+      await page.evaluate(()=>{
+        document.querySelector(".buttons > button").click()
+      })
+    } catch(e){ 
+      break 
+    }
+    let divLastUpdate = await page.evaluate(()=>{
+      return document.getElementsByClassName('last-update').item(0).textContent
+    })
+    console.log(divLastUpdate)
+    if(divLastUpdate.includes("Available in ") ||
+        divLastUpdate.includes("Last updated: a few seconds ago"))
+      break
+    await page.goto(url)
+  }
+
   const expandElement = await page.waitForSelector("pierce/div.css-1jxewmm > div:nth-of-type(1) div.actions > button")
   await expandElement.click()
   await page.waitForSelector("td.champion > a > div > img") // await new Promise(resolve => setTimeout(resolve, 1000))
@@ -160,8 +183,8 @@ OpGgDao.prototype.requestMatchHistory = async function(region, summonername, sum
       document.querySelectorAll("td.champion > a > div > img").item(4).alt  
     ]
   })
-  const myTeamNoSpaces = myTeam.map((v,i,a)=>v.replace(" ", ""))
-  if(myTeamNoSpaces.includes(myTeam0) && myTeamNoSpaces.includes(myTeam1) && myTeamNoSpaces.includes(myTeam2) && myTeamNoSpaces.includes(myTeam3) && myTeamNoSpaces.includes(myTeam4)){
+  // const myTeamNoSpaces = myTeam.map((v,i,a)=>v.replace(" ", ""))
+  // if(myTeamNoSpaces.includes(myTeam0) && myTeamNoSpaces.includes(myTeam1) && myTeamNoSpaces.includes(myTeam2) && myTeamNoSpaces.includes(myTeam3) && myTeamNoSpaces.includes(myTeam4)){
     const result = await page.evaluate(()=>{
       return {
         'result': document.querySelector("span.result").innerHTML,
@@ -172,14 +195,14 @@ OpGgDao.prototype.requestMatchHistory = async function(region, summonername, sum
     console.log(result)
     console.log(`${myTeam0} ${myTeam1} ${myTeam2} ${myTeam3} ${myTeam4}`)
     console.log(`${myTeam}`)
-    console.log(`😎 ${url} request complete`)
+    console.log(`😎 ${url} request match history request complete`)
     return result
   }
-  else {
-    console.log(`${myTeam0} ${myTeam1} ${myTeam2} ${myTeam3} ${myTeam4}`)
-    console.log(`${myTeam}`)
-    console.log('🤯 match not found')
-  }
-}
+  // else {
+  //   console.log(`${myTeam0} ${myTeam1} ${myTeam2} ${myTeam3} ${myTeam4}`)
+  //   console.log(`${myTeam}`)
+  //   console.log('🤯 match not found')
+  // }
+// }
 
 module.exports = OpGgDao
