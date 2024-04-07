@@ -12,16 +12,22 @@ function OpGgService(league){
 }
 
 OpGgService.prototype.getGameResult = async function(isGameComplete){
-  // console.log(`${isGameComplete} ${this.op_gg_augmented_league.myTeam[0].assignedPosition}`)
   if(isGameComplete == false || this.op_gg_augmented_league.myTeam == undefined)
     return
 
   const gameID = await readFile(path.resolve("cache", "gameID.txt"), "utf-8")
-  const op_gg_json = await readFile(path.resolve("lake", `${gameID}.json`), "utf-8")
-  // console.log(`${JSON.parse(op_gg_json).gameResult}`)
-  if(JSON.parse(op_gg_json).gameResult != undefined){
+  if(gameID == '0')
     return
+  
+  try{
+    await readFile(path.resolve("lake", `${gameID}.json`), "utf-8")
+  } catch(e){
+    await writeFile(path.resolve("lake", `${gameID}.json`), JSON.stringify(this.op_gg_augmented_league))
   }
+  const op_gg_json = await readFile(path.resolve("lake", `${gameID}.json`), "utf-8")
+  // console.log(`${gameID} ${JSON.parse(op_gg_json).gameResult}`)
+  if(JSON.parse(op_gg_json).gameResult != undefined)
+    return
 
   let region = await readFile(path.resolve("config", "opgg-region.txt"), "utf-8")
   region = region.split("\r\n")[14]
@@ -36,28 +42,22 @@ OpGgService.prototype.getGameResult = async function(isGameComplete){
   await opggdao.readChampionId()
   const champion_json = opggdao.champion_json
 
-  let op_gg_dao_match_history
-  try{
-    op_gg_dao_match_history = await opggdao.requestMatchHistory(
-      region, summonername, summonertag, 
-      champion_json[this.op_gg_augmented_league.myTeam[0].championId],
-      champion_json[this.op_gg_augmented_league.myTeam[1].championId],
-      champion_json[this.op_gg_augmented_league.myTeam[2].championId],
-      champion_json[this.op_gg_augmented_league.myTeam[3].championId],
-      champion_json[this.op_gg_augmented_league.myTeam[4].championId]
-    )
-    console.log(op_gg_dao_match_history)
-
-  } catch(e){
-    console.log("😅 puppeteer timeout")
-  }
+  let op_gg_dao_match_history = await opggdao.requestMatchHistory(
+    region, summonername, summonertag, 
+    champion_json[this.op_gg_augmented_league.myTeam[0].championId],
+    champion_json[this.op_gg_augmented_league.myTeam[1].championId],
+    champion_json[this.op_gg_augmented_league.myTeam[2].championId],
+    champion_json[this.op_gg_augmented_league.myTeam[3].championId],
+    champion_json[this.op_gg_augmented_league.myTeam[4].championId]
+  )
+  // console.log(op_gg_dao_match_history)
 
   if(op_gg_dao_match_history != null){
     this.op_gg_augmented_league.gameResult = op_gg_dao_match_history.result
     this.op_gg_augmented_league.gameResultLink = op_gg_dao_match_history.link
   }
-  if(this.op_gg_augmented_league.myTeam != undefined)
-    await writeFile(path.resolve("lake", `${gameID}.json`), JSON.stringify(this.op_gg_augmented_league))
+  
+  await writeFile(path.resolve("lake", `${gameID}.json`), JSON.stringify(this.op_gg_augmented_league))
 }
 
 OpGgService.prototype.getBan = async function(file, index){

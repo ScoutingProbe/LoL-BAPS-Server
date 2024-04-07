@@ -13,40 +13,20 @@ const stringIncludesDodge = "rcp-be-lol-gameflow| Received dodge data."
 const stringIncludesGameEnd = "rcp-be-lol-gameflow| GameflowStateMachine HandleEvent 'GAMEFLOW_EVENT.GAME_COMPLETED'"
 
 RiotLeagueLogDao.prototype.isGameComplete = async function(){
+    if(this.doubleGameId == 0)
+        return false
     const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
     // console.log(`${stringFile}`)
     const fileArray = stringFile.split(os.EOL).reverse()
 
+    let isGameComplete = false
     for(let i = 0; i < fileArray.length; i++){
-        let stringLine = fileArray[i]
-        // console.log(stringLine)
-        if(this.doubleGameId == 0)
-            return false
-        else if(stringLine.includes(stringIncludesGameEnd))
+        if(fileArray[i].includes(stringIncludesGameEnd)) 
+            isGameComplete = true
+        if(isGameComplete && fileArray[i].includes(this.doubleGameID))
             return true
-        
     }
 }
-
-// RiotLeagueLogDao.prototype.saveFile = async function(op_gg_augmented_league_json){
-//     if(op_gg_augmented_league_json == undefined)
-//         return
-//     const stringFile = await readFile(`${this.stringPath}/${this.stringFile}`, 'utf-8')
-//     // console.log(`${stringFile}`)
-//     const fileArray = stringFile.split(os.EOL).reverse()
-
-//     for(let i = 0; i < fileArray.length; i++){
-//         let stringLine = fileArray[i]
-//         // console.log(stringLine)
-//         if(this.doubleGameId == 0)
-//             break
-//         else if(stringLine.includes(stringIncludesGameEnd)){
-//             await writeFile(path.resolve("lake", `${this.doubleGameID}.json`), JSON.stringify(op_gg_augmented_league_json))
-//             console.log("🤓 Game completed and data saved!")
-//             break
-//         }
-//     }
-// }
 
 RiotLeagueLogDao.prototype.setSession = async function(){
     this.doubleGameID = await readFile(path.resolve("cache", "gameID.txt"), "utf-8")

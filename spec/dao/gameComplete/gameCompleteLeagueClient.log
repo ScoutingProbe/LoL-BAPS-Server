@@ -1,0 +1,168 @@
+000345.173|   OKAY|    rcp-be-lol-champ-select| /lol-champ-select/v1/session: {"actions":[[{"actorCellId":0,"championId":39,"completed":true,"id":0,"isAllyAction":false,"isInProgress":false,"type":"ban"},{"actorCellId":1,"championId":29,"completed":true,"id":1,"isAllyAction":false,"isInProgress":false,"type":"ban"},{"actorCellId":2,"championId":53,"completed":true,"id":2,"isAllyAction":false,"isInProgress":false,"type":"ban"},{"actorCellId":3,"championId":122,"completed":true,"id":3,"isAllyAction":false,"isInProgress":false,"type":"ban"},{"actorCellId":4,"championId":64,"completed":true,"id":4,"isAllyAction":false,"isInProgress":false,"type":"ban"},{"actorCellId":5,"championId":420,"completed":true,"id":5,"isAllyAction":true,"isInProgress":false,"type":"ban"},{"actorCellId":6,"championId":-1,"completed":true,"id":6,"isAllyAction":true,"isInProgress":false,"type":"ban"},{"actorCellId":7,"championId":235,"completed":true,"id":7,"isAllyAction":true,"isInProgress":false,"type":"ban"},{"actorCellId":8,"championId":895,"completed":true,"id":8,"isAllyAction":true,"isInProgress":false,"type":"ban"},{"actorCellId":9,"championId":36,"completed":true,"id":9,"isAllyAction":true,"isInProgress":false,"type":"ban"}],[{"actorCellId":-1,"championId":0,"completed":true,"id":100,"isAllyAction":false,"isInProgress":false,"type":"ten_bans_reveal"}],[{"actorCellId":0,"championId":517,"completed":true,"id":10,"isAllyAction":false,"isInProgress":false,"type":"pick"}],[{"actorCellId":5,"championId":106,"completed":true,"id":11,"isAllyAction":true,"isInProgress":false,"type":"pick"},{"actorCellId":6,"championId":3,"completed":true,"id":12,"isAllyAction":true,"isInProgress":false,"type":"pick"}],[{"actorCellId":1,"championId":22,"completed":true,"id":13,"isAllyAction":false,"isInProgress":false,"type":"pick"},{"actorCellId":2,"championId":40,"completed":true,"id":14,"isAllyAction":false,"isInProgress":false,"type":"pick"}],[{"actorCellId":7,"championId":78,"completed":true,"id":15,"isAllyAction":true,"isInProgress":false,"type":"pick"},{"actorCellId":8,"championId":18,"completed":true,"id":16,"isAllyAction":true,"isInProgress":false,"type":"pick"}],[{"actorCellId":3,"championId":86,"completed":true,"id":17,"isAllyAction":false,"isInProgress":false,"type":"pick"},{"actorCellId":4,"championId":20,"completed":true,"id":18,"isAllyAction":false,"isInProgress":false,"type":"pick"}],[{"actorCellId":9,"championId":75,"completed":true,"id":19,"isAllyAction":true,"isInProgress":false,"type":"pick"}]],"allowBattleBoost":false,"allowDuplicatePicks":false,"allowLockedEvents":false,"allowRerolling":false,"allowSkinSelection":true,"bans":{"myTeamBans":[],"numBans":0,"theirTeamBans":[]},"benchChampions":[],"benchEnabled":false,"boostableSkinCount":0,"chatDetails":{"mucJwtDto":{"channelClaim":"33de0a79-27c2-43d8-9152-d2a2a1804942","domain":"lol-champ-select","jwt":"eyJraWQiOiIxIiwiYWxnIjoiUlMyNTYifQ.eyJ0Z3QiOiJuYTEiLCJzdWIiOiIzZjBkZTY1Yy1lMTA0LTUyNDctYjMxZC1hNmNjZWQ0YzgwMTciLCJtZXRhZGF0YSI6eyJnYW1lSWQiOiI0OTYxOTI5NjcwIiwicmVnaW9uIjoiTkExIiwibG9iYnlUeXBlIjoicHJlLWdhbWUiLCJwcm9kdWN0IjoibG9sIn0sImlzcyI6ImxvbC10ZWFtYnVpbGRlciIsImNobiI6IjMzZGUwYTc5LTI3YzItNDNkOC05MTUyLWQyYTJhMTgwNDk0MiIsInR5cCI6ImxvbC1jaGFtcC1zZWxlY3QiLCJleHAiOjE3MTE5MTY1MjMsImlhdCI6MTcxMTkxNTkyMywianRpIjoiN2Y4NjIwODItZmJmNi00ZTJkLThhOGItNjI1NzhlODZlYjU0IiwiY3JtIjoiMzNkZTBhNzktMjdjMi00M2Q4LTkxNTItZDJhMmExODA0OTQyQGxvbC1jaGFtcC1zZWxlY3QucHZwLm5ldCJ9.giPQ_B-FpUTzeWrgFe2RdLCPDPDLxEobvsiGP2mQ3DaJDH8USYxZobVGqv_L1Ds2rBPK2OrmH70ebZVVRPVoeD0y17oUrDsrnc943AIMUXIuUW6JDKCwiFPz6ZCS6dJ_ydk3HQ9819DOybP7Ri-cjvwDsdT7jkTFnx53-9nWfAFoucQaqFaGtsqqvsnI0DvnwsbYPz-opXBwea15IRbW5_7s9ELo3wKvrjKXmE9qhnYV9b-qQ71tiCTVbBXjCkwy_xh1KJ6-23HxlW9B48A1kR_FoRSumKG21KcCIdk8W-YuXWJnjfXj9wEYLu-ZFyAsJUBMoKGOzcoNWjDLBxsw5A","targetRegion":"na1"},"multiUserChatId":"33de0a79-27c2-43d8-9152-d2a2a1804942","multiUserChatPassword":"eyJraWQiOiIxIiwiYWxnIjoiUlMyNTYifQ.eyJ0Z3QiOiJuYTEiLCJzdWIiOiIzZjBkZTY1Yy1lMTA0LTUyNDctYjMxZC1hNmNjZWQ0YzgwMTciLCJtZXRhZGF0YSI6eyJnYW1lSWQiOiI0OTYxOTI5NjcwIiwicmVnaW9uIjoiTkExIiwibG9iYnlUeXBlIjoicHJlLWdhbWUiLCJwcm9kdWN0IjoibG9sIn0sImlzcyI6ImxvbC10ZWFtYnVpbGRlciIsImNobiI6IjMzZGUwYTc5LTI3YzItNDNkOC05MTUyLWQyYTJhMTgwNDk0MiIsInR5cCI6ImxvbC1jaGFtcC1zZWxlY3QiLCJleHAiOjE3MTE5MTY1MjMsImlhdCI6MTcxMTkxNTkyMywianRpIjoiN2Y4NjIwODItZmJmNi00ZTJkLThhOGItNjI1NzhlODZlYjU0IiwiY3JtIjoiMzNkZTBhNzktMjdjMi00M2Q4LTkxNTItZDJhMmExODA0OTQyQGxvbC1jaGFtcC1zZWxlY3QucHZwLm5ldCJ9.giPQ_B-FpUTzeWrgFe2RdLCPDPDLxEobvsiGP2mQ3DaJDH8USYxZobVGqv_L1Ds2rBPK2OrmH70ebZVVRPVoeD0y17oUrDsrnc943AIMUXIuUW6JDKCwiFPz6ZCS6dJ_ydk3HQ9819DOybP7Ri-cjvwDsdT7jkTFnx53-9nWfAFoucQaqFaGtsqqvsnI0DvnwsbYPz-opXBwea15IRbW5_7s9ELo3wKvrjKXmE9qhnYV9b-qQ71tiCTVbBXjCkwy_xh1KJ6-23HxlW9B48A1kR_FoRSumKG21KcCIdk8W-YuXWJnjfXj9wEYLu-ZFyAsJUBMoKGOzcoNWjDLBxsw5A"},"counter":47,"gameId":4961929670,"hasSimultaneousBans":true,"hasSimultaneousPicks":false,"isCustomGame":false,"isSpectating":false,"localPlayerCellId":5,"lockedEventIndex":-1,"myTeam":[{"assignedPosition":"jungle","cellId":5,"championId":106,"championPickIntent":0,"nameVisibilityType":"VISIBLE","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"3f0de65c-e104-5247-b31d-a6cced4c8017","selectedSkinId":106007,"spell1Id":11,"spell2Id":4,"summonerId":28339051,"team":2,"wardSkinId":1},{"assignedPosition":"middle","cellId":6,"championId":3,"championPickIntent":0,"nameVisibilityType":"VISIBLE","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"12ce940f-3630-5d6e-a571-ed56620df803","selectedSkinId":3007,"spell1Id":4,"spell2Id":12,"summonerId":107077540,"team":2,"wardSkinId":-1},{"assignedPosition":"utility","cellId":7,"championId":78,"championPickIntent":0,"nameVisibilityType":"VISIBLE","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"5063b5d1-9b6a-5f58-aeeb-5e5ae181e458","selectedSkinId":78000,"spell1Id":4,"spell2Id":14,"summonerId":38655131,"team":2,"wardSkinId":-1},{"assignedPosition":"bottom","cellId":8,"championId":18,"championPickIntent":0,"nameVisibilityType":"VISIBLE","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"7bb8c57c-5638-5a2a-9646-4463c0a1f1bb","selectedSkinId":18000,"spell1Id":4,"spell2Id":7,"summonerId":38631986,"team":2,"wardSkinId":-1},{"assignedPosition":"top","cellId":9,"championId":75,"championPickIntent":0,"nameVisibilityType":"VISIBLE","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"3b9e18a1-8692-5f74-8c29-65c4c3c6fe28","selectedSkinId":75035,"spell1Id":6,"spell2Id":12,"summonerId":23139513,"team":2,"wardSkinId":-1}],"pickOrderSwaps":[],"recoveryCounter":0,"rerollsRemaining":0,"skipChampionSelect":false,"theirTeam":[{"assignedPosition":"","cellId":0,"championId":517,"championPickIntent":0,"nameVisibilityType":"HIDDEN","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"","selectedSkinId":517000,"spell1Id":0,"spell2Id":0,"summonerId":0,"team":1,"wardSkinId":-1},{"assignedPosition":"","cellId":1,"championId":22,"championPickIntent":0,"nameVisibilityType":"HIDDEN","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"","selectedSkinId":22000,"spell1Id":0,"spell2Id":0,"summonerId":0,"team":1,"wardSkinId":-1},{"assignedPosition":"","cellId":2,"championId":40,"championPickIntent":0,"nameVisibilityType":"HIDDEN","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"","selectedSkinId":40000,"spell1Id":0,"spell2Id":0,"summonerId":0,"team":1,"wardSkinId":-1},{"assignedPosition":"","cellId":3,"championId":86,"championPickIntent":0,"nameVisibilityType":"HIDDEN","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"","selectedSkinId":86000,"spell1Id":0,"spell2Id":0,"summonerId":0,"team":1,"wardSkinId":-1},{"assignedPosition":"","cellId":4,"championId":20,"championPickIntent":0,"nameVisibilityType":"HIDDEN","obfuscatedPuuid":"","obfuscatedSummonerId":0,"puuid":"","selectedSkinId":20000,"spell1Id":0,"spell2Id":0,"summonerId":0,"team":1,"wardSkinId":-1}],"timer":{"adjustedTimeLeftInPhase":0,"internalNowInEpochMs":1711916139148,"isInfinite":false,"phase":"GAME_STARTING","totalTimeInPhase":0},"trades":[]}
+000345.688|   OKAY| RiotGamesApi | riot-messaging-service: Got message '{"type":"push","ts":1711916138,"subject":"rms:message","persist":{"type":"ack_once"},"payload":{"resource":"lol-gsm-server/v1/gsm/game-update","service":"gsm","timestamp":1711916138363,"payload":"{\"id\":4961929670,\"gameState\":\"START_REQUESTED\",\"gameType\":\"NORMAL_GAME\"}","version":"2024.03.31.20.15.38"},"id":"f14517a530e6ce259187c2b5c5cecb9f"}'
+000345.688|   OKAY| RiotGamesApi | riot-messaging-service: Notifying for messages with path 'lol-gsm-server/v1/gsm/game-update'
+000345.688|   OKAY| RiotGamesApi | riot-messaging-service: Got message '{"type":"push","ts":1711916138,"subject":"rms:message","payload":{"resource":"teambuilder/v1/autofillInfoV1","service":"teambuilder","timestamp":1711916138511,"payload":"{\"queueId\":400,\"autoFillEligible\":true,\"autoFillProtectedForStreaking\":false,\"autoFillProtectedForPromos\":false,\"autoFillProtectedForRemedy\":false}","version":"1"}}'
+000345.688|   OKAY| RiotGamesApi | riot-messaging-service: Notifying for messages with path 'teambuilder/v1/autofillInfoV1'
+000345.689| ALWAYS|     rcp-be-lol-end-of-game| OnGameNotification - 4961929670 START_REQUESTED
+000345.829| ALWAYS|        rcp-be-lol-gameflow| OnGameNotification - 4961929670 AWAITING_LSM
+000345.829|  ERROR|        rcp-be-lol-gameflow| Game was not launched: credentials: false, active true, in game: false
+000346.215|   OKAY| RiotGamesApi | riot-messaging-service: Got message '{"type":"push","ts":1711916139,"subject":"rms:message","persist":{"type":"ack_once"},"payload":{"resource":"lol-gsm-server/v1/gsm/player-credentials-update","service":"gsm","timestamp":1711916139173,"payload":"{\"gameId\":4961929670,\"serverIp\":\"192.64.169.211\",\"serverPort\":5138,\"encryptionKey\":\"+YFVsuCtyX0GsFfvyoPKNw==\",\"summonerId\":28339051,\"gameVersion\":\"14.6.5706276+branch.releases-14-6.code.public.content.release\",\"gameMode\":\"CLASSIC\",\"observer\":false,\"observerEncryptionKey\":\"7EpwwJFP6b6tG0dxmSWNoQcJBElpHWHi\",\"observerServerIp\":\"spectator.na1.lol.pvp.net\",\"observerServerPort\":8080}","version":"2024.03.31.20.15.39"},"id":"ae8d360bb63144f687cef38855b21449"}'
+000346.215|   OKAY| RiotGamesApi | riot-messaging-service: Notifying for messages with path 'lol-gsm-server/v1/gsm/player-credentials-update'
+000346.216| ALWAYS|        rcp-be-lol-gameflow| OnPlayerCredentialsNotificationRms
+000346.216| ALWAYS|        rcp-be-lol-gameflow| OnPlayerCredentialsNotification
+000346.216|   OKAY|        rcp-be-lol-gameflow| mGameflowSession.gameClient.serverIp = 192.64.169.211
+000346.216|   OKAY|        rcp-be-lol-gameflow| mGameflowSession.gameClient.serverPort = 5138
+000346.216|   OKAY|        rcp-be-lol-gameflow| mGameflowSession.gameClient.observerServerIp = spectator.na1.lol.pvp.net
+000346.216|   OKAY|        rcp-be-lol-gameflow| mGameflowSession.gameClient.observerServerPort = 8080
+000346.216|   OKAY|        rcp-be-lol-gameflow| mGameflowSession.gameData.gameId = 4961929670
+000346.222| ALWAYS| rcp-be-lol-player-behavior| DisplayReformCard called, returning = false
+000346.224|   OKAY|        rcp-be-lol-gameflow| All criteria met for game launch.
+000346.224| ALWAYS|        rcp-be-lol-gameflow| Entering game flow
+000346.224| ALWAYS|        rcp-be-lol-gameflow| Game flow is already active.
+000346.224| ALWAYS|        rcp-be-lol-gameflow| Launching game client
+000346.224| ALWAYS|        rcp-be-lol-gameflow| GameflowStateMachine HandleEvent 'GAMEFLOW_EVENT.GAME_STARTED'
+000346.224| ALWAYS|        rcp-be-lol-gameflow| GameflowStateMachine LogStateExit 'Gameflow::ChampSelect'
+000346.224| ALWAYS|        rcp-be-lol-gameflow| GameflowStateMachine LogStateEntry:OnGameStart 'Gameflow::GameStart'
+000346.225| ALWAYS|      rcp-be-lol-discord-rp| Discord: setting state to "In Game"
+000346.229|   OKAY|        rcp-be-lol-settings| Preferences file "C:/Riot Games/League of Legends/Config/PerksPreferences.yaml" saved successfully
+000346.229| ALWAYS| rcp-be-lol-player-behavior| DisplayReformCard called, returning = false
+000346.230| ALWAYS| rcp-be-lol-user-experience| Deleting affinity.
+000346.231| ALWAYS|        rcp-be-lol-gameflow| Launching with queue: {"allowablePremadeSizes":[1,2,3,4,5],"areFreeChampionsAllowed":true,"assetMutator":"","category":"PvP","championsRequiredToPlay":20,"description":"Draft Pick","detailedDescription":"Normal (Draft Pick)","gameMode":"CLASSIC","gameTypeConfig":{"advancedLearningQuests":false,"allowTrades":true,"banMode":"StandardBanStrategy","banTimerDuration":38,"battleBoost":false,"crossTeamChampionPool":false,"deathMatch":false,"doNotRemove":false,"duplicatePick":false,"exclusivePick":true,"id":18,"learningQuests":false,"mainPickTimerDuration":0,"maxAllowableBans":6,"name":"GAME_CFG_TEAM_BUILDER_DRAFT","onboardCoopBeginner":false,"pickMode":"TeamBuilderDraftPickStrategy","postPickTimerDuration":33,"reroll":false,"teamChampionPool":false},"id":400,"isRanked":false,"isTeamBuilderManaged":true,"lastToggledOffTime":1660817407085,"lastToggledOnTime":1660825350980,"mapId":11,"maximumParticipantListSize":5,"minLevel":10,"minimumParticipantListSize":1,"name":"Normal","numPlayersPerTeam":5,"queueAvailability":"Available","queueRewards":{"isChampionPointsEnabled":true,"isIpEnabled":true,"isXpEnabled":true,"partySizeIpRewards":[]},"removalFromGameAllowed":false,"removalFromGameDelayMinutes":0,"shortName":"Normal","showPositionSelector":true,"spectatorEnabled":true,"type":"NORMAL"}
+000346.231|   OKAY|        rcp-be-lol-gameflow| Setting player name mode to ALIAS
+000346.231|   OKAY|        rcp-be-lol-gameflow| Game launch working directory: C:/Riot Games/League of Legends/Game
+000346.231|   OKAY|        rcp-be-lol-gameflow| Game client launch exe path: C:/Riot Games/League of Legends/Game/League of Legends.exe
+000346.232|   OKAY|        rcp-be-lol-settings| Modified lcu-settings owner and modification status for PerksPreferences, modified: true.
+000346.233| ALWAYS|        rcp-be-lol-gameflow| Game args: 192.64.169.211 5138 +YFVsuCtyX0GsFfvyoPKNw== 28339051 -Product=LoL -PlayerID=28339051 -GameID=4961929670 -PlayerNameMode=ALIAS -GameBaseDir=C:\Riot Games\League of Legends -Region=NA -PlatformID=NA1 -Locale=en_US -SkipBuild -EnableCrashpad=true -UseDX11=1:1 -UseMetal=0:1 -UseNewX3D -UseNewX3DFramebuffers -RiotClientPort=62408 -RiotClientAuthToken=3c8YEwnatFaUZbJK3eGmog
+000346.240| ALWAYS|        rcp-be-lol-gameflow| Game Client Launched.
+000346.240| ALWAYS|        rcp-be-lol-gameflow| GameflowStateMachine HandleEvent 'GAMEFLOW_EVENT.GAME_LAUNCHED'
+000346.240| ALWAYS|        rcp-be-lol-gameflow| GameflowStateMachine LogStateExit 'Gameflow::GameStart'
+000346.240| ALWAYS|        rcp-be-lol-gameflow| GameflowStateMachine LogStateEntry:OnGameLaunch 'Gameflow::InProgress'
+000346.242|   OKAY| rcp-be-lol-lobby-team-builder| Clearing TB dto info on game launch.
+000346.243| ALWAYS| rcp-be-lol-lobby-team-builder| TeamBuilderChampSelect broadcasting obfuscated summoner ids deleted
+000346.243| ALWAYS| rcp-be-lol-lobby-team-builder| Deleting champ select session.
+000346.243| ALWAYS|     rcp-be-lol-end-of-game| Game client is now running
+000346.245| ALWAYS|     rcp-be-lol-matchmaking| MATCHMAKING_EVENT.GAME_STARTED
+000346.245| ALWAYS|     rcp-be-lol-matchmaking| Matchmaking: exiting state 'WaitingForGame'
+000346.245| ALWAYS|     rcp-be-lol-matchmaking| ExitWaitingForGame()
+000346.245| ALWAYS|     rcp-be-lol-matchmaking| Matchmaking: exiting state 'Matched'
+000346.245| ALWAYS|     rcp-be-lol-matchmaking| Matchmaking: entering state 'Available'
+000346.245| ALWAYS|     rcp-be-lol-matchmaking| Destroying current matchmaking search.
+000346.245| ALWAYS|     rcp-be-lol-matchmaking| MATCHMAKING_EVENT.CANCEL_QUEUE
+000346.245|   OKAY|        rcp-be-lol-settings| Preferences file "C:/Riot Games/League of Legends/Config/LCULocalPreferences.yaml" saved successfully
+000346.247| ALWAYS|    rcp-be-lol-champ-select| Deleting champ select session.
+000346.248|   OKAY|        rcp-be-lol-settings| Preferences file "C:/Riot Games/League of Legends/Config/LCUAccountPreferences.yaml" saved successfully
+000346.249| ALWAYS| rcp-be-lol-player-behavior| DisplayReformCard called, returning = false
+000346.249|   OKAY|        rcp-be-lol-settings| Modified lcu-settings owner and modification status for LCUPreferences, modified: true.
+000346.250| ALWAYS| rcp-be-lol-champ-select-legacy| Champion select preferences initialized.
+000346.253|   OKAY| Unloading UX process
+000346.253| ALWAYS| rcp-be-lol-user-experience| Setting affinity to postgame.
+000346.253| ALWAYS| rcp-be-lol-lobby-team-builder| saved champ-select preferences
+000346.254| ALWAYS| rcp-be-lol-lobby-team-builder| Champion select preferences initialized.
+000346.258| ALWAYS| rcp-be-lol-player-behavior| DisplayReformCard called, returning = false
+000346.260|   OKAY|        rcp-be-lol-gameflow| mGameflowSession.gameClient updated: running, not visible
+000346.260| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917040240.
+000346.274| ALWAYS| Ux state set to MinimizeAll.
+000346.301|   OKAY|    rcp-be-lol-champ-select| TeamBuilder implementation deactivated.
+000346.364|   OKAY| Waiting for the UX to hide.
+000346.364|   OKAY| Waiting for the UX to quit.
+000346.364|   OKAY| Waiting for the UX process to stop.
+000346.373| ALWAYS|           rcp-be-lol-lobby| Progressing out of lobby.
+000346.373| ALWAYS|           rcp-be-lol-lobby| LobbyFlow: exiting state 'PartyLobby'
+000346.373| ALWAYS|           rcp-be-lol-lobby| LobbyFlow: exiting state 'InLobby'
+000346.373| ALWAYS|        rcp-be-lol-gameflow| GameflowStateMachine HandleEvent 'GAMEFLOW_EVENT.EXITED_LOBBY'
+000346.373| ALWAYS|           rcp-be-lol-lobby| LobbyFlow: entering state 'OutOfLobby'
+000346.378| ALWAYS| Ux state set to HideAll.
+000346.379| ALWAYS| Ux state set to Quit.
+000346.528|   OKAY| RemotingServerWebSocketTransport: Closing: Going Away
+000346.528|   OKAY| RemotingServer: Closing connection from 127.0.0.1:58181.
+000346.560| ALWAYS|                    Tracing| Attempting to end performance metric when no metric exists: ux_run
+000346.654|   OKAY| RemotingServer: Closing connection from 127.0.0.1:62485.
+000346.655|   OKAY| RemotingServer: Closing connection from 127.0.0.1:62443.
+000346.685|   OKAY| RemotingServer: Closing connection from 127.0.0.1:61322.
+000346.686|   OKAY|         rcp-be-lol-regalia| Received chat presence delete for conversation "3f0de65c-e104-5247-b31d-a6cced4c8017@na1.pvp.net" participant 28339051
+000346.696|   OKAY| The UX process has stopped.
+000347.504|   OKAY| RemotingServer: Accepted new connection from 127.0.0.1:50813.
+000348.056|   OKAY| RemotingServer: Accepted new connection from 127.0.0.1:50815.
+000349.914|   OKAY| RemotingServer: Accepted new connection from 127.0.0.1:50827.
+000356.365|   OKAY|        rcp-be-lol-settings| Stored updated preferences for key 'LCUPreferences'
+000356.367|   OKAY|        rcp-be-lol-settings| Modified lcu-settings owner and modification status for LCUPreferences, modified: false.
+000356.519|   OKAY|        rcp-be-lol-settings| Stored updated preferences for key 'PerksPreferences'
+000356.521|   OKAY|        rcp-be-lol-settings| Modified lcu-settings owner and modification status for PerksPreferences, modified: false.
+000373.263| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917067244.
+000376.281| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917070262.
+000379.954| ALWAYS| rcp-be-lol-player-behavior| DisplayReformCard called, returning = false
+000379.955|   OKAY|        rcp-be-lol-gameflow| mGameflowSession.gameClient updated: running, visible
+000403.291| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917097272.
+000406.295| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917100276.
+000433.302| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917127283.
+000436.324| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917130305.
+000463.326| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917157307.
+000466.336| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917160316.
+000493.335| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917187316.
+000496.350| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917190330.
+000523.347| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917217328.
+000526.381| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917220361.
+000553.351| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917247332.
+000556.387| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917250368.
+000583.381| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917277362.
+000586.409| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917280390.
+000613.393| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917307373.
+000616.442| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917310423.
+000632.744| ALWAYS|  rcp-be-lol-league-session| Token Manager: Refreshing token
+000632.960| ALWAYS|  rcp-be-lol-league-session| Scheduling token refresh 339
+000632.960| ALWAYS|  rcp-be-lol-league-session| League Session Token: Updated
+000643.403| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917337383.
+000646.456| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917340437.
+000673.424| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917367405.
+000676.469| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917370449.
+000703.439| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917397419.
+000706.471| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917400452.
+000733.462| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917427443.
+000736.490| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917430470.
+000763.479| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917457460.
+000766.515| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917460496.
+000793.494| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917487475.
+000796.539| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917490520.
+000823.514| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917517494.
+000826.547| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917520528.
+000853.541| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917547521.
+000856.572| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917550553.
+000883.543| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917577524.
+000886.594| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917580575.
+000913.558| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917607539.
+000916.597| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917610577.
+000943.559| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917637540.
+000946.632| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917640613.
+000971.985| ALWAYS|  rcp-be-lol-league-session| Token Manager: Refreshing token
+000972.200| ALWAYS|  rcp-be-lol-league-session| Scheduling token refresh 348
+000972.200| ALWAYS|  rcp-be-lol-league-session| League Session Token: Updated
+000973.562| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917667543.
+000976.647| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917670627.
+001003.595| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917697575.
+001006.654| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917700635.
+001033.609| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917727590.
+001036.658| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917730639.
+001063.625| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917757606.
+001066.667| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917760648.
+001093.633| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917787614.
+001096.699| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917790680.
+001123.640| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917817621.
+001126.727| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917820707.
+001153.661| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917847642.
+001156.732| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917850713.
+001183.673| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917877653.
+001186.737| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917880717.
+001213.691| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917907671.
+001216.767| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917910748.
+001243.717| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917937697.
+001246.787| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917940768.
+001273.728| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917967709.
+001276.816| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917970797.
+001303.739| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711917997720.
+001306.840| ALWAYS|        rcp-be-lol-gameflow| Setting gameflow patcher lock to 1711918000820.
+001320.218| ALWAYS|  rcp-be-lol-league-session| Token Manager: Refreshing token
+001320.407| ALWAYS|  rcp-be-lol-league-session| Scheduling token refresh 300
+001320.407| ALWAYS|  rcp-be-lol-league-session| League Session Token: Updated
+001332.062|   OKAY| RemotingServer: Closing connection from 127.0.0.1:50815.
+001332.314|   OKAY| RemotingServer: Closing connection from 127.0.0.1:50827.
+001332.317| ALWAYS|        rcp-be-lol-gameflow| GameflowStateMachine HandleEvent 'GAMEFLOW_EVENT.GAME_COMPLETED'
