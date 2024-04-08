@@ -56,7 +56,7 @@ OpGgService.prototype.getGameResult = async function(isGameComplete){
     this.op_gg_augmented_league.gameResult = op_gg_dao_match_history.result
     this.op_gg_augmented_league.gameResultLink = op_gg_dao_match_history.link
   }
-  
+  await delete this.op_gg_augmented_league.chatDetails
   await writeFile(path.resolve("lake", `${gameID}.json`), JSON.stringify(this.op_gg_augmented_league))
 }
 
