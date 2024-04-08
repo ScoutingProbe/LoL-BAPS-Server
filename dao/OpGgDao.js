@@ -96,6 +96,7 @@ OpGgDao.prototype.requestTiers = async function(region, tier, position){
   const browser = await puppeteer.launch({headless: false})
   const page = await browser.newPage()
   await page.setViewport({width: 800, height: 600})
+  await page.goto(url)
 
   const scraped = await page.evaluate(()=>{
     let scrapelength = document.getElementsByTagName('tbody').item(0).children.length
