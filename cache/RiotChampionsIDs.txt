@@ -1,6 +1,7 @@
 Aatrox 266
 Ahri 103
 Akali 84
+Akshan 166
 Alistar 12
 Amumu 32
 Anivia 34
@@ -37,6 +38,7 @@ Garen 86
 Gnar 150
 Gragas 79
 Graves 104
+Gwen 887
 Hecarim 120
 Heimerdinger 74
 Hwei 910
@@ -66,6 +68,7 @@ KSante 897
 LeBlanc 7
 LeeSin 64
 Leona 89
+Lillia 876
 Lissandra 127
 Lucian 236
 Lulu 117
@@ -74,9 +77,11 @@ Malphite 54
 Malzahar 90
 Maokai 57
 MasterYi 11
+Milio 902
 MissFortune 21
 Mordekaiser 82
 Morgana 25
+Naafiri 950
 Nami 267
 Nasus 75
 Nautilus 111
@@ -96,6 +101,7 @@ Quinn 133
 Rakan 497
 Rammus 33
 Reksai 421
+Rell 526
 Renekton 58
 Rengar 107
 Riven 92
@@ -136,8 +142,10 @@ Varus 110
 Vayne 67
 Veigar 45
 Velkoz 161
+Vex 711
 Vi 254
 Viktor 112
+Viego 234
 Vladimir 8
 Volibear 106
 Warwick 19
@@ -151,6 +159,7 @@ Yorick 83
 Yuumi 350
 Zac 154
 Zed 238
+Zeri 221
 Ziggs 115
 Zilean 26
 Zoe 142
