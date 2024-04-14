@@ -6,6 +6,7 @@ const path = require('path')
 const readdir = util.promisify(fs.readdir)
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
+const unlink = util.promisify(fs.unlink)
 
 const stringIncludesSession = "rcp-be-lol-champ-select| /lol-champ-select/v1/session: "
 const stringIncludesReadyCheck = "rcp-be-lol-gameflow| GAMEFLOW_EVENT.ENTERED_CHAMP_SELECT"
@@ -47,6 +48,11 @@ RiotLeagueLogDao.prototype.setSession = async function(){
             break
         }
         else if(stringLine.includes(stringIncludesReadyCheck) || stringLine.includes(stringIncludesDodge)){
+            let op_gg_augmented_league = await readFile(path.resolve("lake", `${this.doubleGameID}.json`), 'utf-8')
+            op_gg_augmented_league = JSON.parse(op_gg_augmented_league)
+            op_gg_augmented_league.gameResult = 'Dodge'
+            op_gg_augmented_league.gameResultLink = ''
+            await writeFile(path.resolve("lake", `${this.doubleGameID}.json`), JSON.stringify(op_gg_augmented_league))
             this.doubleGameID = "0"
             this.jsonSession = {}
             await writeFile(path.resolve("cache", "gameID.txt"), "0")
