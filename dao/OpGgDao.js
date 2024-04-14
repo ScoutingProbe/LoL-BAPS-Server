@@ -34,9 +34,16 @@ OpGgDao.prototype.requestCounters = async function(name, role){
   // url += '?tier=all'
   // url += '&region=na'
   console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch({headless: false})
+  const browser = await puppeteer.launch({
+    headless: false, 
+    args: [
+      '--window-size=1920,1080'
+    ],
+    defaultViewport: {
+      width: 1920, height: 1080
+    }
+  })
   const page = await browser.newPage()
-  await page.setViewport({width: 800, height: 600})
   await page.goto(url)
 
   const scraped = await page.evaluate(()=>{
@@ -93,9 +100,16 @@ OpGgDao.prototype.requestCounters = async function(name, role){
 OpGgDao.prototype.requestTiers = async function(region, tier, position){
   let url = `https://www.op.gg/champions?region=${region}&tier=${tier}&position=${position}`
   console.log(`😫 ${url} request sent`)
-  const browser = await puppeteer.launch({headless: false})
+  const browser = await puppeteer.launch({
+    headless: false, 
+    args: [
+      '--window-size=1920,1080'
+    ],
+    defaultViewport: {
+      width: 1920, height: 1080
+    }
+  })
   const page = await browser.newPage()
-  await page.setViewport({width: 800, height: 600})
   await page.goto(url)
 
   const scraped = await page.evaluate(()=>{
@@ -122,9 +136,16 @@ OpGgDao.prototype.requestTiers = async function(region, tier, position){
 OpGgDao.prototype.requestMatchHistory = async function(region, summonername, summonertag, myTeam0, myTeam1, myTeam2, myTeam3, myTeam4){
   let url = `https://www.op.gg/summoners/${region}/${summonername}-${summonertag}`
   console.log(`😫 ${url} request match history request sent`)
-  const browser = await puppeteer.launch({headless: false})
+  const browser = await puppeteer.launch({
+    headless: false, 
+    args: [
+      '--window-size=1920,1080'
+    ],
+    defaultViewport: {
+      width: 1920, height: 1080
+    }
+  })
   const page = await browser.newPage()
-  await page.setViewport({width: 800, height: 600})
   await page.goto(url)
   
   page.on('dialog', async dialog => {
