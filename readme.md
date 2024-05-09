@@ -14,8 +14,7 @@ The following is a screenshot of BAPS in use during the pick and ban stage of th
 ## Pending requirements
 1. Sort and annotate bans and picks champion list with OP.GG tiers.  Tiers are updated depending on the metagame and Riot Games patches.
 2. Filter picks champion list by Team Fight Tactics classes: knights, guardians, brawlers, challengers, rangers, assassins, mages, sorcerers, and mystics.  Middle-Jungle, Middle-Top, Jungle-Top, and Support-Bottom synergies contribute to two-versus-two skirmish outcomes.
-3. Create a test harness so the end-to-end application can be tested without queueing up for a real game.  
-4. Create a CICD pipeline to deploy to a private AWS S3 bucket to emulate a production deployment process.  There is zero intention to distribute this software publicly and is developed purely as an academic exercise.  After personal user acceptance testing, I consider this to be an unethical hack on a beloved game company offering a negligible improvement in win rate.
+3. Create a CICD pipeline to deploy to a private AWS S3 bucket to emulate a production deployment process.  There is zero intention to distribute this software publicly and is developed purely as an academic exercise.  After personal user acceptance testing, I consider this to be an unethical hack on a beloved game company offering a negligible improvement in win rate.
 
 ## How to run
 1.  You can't run the full application.  The client side has been intentionally left private because this is not for use by the public but you are welcome to take a look at the code.
